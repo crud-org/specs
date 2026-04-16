@@ -7,6 +7,7 @@ import starlightLinksValidator from 'starlight-links-validator'
 import starlightVersions from 'starlight-versions'
 import starlightHeadingBadges from 'starlight-heading-badges'
 import starlightUtils from '@lorenzo_lewis/starlight-utils'
+import starlightPageActions from 'starlight-page-actions'
 
 
 // https://astro.build/config
@@ -65,6 +66,18 @@ export default defineConfig({
 				}),
 				starlightHeadingBadges(),
 				starlightLinksValidator(),
+				starlightPageActions({
+					actions: {
+						markdown: true,
+						claude: true,
+						custom: {
+							editOnGitHub: {
+								label: 'Edit on GitHub',
+								href: 'https://github.com/crud-org/specs',
+							},
+						},
+					},
+				}),
 			],
 			customCss: ['./src/styles/global.css'],
 			components: {
