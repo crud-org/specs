@@ -1,0 +1,1267 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#_top"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "CRUD API" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e8]: CRUD API
+        - button "Search" [ref=e11] [cursor=pointer]:
+          - img [ref=e12]
+          - generic [ref=e14]: Search
+          - generic [ref=e15]:
+            - generic [ref=e16]: ⌘
+            - generic [ref=e17]: K
+        - generic [ref=e18]:
+          - link "GitHub" [ref=e20] [cursor=pointer]:
+            - /url: https://github.com/withastro/starlight
+            - generic [ref=e21]: GitHub
+            - img [ref=e22]
+          - generic [ref=e25]:
+            - generic [ref=e26]: Select theme
+            - img
+            - combobox "Select theme" [ref=e27] [cursor=pointer]:
+              - option "Dark"
+              - option "Light"
+              - option "Auto" [selected]
+            - img
+    - navigation "Main":
+      - list [ref=e31]:
+        - listitem [ref=e32]:
+          - group [ref=e33]:
+            - generic "Base Specification" [ref=e34] [cursor=pointer]:
+              - generic [ref=e35]: Base Specification
+              - img [ref=e36]
+            - list [ref=e38]:
+              - listitem [ref=e39]:
+                - link "Overview" [ref=e40] [cursor=pointer]:
+                  - /url: /base/
+              - listitem [ref=e41]:
+                - link "Terminology" [ref=e42] [cursor=pointer]:
+                  - /url: /base/terminology/
+              - listitem [ref=e43]:
+                - link "General rules" [ref=e44] [cursor=pointer]:
+                  - /url: /base/general/
+              - listitem [ref=e45]:
+                - link "Operation rules" [ref=e46] [cursor=pointer]:
+                  - /url: /base/operation/
+        - listitem [ref=e47]:
+          - group [ref=e48]:
+            - generic "Extensions" [ref=e49] [cursor=pointer]:
+              - generic [ref=e50]: Extensions
+              - img [ref=e51]
+            - list [ref=e53]:
+              - listitem [ref=e54]:
+                - link "Overview" [ref=e55] [cursor=pointer]:
+                  - /url: /extensions/
+              - listitem [ref=e56]:
+                - link "Asyncabilty" [ref=e57] [cursor=pointer]:
+                  - /url: /extensions/async/
+        - listitem [ref=e58]:
+          - group [ref=e59]:
+            - generic "Protocols" [ref=e60] [cursor=pointer]:
+              - generic [ref=e61]: Protocols
+              - img [ref=e62]
+            - list [ref=e64]:
+              - listitem [ref=e65]:
+                - link "Overview" [ref=e66] [cursor=pointer]:
+                  - /url: /protocols/
+              - listitem [ref=e67]:
+                - link "RESTful HTTP" [ref=e68] [cursor=pointer]:
+                  - /url: /protocols/http/
+              - listitem [ref=e69]:
+                - link "MCP (Model Context Protocol)" [ref=e70] [cursor=pointer]:
+                  - /url: /protocols/mcp/
+    - generic [ref=e72]:
+      - complementary [ref=e73]:
+        - navigation "On this page" [ref=e78]:
+          - heading "On this page" [level=2] [ref=e79]
+          - list [ref=e80]:
+            - listitem [ref=e81]:
+              - link "Overview" [ref=e82] [cursor=pointer]:
+                - /url: "#_top"
+            - listitem [ref=e83]:
+              - link "1. Methods" [ref=e84] [cursor=pointer]:
+                - /url: "#1-methods"
+              - list [ref=e85]:
+                - listitem [ref=e86]:
+                  - link "1.1 Read methods" [ref=e87] [cursor=pointer]:
+                    - /url: "#11-read-methods"
+                - listitem [ref=e88]:
+                  - link "1.2 Write methods" [ref=e89] [cursor=pointer]:
+                    - /url: "#12-write-methods"
+            - listitem [ref=e90]:
+              - link "2. Parameters" [ref=e91] [cursor=pointer]:
+                - /url: "#2-parameters"
+            - listitem [ref=e92]:
+              - link "3. Metadata" [ref=e93] [cursor=pointer]:
+                - /url: "#3-metadata"
+            - listitem [ref=e94]:
+              - link "4. Response" [ref=e95] [cursor=pointer]:
+                - /url: "#4-response"
+            - listitem [ref=e96]:
+              - link "5. Error handling" [ref=e97] [cursor=pointer]:
+                - /url: "#5-error-handling"
+            - listitem [ref=e98]:
+              - link "6. Capability negotiation" [ref=e99] [cursor=pointer]:
+                - /url: "#6-capability-negotiation"
+      - main [ref=e101]:
+        - heading "MCP (Model Context Protocol)" [level=1] [ref=e104]
+        - generic [ref=e106]:
+          - generic [ref=e107]:
+            - paragraph [ref=e108]:
+              - text: This Protocol Specification maps the
+              - link "CRUD API Base Specification" [ref=e109] [cursor=pointer]:
+                - /url: /base/
+              - text: to the
+              - strong [ref=e110]: Model Context Protocol (MCP)
+              - text: ", as defined in"
+              - link "Protocols" [ref=e111] [cursor=pointer]:
+                - /url: /protocols/
+              - text: . It follows the
+              - link "MCP Specification (2025-03-26)" [ref=e112] [cursor=pointer]:
+                - /url: https://modelcontextprotocol.io/specification/2025-03-26
+              - text: and uses
+              - link "JSON-RPC 2.0" [ref=e113] [cursor=pointer]:
+                - /url: https://www.jsonrpc.org/specification
+              - text: as the message format.
+            - paragraph [ref=e114]: "The five protocol concepts are realized as follows:"
+            - table [ref=e115]:
+              - rowgroup [ref=e116]:
+                - row "Concept MCP realization" [ref=e117]:
+                  - columnheader "Concept" [ref=e118]
+                  - columnheader "MCP realization" [ref=e119]
+              - rowgroup [ref=e120]:
+                - row "Operations JSON-RPC methods with crud/ namespace (e.g., crud/get, crud/list)." [ref=e121]:
+                  - cell "Operations" [ref=e122]:
+                    - strong [ref=e123]: Operations
+                  - cell "JSON-RPC methods with crud/ namespace (e.g., crud/get, crud/list)." [ref=e124]:
+                    - text: JSON-RPC methods with
+                    - code [ref=e125]: crud/
+                    - text: namespace (e.g.,
+                    - code [ref=e126]: crud/get
+                    - text: ","
+                    - code [ref=e127]: crud/list
+                    - text: ).
+                - row "Parameters Top-level fields in the JSON-RPC params object (e.g., fields, sort, query)." [ref=e128]:
+                  - cell "Parameters" [ref=e129]:
+                    - strong [ref=e130]: Parameters
+                  - cell "Top-level fields in the JSON-RPC params object (e.g., fields, sort, query)." [ref=e131]:
+                    - text: Top-level fields in the JSON-RPC
+                    - code [ref=e132]: params
+                    - text: object (e.g.,
+                    - code [ref=e133]: fields
+                    - text: ","
+                    - code [ref=e134]: sort
+                    - text: ","
+                    - code [ref=e135]: query
+                    - text: ).
+                - row "Metadata _meta object within params (request) and result (response), following the MCP _meta convention." [ref=e136]:
+                  - cell "Metadata" [ref=e137]:
+                    - strong [ref=e138]: Metadata
+                  - cell "_meta object within params (request) and result (response), following the MCP _meta convention." [ref=e139]:
+                    - code [ref=e140]: _meta
+                    - text: object within
+                    - code [ref=e141]: params
+                    - text: (request) and
+                    - code [ref=e142]: result
+                    - text: (response), following the MCP
+                    - code [ref=e143]: _meta
+                    - text: convention.
+                - row "Content negotiation experimental.crud capability declared during the MCP initialize handshake." [ref=e144]:
+                  - cell "Content negotiation" [ref=e145]:
+                    - strong [ref=e146]: Content negotiation
+                  - cell "experimental.crud capability declared during the MCP initialize handshake." [ref=e147]:
+                    - code [ref=e148]: experimental.crud
+                    - text: capability declared during the MCP
+                    - code [ref=e149]: initialize
+                    - text: handshake.
+                - row "Error signaling JSON-RPC error object with CRUD-specific codes in the -32000 to -32099 range." [ref=e150]:
+                  - cell "Error signaling" [ref=e151]:
+                    - strong [ref=e152]: Error signaling
+                  - cell "JSON-RPC error object with CRUD-specific codes in the -32000 to -32099 range." [ref=e153]:
+                    - text: JSON-RPC error object with CRUD-specific codes in the
+                    - code [ref=e154]: "-32000"
+                    - text: to
+                    - code [ref=e155]: "-32099"
+                    - text: range.
+            - generic [ref=e156]:
+              - heading "1. Methods" [level=2] [ref=e157]
+              - link "Section titled “1. Methods”" [ref=e158] [cursor=pointer]:
+                - /url: "#1-methods"
+                - img [ref=e160]
+                - generic [ref=e162]: Section titled “1. Methods”
+            - separator [ref=e163]
+            - paragraph [ref=e164]:
+              - text: Each CRUD operation maps to a JSON-RPC method using the
+              - code [ref=e165]: crud/
+              - text: namespace prefix. The verb after the prefix determines the operation, and the
+              - code [ref=e166]: params
+              - text: object carries the Subject.
+            - table [ref=e167]:
+              - rowgroup [ref=e168]:
+                - row "CRUD Operation MCP Method Subject in params" [ref=e169]:
+                  - columnheader "CRUD Operation" [ref=e170]
+                  - columnheader "MCP Method" [ref=e171]
+                  - columnheader "Subject in params" [ref=e172]:
+                    - text: Subject in
+                    - code [ref=e173]: params
+              - rowgroup [ref=e174]:
+                - row "get crud/get collection + id" [ref=e175]:
+                  - cell "get" [ref=e176]:
+                    - code [ref=e177]: get
+                  - cell "crud/get" [ref=e178]:
+                    - code [ref=e179]: crud/get
+                  - cell "collection + id" [ref=e180]:
+                    - code [ref=e181]: collection
+                    - text: +
+                    - code [ref=e182]: id
+                - row "list crud/list collection + optional query or view" [ref=e183]:
+                  - cell "list" [ref=e184]:
+                    - code [ref=e185]: list
+                  - cell "crud/list" [ref=e186]:
+                    - code [ref=e187]: crud/list
+                  - cell "collection + optional query or view" [ref=e188]:
+                    - code [ref=e189]: collection
+                    - text: + optional
+                    - code [ref=e190]: query
+                    - text: or
+                    - code [ref=e191]: view
+                - row "create crud/create collection + documents" [ref=e192]:
+                  - cell "create" [ref=e193]:
+                    - code [ref=e194]: create
+                  - cell "crud/create" [ref=e195]:
+                    - code [ref=e196]: crud/create
+                  - cell "collection + documents" [ref=e197]:
+                    - code [ref=e198]: collection
+                    - text: +
+                    - code [ref=e199]: documents
+                - row "patchById crud/patch collection + id + patch" [ref=e200]:
+                  - cell "patchById" [ref=e201]:
+                    - code [ref=e202]: patchById
+                  - cell "crud/patch" [ref=e203]:
+                    - code [ref=e204]: crud/patch
+                  - cell "collection + id + patch" [ref=e205]:
+                    - code [ref=e206]: collection
+                    - text: +
+                    - code [ref=e207]: id
+                    - text: +
+                    - code [ref=e208]: patch
+                - row "patchByQuery crud/patch collection + query + patch" [ref=e209]:
+                  - cell "patchByQuery" [ref=e210]:
+                    - code [ref=e211]: patchByQuery
+                  - cell "crud/patch" [ref=e212]:
+                    - code [ref=e213]: crud/patch
+                  - cell "collection + query + patch" [ref=e214]:
+                    - code [ref=e215]: collection
+                    - text: +
+                    - code [ref=e216]: query
+                    - text: +
+                    - code [ref=e217]: patch
+                - row "replaceById crud/replace collection + id + document" [ref=e218]:
+                  - cell "replaceById" [ref=e219]:
+                    - code [ref=e220]: replaceById
+                  - cell "crud/replace" [ref=e221]:
+                    - code [ref=e222]: crud/replace
+                  - cell "collection + id + document" [ref=e223]:
+                    - code [ref=e224]: collection
+                    - text: +
+                    - code [ref=e225]: id
+                    - text: +
+                    - code [ref=e226]: document
+                - row "replaceByQuery crud/replace collection + query + document" [ref=e227]:
+                  - cell "replaceByQuery" [ref=e228]:
+                    - code [ref=e229]: replaceByQuery
+                  - cell "crud/replace" [ref=e230]:
+                    - code [ref=e231]: crud/replace
+                  - cell "collection + query + document" [ref=e232]:
+                    - code [ref=e233]: collection
+                    - text: +
+                    - code [ref=e234]: query
+                    - text: +
+                    - code [ref=e235]: document
+                - row "deleteById crud/delete collection + id" [ref=e236]:
+                  - cell "deleteById" [ref=e237]:
+                    - code [ref=e238]: deleteById
+                  - cell "crud/delete" [ref=e239]:
+                    - code [ref=e240]: crud/delete
+                  - cell "collection + id" [ref=e241]:
+                    - code [ref=e242]: collection
+                    - text: +
+                    - code [ref=e243]: id
+                - row "deleteByQuery crud/delete collection + query" [ref=e244]:
+                  - cell "deleteByQuery" [ref=e245]:
+                    - code [ref=e246]: deleteByQuery
+                  - cell "crud/delete" [ref=e247]:
+                    - code [ref=e248]: crud/delete
+                  - cell "collection + query" [ref=e249]:
+                    - code [ref=e250]: collection
+                    - text: +
+                    - code [ref=e251]: query
+            - group [ref=e252]:
+              - generic "2 rules" [ref=e253] [cursor=pointer]
+              - generic [ref=e254]:
+                - generic [ref=e255]:
+                  - generic [ref=e256]:
+                    - code [ref=e257]: MCP_METHOD_NAMESPACE
+                    - generic [ref=e258]: MUST
+                  - paragraph [ref=e259]:
+                    - text: All CRUD methods MUST use the
+                    - code [ref=e260]: crud/
+                    - text: "namespace prefix. The method name MUST be one of:"
+                    - code [ref=e261]: crud/get
+                    - text: ","
+                    - code [ref=e262]: crud/list
+                    - text: ","
+                    - code [ref=e263]: crud/create
+                    - text: ","
+                    - code [ref=e264]: crud/patch
+                    - text: ","
+                    - code [ref=e265]: crud/replace
+                    - text: ","
+                    - code [ref=e266]: crud/delete
+                    - text: .
+                - generic [ref=e267]:
+                  - generic [ref=e268]:
+                    - code [ref=e269]: MCP_COLLECTION_PARAM
+                    - generic [ref=e270]: MUST
+                  - paragraph [ref=e271]:
+                    - text: Every CRUD method call MUST include a
+                    - code [ref=e272]: collection
+                    - text: string parameter in
+                    - code [ref=e273]: params
+                    - text: identifying the target Collection
+                    - link "Slug" [ref=e274] [cursor=pointer]:
+                      - /url: /base/terminology/#slug
+                    - text: .
+            - generic [ref=e275]:
+              - heading "1.1 Read methods" [level=3] [ref=e276]
+              - link "Section titled “1.1 Read methods”" [ref=e277] [cursor=pointer]:
+                - /url: "#11-read-methods"
+                - img [ref=e279]
+                - generic [ref=e281]: Section titled “1.1 Read methods”
+            - group [ref=e282]:
+              - generic "3 rules" [ref=e283] [cursor=pointer]
+              - generic [ref=e284]:
+                - generic [ref=e285]:
+                  - generic [ref=e286]:
+                    - code [ref=e287]: MCP_GET_PARAMS
+                    - generic [ref=e288]: MUST
+                  - paragraph [ref=e289]:
+                    - code [ref=e290]: crud/get
+                    - text: MUST receive an
+                    - code [ref=e291]: id
+                    - text: string parameter with the
+                    - link "Resource ID" [ref=e292] [cursor=pointer]:
+                      - /url: /base/general/#313-resource-ids
+                    - text: .
+                - generic [ref=e293]:
+                  - generic [ref=e294]:
+                    - code [ref=e295]: MCP_LIST_QUERY
+                    - generic [ref=e296]: MAY
+                  - paragraph [ref=e297]:
+                    - code [ref=e298]: crud/list
+                    - text: MAY receive a
+                    - code [ref=e299]: query
+                    - text: parameter with a
+                    - link "Search Query" [ref=e300] [cursor=pointer]:
+                      - /url: /base/general/#321-definition-and-representation
+                    - text: . If omitted, all Documents in the Collection MUST be returned.
+                - generic [ref=e301]:
+                  - generic [ref=e302]:
+                    - code [ref=e303]: MCP_LIST_VIEW
+                    - generic [ref=e304]: MAY
+                  - paragraph [ref=e305]:
+                    - code [ref=e306]: crud/list
+                    - text: MAY receive a
+                    - code [ref=e307]: view
+                    - text: string parameter with a
+                    - link "Saved Query" [ref=e308] [cursor=pointer]:
+                      - /url: /base/general/#322-saved-queries
+                    - text: name, optionally combined with
+                    - code [ref=e309]: query
+                    - text: for additional filtering.
+            - figure "crud/get example" [ref=e311]:
+              - generic [ref=e313]: crud/get example
+              - code [ref=e315]:
+                - generic [ref=e317]: // Request
+                - generic [ref=e319]: "{"
+                - generic [ref=e321]: "\"jsonrpc\": \"2.0\","
+                - generic [ref=e323]: "\"id\": 1,"
+                - generic [ref=e325]: "\"method\": \"crud/get\","
+                - generic [ref=e327]: "\"params\": {"
+                - generic [ref=e329]: "\"collection\": \"users\","
+                - generic [ref=e331]: "\"id\": \"us_b8tRS7h4TJ2Vt43Dp85v2A\","
+                - generic [ref=e333]: "\"fields\": \"name,email\","
+                - generic [ref=e335]: "\"_meta\": {"
+                - generic [ref=e337]: "\"crudVersion\": \"1.0.0\","
+                - generic [ref=e339]: "\"crudExtensions\": [],"
+                - generic [ref=e341]: "\"correlationId\": \"d9088ac1-3d13-4f8e-a705-378ebcf5fd3c\""
+                - generic [ref=e343]: "}"
+                - generic [ref=e346]: "}"
+                - generic [ref=e349]: "}"
+                - generic [ref=e353]: // Response
+                - generic [ref=e355]: "{"
+                - generic [ref=e357]: "\"jsonrpc\": \"2.0\","
+                - generic [ref=e359]: "\"id\": 1,"
+                - generic [ref=e361]: "\"result\": {"
+                - generic [ref=e363]: "\"_id\": \"us_b8tRS7h4TJ2Vt43Dp85v2A\","
+                - generic [ref=e365]: "\"name\": \"Jane Doe\","
+                - generic [ref=e367]: "\"email\": \"jane@example.com\","
+                - generic [ref=e369]: "\"_meta\": {"
+                - generic [ref=e371]: "\"crudVersion\": \"1.0.0\","
+                - generic [ref=e373]: "\"correlationId\": \"d9088ac1-3d13-4f8e-a705-378ebcf5fd3c\""
+                - generic [ref=e375]: "}"
+                - generic [ref=e378]: "}"
+                - generic [ref=e381]: "}"
+              - button "Copy to clipboard" [ref=e383] [cursor=pointer]
+            - generic [ref=e385]:
+              - heading "1.2 Write methods" [level=3] [ref=e386]
+              - link "Section titled “1.2 Write methods”" [ref=e387] [cursor=pointer]:
+                - /url: "#12-write-methods"
+                - img [ref=e389]
+                - generic [ref=e391]: Section titled “1.2 Write methods”
+            - group [ref=e392]:
+              - generic "4 rules" [ref=e393] [cursor=pointer]
+              - generic [ref=e394]:
+                - generic [ref=e395]:
+                  - generic [ref=e396]:
+                    - code [ref=e397]: MCP_CREATE_DOCS
+                    - generic [ref=e398]: MUST
+                  - paragraph [ref=e399]:
+                    - code [ref=e400]: crud/create
+                    - text: MUST receive a
+                    - code [ref=e401]: documents
+                    - text: parameter containing a single Document object or an array of Documents.
+                - generic [ref=e402]:
+                  - generic [ref=e403]:
+                    - code [ref=e404]: MCP_PATCH_SUBJECT
+                    - generic [ref=e405]: MUST
+                  - paragraph [ref=e406]:
+                    - code [ref=e407]: crud/patch
+                    - text: MUST receive either an
+                    - code [ref=e408]: id
+                    - text: parameter (single) or a
+                    - code [ref=e409]: query
+                    - text: parameter (batch), plus a
+                    - code [ref=e410]: patch
+                    - text: parameter containing a
+                    - link "JSON Patch" [ref=e411] [cursor=pointer]:
+                      - /url: https://jsonpatch.com/
+                    - text: operations array.
+                - generic [ref=e412]:
+                  - generic [ref=e413]:
+                    - code [ref=e414]: MCP_REPLACE_SUBJECT
+                    - generic [ref=e415]: MUST
+                  - paragraph [ref=e416]:
+                    - code [ref=e417]: crud/replace
+                    - text: MUST receive either an
+                    - code [ref=e418]: id
+                    - text: parameter (single) or a
+                    - code [ref=e419]: query
+                    - text: parameter (batch), plus a
+                    - code [ref=e420]: document
+                    - text: parameter with the replacement Document.
+                - generic [ref=e421]:
+                  - generic [ref=e422]:
+                    - code [ref=e423]: MCP_DELETE_SUBJECT
+                    - generic [ref=e424]: MUST
+                  - paragraph [ref=e425]:
+                    - code [ref=e426]: crud/delete
+                    - text: MUST receive either an
+                    - code [ref=e427]: id
+                    - text: parameter (single delete) or a
+                    - code [ref=e428]: query
+                    - text: parameter (batch delete).
+            - figure "crud/create example" [ref=e430]:
+              - generic [ref=e432]: crud/create example
+              - code [ref=e434]:
+                - generic [ref=e436]: // Request
+                - generic [ref=e438]: "{"
+                - generic [ref=e440]: "\"jsonrpc\": \"2.0\","
+                - generic [ref=e442]: "\"id\": 3,"
+                - generic [ref=e444]: "\"method\": \"crud/create\","
+                - generic [ref=e446]: "\"params\": {"
+                - generic [ref=e448]: "\"collection\": \"users\","
+                - generic [ref=e450]: "\"documents\": ["
+                - generic [ref=e452]: "{ \"name\": \"Charlie\", \"email\": \"charlie@example.com\" }"
+                - generic [ref=e455]: "],"
+                - generic [ref=e458]: "\"_meta\": { \"crudVersion\": \"1.0.0\", \"crudExtensions\": [] }"
+                - generic [ref=e460]: "}"
+                - generic [ref=e463]: "}"
+                - generic [ref=e467]: // Response
+                - generic [ref=e469]: "{"
+                - generic [ref=e471]: "\"jsonrpc\": \"2.0\","
+                - generic [ref=e473]: "\"id\": 3,"
+                - generic [ref=e475]: "\"result\": {"
+                - generic [ref=e477]: "\"documents\": ["
+                - generic [ref=e479]: "{ \"_id\": \"us_ghi\", \"name\": \"Charlie\", \"email\": \"charlie@example.com\" }"
+                - generic [ref=e482]: "],"
+                - generic [ref=e485]: "\"_meta\": {"
+                - generic [ref=e487]: "\"crudVersion\": \"1.0.0\","
+                - generic [ref=e489]: "\"modifiedCount\": 1"
+                - generic [ref=e491]: "}"
+                - generic [ref=e494]: "}"
+                - generic [ref=e497]: "}"
+              - button "Copy to clipboard" [ref=e499] [cursor=pointer]
+            - generic [ref=e501]:
+              - heading "2. Parameters" [level=2] [ref=e502]
+              - link "Section titled “2. Parameters”" [ref=e503] [cursor=pointer]:
+                - /url: "#2-parameters"
+                - img [ref=e505]
+                - generic [ref=e507]: Section titled “2. Parameters”
+            - separator [ref=e508]
+            - paragraph [ref=e509]:
+              - text: Operation Parameters such as projection, sorting, and pagination are passed as top-level fields in the JSON-RPC
+              - code [ref=e510]: params
+              - text: object alongside the Subject fields.
+            - paragraph [ref=e511]:
+              - text: All parameters are top-level fields in
+              - code [ref=e512]: params
+              - text: ", alongside Subject fields:"
+            - table [ref=e513]:
+              - rowgroup [ref=e514]:
+                - row "Parameter Field Type Operations" [ref=e515]:
+                  - columnheader "Parameter" [ref=e516]
+                  - columnheader "Field" [ref=e517]
+                  - columnheader "Type" [ref=e518]
+                  - columnheader "Operations" [ref=e519]
+              - rowgroup [ref=e520]:
+                - row "Projection fields string All except crud/delete" [ref=e521]:
+                  - cell "Projection" [ref=e522]
+                  - cell "fields" [ref=e523]:
+                    - code [ref=e524]: fields
+                  - cell "string" [ref=e525]:
+                    - code [ref=e526]: string
+                  - cell "All except crud/delete" [ref=e527]:
+                    - text: All except
+                    - code [ref=e528]: crud/delete
+                - row "Sorting sort string crud/list" [ref=e529]:
+                  - cell "Sorting" [ref=e530]
+                  - cell "sort" [ref=e531]:
+                    - code [ref=e532]: sort
+                  - cell "string" [ref=e533]:
+                    - code [ref=e534]: string
+                  - cell "crud/list" [ref=e535]:
+                    - code [ref=e536]: crud/list
+                - row "Pagination page, limit number crud/list" [ref=e537]:
+                  - cell "Pagination" [ref=e538]
+                  - cell "page, limit" [ref=e539]:
+                    - code [ref=e540]: page
+                    - text: ","
+                    - code [ref=e541]: limit
+                  - cell "number" [ref=e542]:
+                    - code [ref=e543]: number
+                  - cell "crud/list" [ref=e544]:
+                    - code [ref=e545]: crud/list
+                - row "Expect match expectMatch number crud/patch, crud/replace, crud/delete (batch)" [ref=e546]:
+                  - cell "Expect match" [ref=e547]
+                  - cell "expectMatch" [ref=e548]:
+                    - code [ref=e549]: expectMatch
+                  - cell "number" [ref=e550]:
+                    - code [ref=e551]: number
+                  - cell "crud/patch, crud/replace, crud/delete (batch)" [ref=e552]:
+                    - code [ref=e553]: crud/patch
+                    - text: ","
+                    - code [ref=e554]: crud/replace
+                    - text: ","
+                    - code [ref=e555]: crud/delete
+                    - text: (batch)
+                - row "Deny upsert denyUpsert boolean crud/replace (by id)" [ref=e556]:
+                  - cell "Deny upsert" [ref=e557]
+                  - cell "denyUpsert" [ref=e558]:
+                    - code [ref=e559]: denyUpsert
+                  - cell "boolean" [ref=e560]:
+                    - code [ref=e561]: boolean
+                  - cell "crud/replace (by id)" [ref=e562]:
+                    - code [ref=e563]: crud/replace
+                    - text: (by id)
+            - group [ref=e564]:
+              - generic "5 rules" [ref=e565] [cursor=pointer]
+              - generic [ref=e566]:
+                - generic [ref=e567]:
+                  - generic [ref=e568]:
+                    - code [ref=e569]: MCP_PARAM_FIELDS
+                    - generic [ref=e570]: MAY
+                  - paragraph [ref=e571]:
+                    - text: A
+                    - code [ref=e572]: fields
+                    - text: string parameter MAY be included for
+                    - link "Projection" [ref=e573] [cursor=pointer]:
+                      - /url: /base/general/#331-projection-parameter
+                    - text: . The format follows the base spec comma-separated syntax.
+                - generic [ref=e574]:
+                  - generic [ref=e575]:
+                    - code [ref=e576]: MCP_PARAM_SORT
+                    - generic [ref=e577]: MAY
+                  - paragraph [ref=e578]:
+                    - text: A
+                    - code [ref=e579]: sort
+                    - text: string parameter MAY be included in
+                    - code [ref=e580]: crud/list
+                    - text: for
+                    - link "Sorting" [ref=e581] [cursor=pointer]:
+                      - /url: /base/operation/#423-sorting-parameter
+                    - text: . The format follows the base spec comma-separated syntax with
+                    - code [ref=e582]: "-"
+                    - text: prefix for descending.
+                - generic [ref=e583]:
+                  - generic [ref=e584]:
+                    - code [ref=e585]: MCP_PARAM_PAGINATION
+                    - generic [ref=e586]: MAY
+                  - paragraph [ref=e587]:
+                    - code [ref=e588]: page
+                    - text: (number) and
+                    - code [ref=e589]: limit
+                    - text: (number) parameters MAY be included in
+                    - code [ref=e590]: crud/list
+                    - text: for Pagination.
+                - generic [ref=e591]:
+                  - generic [ref=e592]:
+                    - code [ref=e593]: MCP_PARAM_EXPECT_MATCH
+                    - generic [ref=e594]: MAY
+                  - paragraph [ref=e595]:
+                    - text: An
+                    - code [ref=e596]: expectMatch
+                    - text: number parameter MAY be included to assert the expected matched count. If the actual count differs, the Server MUST fail the operation.
+                - generic [ref=e597]:
+                  - generic [ref=e598]:
+                    - code [ref=e599]: MCP_PARAM_DENY_UPSERT
+                    - generic [ref=e600]: MAY
+                  - paragraph [ref=e601]:
+                    - text: A
+                    - code [ref=e602]: denyUpsert
+                    - text: boolean parameter MAY be included in
+                    - code [ref=e603]: crud/replace
+                    - text: with
+                    - code [ref=e604]: id
+                    - text: to prevent the Server from creating a new Document if the Resource ID is not found.
+            - generic [ref=e605]:
+              - heading "3. Metadata" [level=2] [ref=e606]
+              - link "Section titled “3. Metadata”" [ref=e607] [cursor=pointer]:
+                - /url: "#3-metadata"
+                - img [ref=e609]
+                - generic [ref=e611]: Section titled “3. Metadata”
+            - separator [ref=e612]
+            - paragraph [ref=e613]:
+              - text: Request and response Metadata is transported in a
+              - code [ref=e614]: _meta
+              - text: object within the JSON-RPC
+              - code [ref=e615]: params
+              - text: (request) or
+              - code [ref=e616]: result
+              - text: (response). This replaces the role of HTTP headers in the RESTful HTTP protocol.
+            - paragraph [ref=e617]:
+              - text: The
+              - code [ref=e618]: _meta
+              - text: "object in requests:"
+            - table [ref=e619]:
+              - rowgroup [ref=e620]:
+                - row "Field Type Requirement Description" [ref=e621]:
+                  - columnheader "Field" [ref=e622]
+                  - columnheader "Type" [ref=e623]
+                  - columnheader "Requirement" [ref=e624]
+                  - columnheader "Description" [ref=e625]
+              - rowgroup [ref=e626]:
+                - row "crudVersion string MUST CRUD API Spec version" [ref=e627]:
+                  - cell "crudVersion" [ref=e628]:
+                    - code [ref=e629]: crudVersion
+                  - cell "string" [ref=e630]:
+                    - code [ref=e631]: string
+                  - cell "MUST" [ref=e632]
+                  - cell "CRUD API Spec version" [ref=e633]
+                - row "crudExtensions string[] MUST Supported extension names" [ref=e634]:
+                  - cell "crudExtensions" [ref=e635]:
+                    - code [ref=e636]: crudExtensions
+                  - cell "string[]" [ref=e637]:
+                    - code [ref=e638]: string[]
+                  - cell "MUST" [ref=e639]
+                  - cell "Supported extension names" [ref=e640]
+                - row "correlationId string SHOULD Fresh uuid-hex" [ref=e641]:
+                  - cell "correlationId" [ref=e642]:
+                    - code [ref=e643]: correlationId
+                  - cell "string" [ref=e644]:
+                    - code [ref=e645]: string
+                  - cell "SHOULD" [ref=e646]
+                  - cell "Fresh uuid-hex" [ref=e647]:
+                    - text: Fresh
+                    - code [ref=e648]: uuid-hex
+                - row "prefer string MAY \"representation\" (default) or \"status\"" [ref=e649]:
+                  - cell "prefer" [ref=e650]:
+                    - code [ref=e651]: prefer
+                  - cell "string" [ref=e652]:
+                    - code [ref=e653]: string
+                  - cell "MAY" [ref=e654]
+                  - cell "\"representation\" (default) or \"status\"" [ref=e655]:
+                    - code [ref=e656]: "\"representation\""
+                    - text: (default) or
+                    - code [ref=e657]: "\"status\""
+                - row "handling string MAY \"lenient\" (default) or \"strict\"" [ref=e658]:
+                  - cell "handling" [ref=e659]:
+                    - code [ref=e660]: handling
+                  - cell "string" [ref=e661]:
+                    - code [ref=e662]: string
+                  - cell "MAY" [ref=e663]
+                  - cell "\"lenient\" (default) or \"strict\"" [ref=e664]:
+                    - code [ref=e665]: "\"lenient\""
+                    - text: (default) or
+                    - code [ref=e666]: "\"strict\""
+            - paragraph [ref=e667]:
+              - text: The
+              - code [ref=e668]: _meta
+              - text: "object in responses:"
+            - table [ref=e669]:
+              - rowgroup [ref=e670]:
+                - row "Field Type Requirement Description" [ref=e671]:
+                  - columnheader "Field" [ref=e672]
+                  - columnheader "Type" [ref=e673]
+                  - columnheader "Requirement" [ref=e674]
+                  - columnheader "Description" [ref=e675]
+              - rowgroup [ref=e676]:
+                - row "crudVersion string MUST Server’s CRUD API Spec version" [ref=e677]:
+                  - cell "crudVersion" [ref=e678]:
+                    - code [ref=e679]: crudVersion
+                  - cell "string" [ref=e680]:
+                    - code [ref=e681]: string
+                  - cell "MUST" [ref=e682]
+                  - cell "Server’s CRUD API Spec version" [ref=e683]
+                - row "correlationId string MUST Echoed or newly generated" [ref=e684]:
+                  - cell "correlationId" [ref=e685]:
+                    - code [ref=e686]: correlationId
+                  - cell "string" [ref=e687]:
+                    - code [ref=e688]: string
+                  - cell "MUST" [ref=e689]
+                  - cell "Echoed or newly generated" [ref=e690]
+                - row "matchedCount number SHOULD For query-based operations" [ref=e691]:
+                  - cell "matchedCount" [ref=e692]:
+                    - code [ref=e693]: matchedCount
+                  - cell "number" [ref=e694]:
+                    - code [ref=e695]: number
+                  - cell "SHOULD" [ref=e696]
+                  - cell "For query-based operations" [ref=e697]
+                - row "modifiedCount number SHOULD For write operations" [ref=e698]:
+                  - cell "modifiedCount" [ref=e699]:
+                    - code [ref=e700]: modifiedCount
+                  - cell "number" [ref=e701]:
+                    - code [ref=e702]: number
+                  - cell "SHOULD" [ref=e703]
+                  - cell "For write operations" [ref=e704]
+                - row "upserted boolean MUST When replace creates a new Document" [ref=e705]:
+                  - cell "upserted" [ref=e706]:
+                    - code [ref=e707]: upserted
+                  - cell "boolean" [ref=e708]:
+                    - code [ref=e709]: boolean
+                  - cell "MUST" [ref=e710]
+                  - cell "When replace creates a new Document" [ref=e711]
+                - row "warnings string[] MAY Validation warnings" [ref=e712]:
+                  - cell "warnings" [ref=e713]:
+                    - code [ref=e714]: warnings
+                  - cell "string[]" [ref=e715]:
+                    - code [ref=e716]: string[]
+                  - cell "MAY" [ref=e717]
+                  - cell "Validation warnings" [ref=e718]
+            - group [ref=e719]:
+              - generic "10 rules" [ref=e720] [cursor=pointer]
+              - generic [ref=e721]:
+                - generic [ref=e722]:
+                  - generic [ref=e723]:
+                    - code [ref=e724]: MCP_META_OBJECT
+                    - generic [ref=e725]: MUST
+                  - paragraph [ref=e726]:
+                    - text: Request and response Metadata MUST be transported in a
+                    - code [ref=e727]: _meta
+                    - text: object — within the JSON-RPC
+                    - code [ref=e728]: params
+                    - text: for requests and within the
+                    - code [ref=e729]: result
+                    - text: for responses. This follows the MCP
+                    - code [ref=e730]: _meta
+                    - text: convention for request parameters.
+                - generic [ref=e731]:
+                  - generic [ref=e732]:
+                    - code [ref=e733]: MCP_META_VERSION_REQ
+                    - generic [ref=e734]: MUST
+                  - paragraph [ref=e735]:
+                    - text: The request
+                    - code [ref=e736]: _meta
+                    - text: MUST include a
+                    - code [ref=e737]: crudVersion
+                    - text: string indicating the CRUD API Spec version the Client is compliant to.
+                - generic [ref=e738]:
+                  - generic [ref=e739]:
+                    - code [ref=e740]: MCP_META_EXTENSIONS_REQ
+                    - generic [ref=e741]: MUST
+                  - paragraph [ref=e742]:
+                    - text: The request
+                    - code [ref=e743]: _meta
+                    - text: MUST include a
+                    - code [ref=e744]: crudExtensions
+                    - text: array listing the extension specs the Client supports (e.g.,
+                    - code [ref=e745]: "[\"async\"]"
+                    - text: ).
+                - generic [ref=e746]:
+                  - generic [ref=e747]:
+                    - code [ref=e748]: MCP_META_CORRELATION_REQ
+                    - generic [ref=e749]: SHOULD
+                  - paragraph [ref=e750]:
+                    - text: The request
+                    - code [ref=e751]: _meta
+                    - text: SHOULD include a
+                    - code [ref=e752]: correlationId
+                    - text: string with a fresh
+                    - link "uuid-hex" [ref=e753] [cursor=pointer]:
+                      - /url: /base/terminology/#uuid-hex
+                      - code [ref=e754]: uuid-hex
+                    - text: .
+                - generic [ref=e755]:
+                  - generic [ref=e756]:
+                    - code [ref=e757]: MCP_META_PREFER
+                    - generic [ref=e758]: MAY
+                  - paragraph [ref=e759]:
+                    - text: The request
+                    - code [ref=e760]: _meta
+                    - text: MAY include a
+                    - code [ref=e761]: prefer
+                    - text: field with value
+                    - code [ref=e762]: representation
+                    - text: (default) or
+                    - code [ref=e763]: status
+                    - text: to negotiate the response format for write operations.
+                - generic [ref=e764]:
+                  - generic [ref=e765]:
+                    - code [ref=e766]: MCP_META_HANDLING
+                    - generic [ref=e767]: MAY
+                  - paragraph [ref=e768]:
+                    - text: The request
+                    - code [ref=e769]: _meta
+                    - text: MAY include a
+                    - code [ref=e770]: handling
+                    - text: field with value
+                    - code [ref=e771]: lenient
+                    - text: (default) or
+                    - code [ref=e772]: strict
+                    - text: for validation level negotiation.
+                - generic [ref=e773]:
+                  - generic [ref=e774]:
+                    - code [ref=e775]: MCP_META_VERSION_RES
+                    - generic [ref=e776]: MUST
+                  - paragraph [ref=e777]:
+                    - text: The response
+                    - code [ref=e778]: _meta
+                    - text: MUST include a
+                    - code [ref=e779]: crudVersion
+                    - text: string.
+                - generic [ref=e780]:
+                  - generic [ref=e781]:
+                    - code [ref=e782]: MCP_META_CORRELATION_RES
+                    - generic [ref=e783]: MUST
+                  - paragraph [ref=e784]:
+                    - text: The response
+                    - code [ref=e785]: _meta
+                    - text: MUST include a
+                    - code [ref=e786]: correlationId
+                    - text: — echoing the request value or generating a new one.
+                - generic [ref=e787]:
+                  - generic [ref=e788]:
+                    - code [ref=e789]: MCP_META_MATCHED
+                    - generic [ref=e790]: SHOULD
+                  - paragraph [ref=e791]:
+                    - text: The response
+                    - code [ref=e792]: _meta
+                    - text: SHOULD include a
+                    - code [ref=e793]: matchedCount
+                    - text: number for operations that use Search Queries.
+                - generic [ref=e794]:
+                  - generic [ref=e795]:
+                    - code [ref=e796]: MCP_META_MODIFIED
+                    - generic [ref=e797]: SHOULD
+                  - paragraph [ref=e798]:
+                    - text: The response
+                    - code [ref=e799]: _meta
+                    - text: SHOULD include a
+                    - code [ref=e800]: modifiedCount
+                    - text: number for write operations.
+            - generic [ref=e801]:
+              - heading "4. Response" [level=2] [ref=e802]
+              - link "Section titled “4. Response”" [ref=e803] [cursor=pointer]:
+                - /url: "#4-response"
+                - img [ref=e805]
+                - generic [ref=e807]: Section titled “4. Response”
+            - separator [ref=e808]
+            - paragraph [ref=e809]:
+              - text: The JSON-RPC
+              - code [ref=e810]: result
+              - text: field carries the operation output. Its structure depends on the operation verb.
+            - table [ref=e811]:
+              - rowgroup [ref=e812]:
+                - row "Operation result structure" [ref=e813]:
+                  - columnheader "Operation" [ref=e814]
+                  - columnheader "result structure" [ref=e815]:
+                    - code [ref=e816]: result
+                    - text: structure
+              - rowgroup [ref=e817]:
+                - row "crud/get Document fields at top level + _meta" [ref=e818]:
+                  - cell "crud/get" [ref=e819]:
+                    - code [ref=e820]: crud/get
+                  - cell "Document fields at top level + _meta" [ref=e821]:
+                    - text: Document fields at top level +
+                    - code [ref=e822]: _meta
+                - 'row "crud/list { documents: [...], _meta: {...} }" [ref=e823]':
+                  - cell "crud/list" [ref=e824]:
+                    - code [ref=e825]: crud/list
+                  - 'cell "{ documents: [...], _meta: {...} }" [ref=e826]':
+                    - code [ref=e827]: "{ documents: [...], _meta: {...} }"
+                - 'row "crud/create, crud/patch, crud/replace { documents: [...], _meta: {...} }" [ref=e828]':
+                  - cell "crud/create, crud/patch, crud/replace" [ref=e829]:
+                    - code [ref=e830]: crud/create
+                    - text: ","
+                    - code [ref=e831]: crud/patch
+                    - text: ","
+                    - code [ref=e832]: crud/replace
+                  - 'cell "{ documents: [...], _meta: {...} }" [ref=e833]':
+                    - code [ref=e834]: "{ documents: [...], _meta: {...} }"
+                - 'row "crud/delete { _meta: {...} }" [ref=e835]':
+                  - cell "crud/delete" [ref=e836]:
+                    - code [ref=e837]: crud/delete
+                  - 'cell "{ _meta: {...} }" [ref=e838]':
+                    - code [ref=e839]: "{ _meta: {...} }"
+                - 'row "Any (with prefer: \"status\") { _meta: {...} }" [ref=e840]':
+                  - 'cell "Any (with prefer: \"status\")" [ref=e841]':
+                    - text: Any (with
+                    - code [ref=e842]: "prefer: \"status\""
+                    - text: )
+                  - 'cell "{ _meta: {...} }" [ref=e843]':
+                    - code [ref=e844]: "{ _meta: {...} }"
+            - group [ref=e845]:
+              - generic "5 rules" [ref=e846] [cursor=pointer]
+              - generic [ref=e847]:
+                - generic [ref=e848]:
+                  - generic [ref=e849]:
+                    - code [ref=e850]: MCP_RES_GET
+                    - generic [ref=e851]: MUST
+                  - paragraph [ref=e852]:
+                    - code [ref=e853]: crud/get
+                    - text: result MUST be an object containing the Document fields at the top level, plus a
+                    - code [ref=e854]: _meta
+                    - text: object with response Metadata.
+                - generic [ref=e855]:
+                  - generic [ref=e856]:
+                    - code [ref=e857]: MCP_RES_LIST
+                    - generic [ref=e858]: MUST
+                  - paragraph [ref=e859]:
+                    - code [ref=e860]: crud/list
+                    - text: result MUST be an object containing a
+                    - code [ref=e861]: documents
+                    - text: array of Document objects and a
+                    - code [ref=e862]: _meta
+                    - text: object. If no Documents match,
+                    - code [ref=e863]: documents
+                    - text: MUST be an empty array.
+                - generic [ref=e864]:
+                  - generic [ref=e865]:
+                    - code [ref=e866]: MCP_RES_WRITE
+                    - generic [ref=e867]: MUST
+                  - paragraph [ref=e868]:
+                    - text: Write operation results MUST be an object containing a
+                    - code [ref=e869]: documents
+                    - text: array with the written Document(s) including their Resource IDs, plus a
+                    - code [ref=e870]: _meta
+                    - text: object. When
+                    - code [ref=e871]: _meta.prefer
+                    - text: is
+                    - code [ref=e872]: status
+                    - text: ","
+                    - code [ref=e873]: documents
+                    - text: MUST be
+                    - code [ref=e874]: "null"
+                    - text: .
+                - generic [ref=e875]:
+                  - generic [ref=e876]:
+                    - code [ref=e877]: MCP_RES_DELETE
+                    - generic [ref=e878]: MUST
+                  - paragraph [ref=e879]:
+                    - code [ref=e880]: crud/delete
+                    - text: result MUST be an object containing only a
+                    - code [ref=e881]: _meta
+                    - text: object. No
+                    - code [ref=e882]: documents
+                    - text: field is returned.
+                - generic [ref=e883]:
+                  - generic [ref=e884]:
+                    - code [ref=e885]: MCP_RES_NO_ENVELOPE
+                    - generic [ref=e886]: MUST
+                  - paragraph [ref=e887]:
+                    - text: Results MUST NOT be wrapped in envelopes. The
+                    - code [ref=e888]: result
+                    - text: field of the JSON-RPC response directly contains the Document(s), array, or
+                    - code [ref=e889]: "null"
+                    - text: .
+            - figure "crud/list response" [ref=e891]:
+              - generic [ref=e893]: crud/list response
+              - code [ref=e895]:
+                - generic [ref=e897]: // Request
+                - generic [ref=e899]: "{"
+                - generic [ref=e901]: "\"jsonrpc\": \"2.0\","
+                - generic [ref=e903]: "\"id\": 2,"
+                - generic [ref=e905]: "\"method\": \"crud/list\","
+                - generic [ref=e907]: "\"params\": {"
+                - generic [ref=e909]: "\"collection\": \"users\","
+                - generic [ref=e911]: "\"query\": { \"role\": \"admin\" },"
+                - generic [ref=e913]: "\"sort\": \"name,-createdAt\","
+                - generic [ref=e915]: "\"page\": 1,"
+                - generic [ref=e917]: "\"limit\": 10,"
+                - generic [ref=e919]: "\"_meta\": { \"crudVersion\": \"1.0.0\", \"crudExtensions\": [] }"
+                - generic [ref=e921]: "}"
+                - generic [ref=e924]: "}"
+                - generic [ref=e928]: // Response
+                - generic [ref=e930]: "{"
+                - generic [ref=e932]: "\"jsonrpc\": \"2.0\","
+                - generic [ref=e934]: "\"id\": 2,"
+                - generic [ref=e936]: "\"result\": {"
+                - generic [ref=e938]: "\"documents\": ["
+                - generic [ref=e940]: "{ \"_id\": \"us_abc\", \"name\": \"Alice\", \"role\": \"admin\" },"
+                - generic [ref=e943]: "{ \"_id\": \"us_def\", \"name\": \"Bob\", \"role\": \"admin\" }"
+                - generic [ref=e946]: "],"
+                - generic [ref=e949]: "\"_meta\": {"
+                - generic [ref=e951]: "\"crudVersion\": \"1.0.0\","
+                - generic [ref=e953]: "\"matchedCount\": 2"
+                - generic [ref=e955]: "}"
+                - generic [ref=e958]: "}"
+                - generic [ref=e961]: "}"
+              - button "Copy to clipboard" [ref=e963] [cursor=pointer]
+            - generic [ref=e965]:
+              - heading "5. Error handling" [level=2] [ref=e966]
+              - link "Section titled “5. Error handling”" [ref=e967] [cursor=pointer]:
+                - /url: "#5-error-handling"
+                - img [ref=e969]
+                - generic [ref=e971]: Section titled “5. Error handling”
+            - separator [ref=e972]
+            - paragraph [ref=e973]:
+              - text: Errors use the standard JSON-RPC error object structure with CRUD-specific numeric codes in the Server-defined range (
+              - code [ref=e974]: "-32000"
+              - text: to
+              - code [ref=e975]: "-32099"
+              - text: ).
+            - table [ref=e976]:
+              - rowgroup [ref=e977]:
+                - row "Error Code Equivalent HTTP" [ref=e978]:
+                  - columnheader "Error" [ref=e979]
+                  - columnheader "Code" [ref=e980]
+                  - columnheader "Equivalent HTTP" [ref=e981]
+              - rowgroup [ref=e982]:
+                - row "Not Found -32001 404" [ref=e983]:
+                  - cell "Not Found" [ref=e984]
+                  - cell "-32001" [ref=e985]:
+                    - code [ref=e986]: "-32001"
+                  - cell "404" [ref=e987]:
+                    - code [ref=e988]: "404"
+                - row "Conflict -32002 409" [ref=e989]:
+                  - cell "Conflict" [ref=e990]
+                  - cell "-32002" [ref=e991]:
+                    - code [ref=e992]: "-32002"
+                  - cell "409" [ref=e993]:
+                    - code [ref=e994]: "409"
+                - row "Precondition Failed -32003 412" [ref=e995]:
+                  - cell "Precondition Failed" [ref=e996]
+                  - cell "-32003" [ref=e997]:
+                    - code [ref=e998]: "-32003"
+                  - cell "412" [ref=e999]:
+                    - code [ref=e1000]: "412"
+                - row "Negotiation Failed -32004 400 / 406" [ref=e1001]:
+                  - cell "Negotiation Failed" [ref=e1002]
+                  - cell "-32004" [ref=e1003]:
+                    - code [ref=e1004]: "-32004"
+                  - cell "400 / 406" [ref=e1005]:
+                    - code [ref=e1006]: "400"
+                    - text: /
+                    - code [ref=e1007]: "406"
+            - paragraph [ref=e1008]:
+              - text: These codes are in the JSON-RPC Server-defined error range (
+              - code [ref=e1009]: "-32000"
+              - text: to
+              - code [ref=e1010]: "-32099"
+              - text: ). Standard JSON-RPC errors (
+              - code [ref=e1011]: "-32600"
+              - text: to
+              - code [ref=e1012]: "-32603"
+              - text: ) remain unchanged.
+            - group [ref=e1013]:
+              - generic "5 rules" [ref=e1014] [cursor=pointer]
+              - generic [ref=e1015]:
+                - generic [ref=e1016]:
+                  - generic [ref=e1017]:
+                    - code [ref=e1018]: MCP_ERR_FORMAT
+                    - generic [ref=e1019]: MUST
+                  - paragraph [ref=e1020]:
+                    - text: Errors MUST use the standard JSON-RPC error object with a numeric
+                    - code [ref=e1021]: code
+                    - text: ", a human-readable"
+                    - code [ref=e1022]: message
+                    - text: ", and an optional"
+                    - code [ref=e1023]: data
+                    - text: object with additional details.
+                - generic [ref=e1024]:
+                  - generic [ref=e1025]:
+                    - code [ref=e1026]: MCP_ERR_NOT_FOUND
+                    - generic [ref=e1027]: MUST
+                  - paragraph [ref=e1028]:
+                    - text: When a Resource ID is not found in by-id operations that require a match, the error code MUST be
+                    - code [ref=e1029]: "-32001"
+                    - text: (Not Found).
+                - generic [ref=e1030]:
+                  - generic [ref=e1031]:
+                    - code [ref=e1032]: MCP_ERR_CONFLICT
+                    - generic [ref=e1033]: MUST
+                  - paragraph [ref=e1034]:
+                    - text: When a Resource ID conflict occurs during
+                    - code [ref=e1035]: crud/create
+                    - text: ", the error code MUST be"
+                    - code [ref=e1036]: "-32002"
+                    - text: (Conflict).
+                - generic [ref=e1037]:
+                  - generic [ref=e1038]:
+                    - code [ref=e1039]: MCP_ERR_PRECONDITION
+                    - generic [ref=e1040]: MUST
+                  - paragraph [ref=e1041]:
+                    - text: When
+                    - code [ref=e1042]: expectMatch
+                    - text: or
+                    - code [ref=e1043]: denyUpsert
+                    - text: preconditions fail, the error code MUST be
+                    - code [ref=e1044]: "-32003"
+                    - text: (Precondition Failed).
+                - generic [ref=e1045]:
+                  - generic [ref=e1046]:
+                    - code [ref=e1047]: MCP_ERR_NEGOTIATION
+                    - generic [ref=e1048]: MUST
+                  - paragraph [ref=e1049]:
+                    - text: When the Server cannot fulfill a metadata negotiation requirement (incompatible version, unsupported format), the error code MUST be
+                    - code [ref=e1050]: "-32004"
+                    - text: (Negotiation Failed).
+            - figure "Error response" [ref=e1052]:
+              - generic [ref=e1054]: Error response
+              - code [ref=e1056]:
+                - generic [ref=e1058]: "// Error: Resource not found"
+                - generic [ref=e1060]: "{"
+                - generic [ref=e1062]: "\"jsonrpc\": \"2.0\","
+                - generic [ref=e1064]: "\"id\": 1,"
+                - generic [ref=e1066]: "\"error\": {"
+                - generic [ref=e1068]: "\"code\": -32001,"
+                - generic [ref=e1070]: "\"message\": \"Resource not found\","
+                - generic [ref=e1072]: "\"data\": {"
+                - generic [ref=e1074]: "\"collection\": \"users\","
+                - generic [ref=e1076]: "\"id\": \"us_nonexistent\""
+                - generic [ref=e1078]: "}"
+                - generic [ref=e1081]: "}"
+                - generic [ref=e1084]: "}"
+              - button "Copy to clipboard" [ref=e1086] [cursor=pointer]
+            - generic [ref=e1088]:
+              - heading "6. Capability negotiation" [level=2] [ref=e1089]
+              - link "Section titled “6. Capability negotiation”" [ref=e1090] [cursor=pointer]:
+                - /url: "#6-capability-negotiation"
+                - img [ref=e1092]
+                - generic [ref=e1094]: Section titled “6. Capability negotiation”
+            - separator [ref=e1095]
+            - paragraph [ref=e1096]:
+              - text: During the MCP
+              - code [ref=e1097]: initialize
+              - text: handshake, the Server declares its CRUD capabilities. This replaces per-request version and extension negotiation.
+            - paragraph [ref=e1098]:
+              - text: During the MCP
+              - code [ref=e1099]: initialize
+              - text: handshake, the Server declares CRUD support via the
+              - code [ref=e1100]: experimental.crud
+              - text: capability object. This replaces per-request version and extension negotiation — Clients that have completed initialization already know the Server’s CRUD version and capabilities.
+            - group [ref=e1101]:
+              - generic "4 rules" [ref=e1102] [cursor=pointer]
+              - generic [ref=e1103]:
+                - generic [ref=e1104]:
+                  - generic [ref=e1105]:
+                    - code [ref=e1106]: MCP_CAP_CRUD
+                    - generic [ref=e1107]: MUST
+                  - paragraph [ref=e1108]:
+                    - text: During the MCP
+                    - code [ref=e1109]: initialize
+                    - text: handshake, the Server MUST declare a
+                    - code [ref=e1110]: crud
+                    - text: object within the
+                    - code [ref=e1111]: experimental
+                    - text: field of its
+                    - code [ref=e1112]: capabilities
+                    - text: response.
+                - generic [ref=e1113]:
+                  - generic [ref=e1114]:
+                    - code [ref=e1115]: MCP_CAP_VERSION
+                    - generic [ref=e1116]: MUST
+                  - paragraph [ref=e1117]:
+                    - text: The
+                    - code [ref=e1118]: crud
+                    - text: capability object MUST include a
+                    - code [ref=e1119]: version
+                    - text: string with the CRUD API Spec version the Server is compliant to.
+                - generic [ref=e1120]:
+                  - generic [ref=e1121]:
+                    - code [ref=e1122]: MCP_CAP_EXTENSIONS
+                    - generic [ref=e1123]: MUST
+                  - paragraph [ref=e1124]:
+                    - text: The
+                    - code [ref=e1125]: crud
+                    - text: capability object MUST include an
+                    - code [ref=e1126]: extensions
+                    - text: array listing supported extension specs.
+                - generic [ref=e1127]:
+                  - generic [ref=e1128]:
+                    - code [ref=e1129]: MCP_CAP_COLLECTIONS
+                    - generic [ref=e1130]: SHOULD
+                  - paragraph [ref=e1131]:
+                    - text: The
+                    - code [ref=e1132]: crud
+                    - text: capability object SHOULD include a
+                    - code [ref=e1133]: collections
+                    - text: array listing the available Collection slugs.
+            - figure "Server capabilities" [ref=e1135]:
+              - generic [ref=e1137]: Server capabilities
+              - code [ref=e1139]:
+                - generic [ref=e1141]: // Server capabilities during initialize
+                - generic [ref=e1143]: "{"
+                - generic [ref=e1145]: "\"jsonrpc\": \"2.0\","
+                - generic [ref=e1147]: "\"id\": 1,"
+                - generic [ref=e1149]: "\"result\": {"
+                - generic [ref=e1151]: "\"protocolVersion\": \"2025-03-26\","
+                - generic [ref=e1153]: "\"capabilities\": {"
+                - generic [ref=e1155]: "\"tools\": { \"listChanged\": true },"
+                - generic [ref=e1157]: "\"experimental\": {"
+                - generic [ref=e1159]: "\"crud\": {"
+                - generic [ref=e1161]: "\"version\": \"1.0.0\","
+                - generic [ref=e1163]: "\"extensions\": [\"async\"],"
+                - generic [ref=e1165]: "\"collections\": [\"users\", \"products\", \"orders\"]"
+                - generic [ref=e1167]: "}"
+                - generic [ref=e1170]: "}"
+                - generic [ref=e1173]: "},"
+                - generic [ref=e1176]: "\"serverInfo\": {"
+                - generic [ref=e1178]: "\"name\": \"MyCrudServer\","
+                - generic [ref=e1180]: "\"version\": \"2.1.0\""
+                - generic [ref=e1182]: "}"
+                - generic [ref=e1185]: "}"
+                - generic [ref=e1188]: "}"
+              - button "Copy to clipboard" [ref=e1190] [cursor=pointer]
+          - link "Previous RESTful HTTP" [ref=e1194] [cursor=pointer]:
+            - /url: /protocols/http/
+            - img [ref=e1195]
+            - generic [ref=e1197]:
+              - text: Previous
+              - text: RESTful HTTP
+  - generic [ref=e1200]:
+    - button "Menu" [ref=e1201]:
+      - img [ref=e1203]
+      - generic: Menu
+    - button "Inspect" [ref=e1207]:
+      - img [ref=e1209]
+      - generic: Inspect
+    - button "Audit" [ref=e1211]:
+      - img [ref=e1213]
+      - generic: Audit
+    - button "Settings" [ref=e1216]:
+      - img [ref=e1218]
+      - generic: Settings

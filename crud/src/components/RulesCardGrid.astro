@@ -1,0 +1,69 @@
+---
+import { DatabaseSync } from 'node:sqlite';
+import path from 'node:path';
+
+interface Props {
+  sectionCode: string;
+  open?: boolean;
+}
+
+const { sectionCode, open } = Astro.props;
+
+const dbPath = path.join(process.cwd(), 'src/crud.db');
+const db = new DatabaseSync(dbPath);
+const rules = db.prepare(`
+  SELECT r.code, r.requirement, r.rule
+  FROM crud_api_rules r, json_each(r.section_codes) sc
+  LEFT JOIN crud_rule_display_order o
+    ON o.rule_code = r.code AND o.section_code = sc.value
+  WHERE sc.value = ?
+    AND r.code IS NOT NULL
+  ORDER BY
+    COALESCE(o.display_order, 99999),
+    r.rowid
+`).all(sectionCode) as { code: string; requirement: string; rule: string }[];
+db.close();
+
+function ruleToHtml(text: string): string {
+  return text
+    // [text](url) → link; external URLs get target="_blank"
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, linkText, url) => {
+      const external = url.startsWith('http');
+      const attrs = external ? ' target="_blank" rel="noopener noreferrer"' : '';
+      return `<a href="${url}"${attrs}>${linkText}</a>`;
+    })
+    // `code` → <code>
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    // **text** → <strong>
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    // Unescape \$
+    .replace(/\\\$/g, '$');
+}
+
+const reqStyles: Record<string, string> = {
+  MUST:   'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300',
+  SHOULD: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300',
+  MAY:    'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300',
+};
+---
+
+<details class="not-content my-4" open={open || undefined}>
+  <summary class="cursor-pointer text-sm font-medium text-[var(--sl-color-text-accent)] select-none">
+    {rules.length} {rules.length === 1 ? 'rule' : 'rules'}
+  </summary>
+  <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+    {rules.map(rule => (
+      <div class="border border-[var(--sl-color-gray-5)] rounded-lg p-4 flex flex-col gap-2 bg-[var(--sl-color-bg-sidebar)]">
+        <div class="flex items-center gap-2 flex-wrap">
+          <code class="text-xs font-mono font-semibold text-[var(--sl-color-text)] break-all leading-snug">
+            {rule.code}
+          </code>
+          <span class:list={['shrink-0 inline-flex items-center rounded px-1.5 py-0.5 text-xs font-semibold font-mono', reqStyles[rule.requirement]]}>
+            {rule.requirement}
+          </span>
+        </div>
+        <p class="text-sm text-[var(--sl-color-gray-2)] m-0" set:html={ruleToHtml(rule.rule)} />
+      </div>
+    ))}
+  </div>
+</details>

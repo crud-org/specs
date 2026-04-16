@@ -1,0 +1,318 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#_top"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "CRUD API" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e8]: CRUD API
+        - button "Search" [ref=e11] [cursor=pointer]:
+          - img [ref=e12]
+          - generic [ref=e14]: Search
+          - generic [ref=e15]:
+            - generic [ref=e16]: ⌘
+            - generic [ref=e17]: K
+        - generic [ref=e18]:
+          - link "GitHub" [ref=e20] [cursor=pointer]:
+            - /url: https://github.com/withastro/starlight
+            - generic [ref=e21]: GitHub
+            - img [ref=e22]
+          - generic [ref=e25]:
+            - generic [ref=e26]: Select theme
+            - img
+            - combobox "Select theme" [ref=e27] [cursor=pointer]:
+              - option "Dark"
+              - option "Light"
+              - option "Auto" [selected]
+            - img
+    - navigation "Main":
+      - list [ref=e31]:
+        - listitem [ref=e32]:
+          - group [ref=e33]:
+            - generic "Base Specification" [ref=e34] [cursor=pointer]:
+              - generic [ref=e35]: Base Specification
+              - img [ref=e36]
+            - list [ref=e38]:
+              - listitem [ref=e39]:
+                - link "1. Overview" [ref=e40] [cursor=pointer]:
+                  - /url: /base/
+              - listitem [ref=e41]:
+                - link "2. Terminology" [ref=e42] [cursor=pointer]:
+                  - /url: /base/terminology/
+              - listitem [ref=e43]:
+                - link "3. General rules and definitions" [ref=e44] [cursor=pointer]:
+                  - /url: /base/general/
+              - listitem [ref=e45]:
+                - link "4. Operation rules" [ref=e46] [cursor=pointer]:
+                  - /url: /base/operation/
+        - listitem [ref=e47]:
+          - group [ref=e48]:
+            - generic "Extensions" [ref=e49] [cursor=pointer]:
+              - generic [ref=e50]: Extensions
+              - img [ref=e51]
+            - list [ref=e53]:
+              - listitem [ref=e54]:
+                - link "Async" [ref=e55] [cursor=pointer]:
+                  - /url: /extensions/async/
+        - listitem [ref=e56]:
+          - group [ref=e57]:
+            - generic "Protocols" [ref=e58] [cursor=pointer]:
+              - generic [ref=e59]: Protocols
+              - img [ref=e60]
+            - list [ref=e62]:
+              - listitem [ref=e63]:
+                - link "RESTful HTTP" [ref=e64] [cursor=pointer]:
+                  - /url: /protocols/http/
+    - generic [ref=e66]:
+      - complementary [ref=e67]:
+        - navigation "On this page" [ref=e72]:
+          - heading "On this page" [level=2] [ref=e73]
+          - list [ref=e74]:
+            - listitem [ref=e75]:
+              - link "Overview" [ref=e76] [cursor=pointer]:
+                - /url: "#_top"
+            - listitem [ref=e77]:
+              - link "3.1 Resources" [ref=e78] [cursor=pointer]:
+                - /url: "#31-resources"
+              - list [ref=e79]:
+                - listitem [ref=e80]:
+                  - link "3.1.1 Resource Types and Collections" [ref=e81] [cursor=pointer]:
+                    - /url: "#311-resource-types-and-collections"
+                - listitem [ref=e82]:
+                  - link "3.1.2 Resource Fields" [ref=e83] [cursor=pointer]:
+                    - /url: "#312-resource-fields"
+                - listitem [ref=e84]:
+                  - link "3.1.3 Resource IDs" [ref=e85] [cursor=pointer]:
+                    - /url: "#313-resource-ids"
+                - listitem [ref=e86]:
+                  - link "3.1.4 Resource representation" [ref=e87] [cursor=pointer]:
+                    - /url: "#314-resource-representation"
+            - listitem [ref=e88]:
+              - link "3.2 Search queries" [ref=e89] [cursor=pointer]:
+                - /url: "#32-search-queries"
+              - list [ref=e90]:
+                - listitem [ref=e91]:
+                  - link "3.2.1 Definition and representation" [ref=e92] [cursor=pointer]:
+                    - /url: "#321-definition-and-representation"
+                - listitem [ref=e93]:
+                  - link "3.2.2 Saved queries" [ref=e94] [cursor=pointer]:
+                    - /url: "#322-saved-queries"
+            - listitem [ref=e95]:
+              - link "3.3 Parameters" [ref=e96] [cursor=pointer]:
+                - /url: "#33-parameters"
+              - list [ref=e97]:
+                - listitem [ref=e98]:
+                  - link "3.3.1 Projection parameter" [ref=e99] [cursor=pointer]:
+                    - /url: "#331-projection-parameter"
+            - listitem [ref=e100]:
+              - link "3.4 Metadata" [ref=e101] [cursor=pointer]:
+                - /url: "#34-metadata"
+              - list [ref=e102]:
+                - listitem [ref=e103]:
+                  - link "3.4.1 Content negotiation" [ref=e104] [cursor=pointer]:
+                    - /url: "#341-content-negotiation"
+                - listitem [ref=e105]:
+                  - link "3.4.2 General metadata" [ref=e106] [cursor=pointer]:
+                    - /url: "#342-general-metadata"
+                - listitem [ref=e107]:
+                  - link "3.4.3 Error handling" [ref=e108] [cursor=pointer]:
+                    - /url: "#343-error-handling"
+      - main [ref=e110]:
+        - heading "3. General rules and definitions" [level=1] [ref=e113]
+        - generic [ref=e115]:
+          - generic [ref=e116]:
+            - paragraph [ref=e117]: This section defines rules and definitions that apply to many or all CRUD operations.
+            - generic [ref=e118]:
+              - heading "3.1 Resources" [level=2] [ref=e119]
+              - link "Section titled “3.1 Resources”" [ref=e120] [cursor=pointer]:
+                - /url: "#31-resources"
+                - img [ref=e122]
+                - generic [ref=e124]: Section titled “3.1 Resources”
+            - separator [ref=e125]
+            - paragraph [ref=e126]:
+              - text: A "
+              - strong [ref=e127]: Resource
+              - text: "\", \""
+              - strong [ref=e128]: Document
+              - text: "\" or \""
+              - strong [ref=e129]: Resource Object
+              - text: "\" is a data object that can be uniquely identified within the same API domain of data."
+            - generic [ref=e130]:
+              - heading "3.1.1 Resource Types and Collections" [level=3] [ref=e131]
+              - link "Section titled “3.1.1 Resource Types and Collections”" [ref=e132] [cursor=pointer]:
+                - /url: "#311-resource-types-and-collections"
+                - img [ref=e134]
+                - generic [ref=e136]: Section titled “3.1.1 Resource Types and Collections”
+            - paragraph [ref=e137]:
+              - text: A "
+              - strong [ref=e138]: Resource Type
+              - text: "\" or \""
+              - strong [ref=e139]: Entity
+              - text: "\" is a unique schema within the API domain that describes the structure of multiple Resources. For example, \"User\". A \""
+              - strong [ref=e140]: Collection
+              - text: "\" is a set of Resources sharing the same Resource Type. For example, \"users\"."
+            - group [ref=e141]:
+              - generic "1 rule" [ref=e142] [cursor=pointer]
+            - generic [ref=e143]:
+              - heading "3.1.2 Resource Fields" [level=3] [ref=e144]
+              - link "Section titled “3.1.2 Resource Fields”" [ref=e145] [cursor=pointer]:
+                - /url: "#312-resource-fields"
+                - img [ref=e147]
+                - generic [ref=e149]: Section titled “3.1.2 Resource Fields”
+            - paragraph [ref=e150]:
+              - text: A "
+              - strong [ref=e151]: Resource Field
+              - text: "\" or \""
+              - strong [ref=e152]: Property
+              - text: "\" is an specific attribute of a Resource consisting of a key-value pair."
+            - group [ref=e153]:
+              - generic "4 rules" [ref=e154] [cursor=pointer]
+            - generic [ref=e155]:
+              - heading "3.1.3 Resource IDs" [level=3] [ref=e156]
+              - link "Section titled “3.1.3 Resource IDs”" [ref=e157] [cursor=pointer]:
+                - /url: "#313-resource-ids"
+                - img [ref=e159]
+                - generic [ref=e161]: Section titled “3.1.3 Resource IDs”
+            - paragraph [ref=e162]:
+              - text: A "
+              - strong [ref=e163]: Resource ID
+              - text: "\" is one or many Properties that uniquely identify a Resource."
+            - group [ref=e164]:
+              - generic "3 rules" [ref=e165] [cursor=pointer]
+            - generic [ref=e166]:
+              - heading "3.1.4 Resource representation" [level=3] [ref=e167]
+              - link "Section titled “3.1.4 Resource representation”" [ref=e168] [cursor=pointer]:
+                - /url: "#314-resource-representation"
+                - img [ref=e170]
+                - generic [ref=e172]: Section titled “3.1.4 Resource representation”
+            - paragraph [ref=e173]:
+              - text: A "
+              - strong [ref=e174]: Resource Representation
+              - text: "\" is the text format, encoding, and serialization used to represent or transport a Resource during a CRUD operation. This may or may not match how the Resource is stored logically."
+            - group [ref=e175]:
+              - generic "5 rules" [ref=e176] [cursor=pointer]
+            - generic [ref=e177]:
+              - heading "3.2 Search queries" [level=2] [ref=e178]
+              - link "Section titled “3.2 Search queries”" [ref=e179] [cursor=pointer]:
+                - /url: "#32-search-queries"
+                - img [ref=e181]
+                - generic [ref=e183]: Section titled “3.2 Search queries”
+            - separator [ref=e184]
+            - generic [ref=e185]:
+              - heading "3.2.1 Definition and representation" [level=3] [ref=e186]
+              - link "Section titled “3.2.1 Definition and representation”" [ref=e187] [cursor=pointer]:
+                - /url: "#321-definition-and-representation"
+                - img [ref=e189]
+                - generic [ref=e191]: Section titled “3.2.1 Definition and representation”
+            - paragraph [ref=e192]:
+              - text: A "
+              - strong [ref=e193]: Search Query
+              - text: "\" is a structured input string used to filter Documents during some CRUD operations. It includes Properties, operators, modifiers, and language-specific keywords."
+            - group [ref=e194]:
+              - generic "2 rules" [ref=e195] [cursor=pointer]
+            - generic [ref=e196]:
+              - heading "3.2.2 Saved queries" [level=3] [ref=e197]
+              - link "Section titled “3.2.2 Saved queries”" [ref=e198] [cursor=pointer]:
+                - /url: "#322-saved-queries"
+                - img [ref=e200]
+                - generic [ref=e202]: Section titled “3.2.2 Saved queries”
+            - paragraph [ref=e203]:
+              - text: A "
+              - strong [ref=e204]: Saved Query
+              - text: "\" or \""
+              - strong [ref=e205]: View
+              - text: "\" is a predefined Search Query stored on the CRUD API server."
+            - group [ref=e206]:
+              - generic "2 rules" [ref=e207] [cursor=pointer]
+            - generic [ref=e208]:
+              - heading "3.3 Parameters" [level=2] [ref=e209]
+              - link "Section titled “3.3 Parameters”" [ref=e210] [cursor=pointer]:
+                - /url: "#33-parameters"
+                - img [ref=e212]
+                - generic [ref=e214]: Section titled “3.3 Parameters”
+            - separator [ref=e215]
+            - paragraph [ref=e216]: This section defines Parameters that apply across multiple CRUD API operations. Parameters specific to individual operations are defined in their respective sections.
+            - generic [ref=e217]:
+              - heading "3.3.1 Projection parameter" [level=3] [ref=e218]
+              - link "Section titled “3.3.1 Projection parameter”" [ref=e219] [cursor=pointer]:
+                - /url: "#331-projection-parameter"
+                - img [ref=e221]
+                - generic [ref=e223]: Section titled “3.3.1 Projection parameter”
+            - paragraph [ref=e224]:
+              - text: A "
+              - strong [ref=e225]: Projection parameter
+              - text: "\" determines which properties should be included in"
+              - strong [ref=e226]: read
+              - text: operations.
+            - group [ref=e227]:
+              - generic "6 rules" [ref=e228] [cursor=pointer]
+            - generic [ref=e229]:
+              - heading "3.4 Metadata" [level=2] [ref=e230]
+              - link "Section titled “3.4 Metadata”" [ref=e231] [cursor=pointer]:
+                - /url: "#34-metadata"
+                - img [ref=e233]
+                - generic [ref=e235]: Section titled “3.4 Metadata”
+            - separator [ref=e236]
+            - paragraph [ref=e237]:
+              - text: Operation "
+              - strong [ref=e238]: Metadata
+              - text: "\" is optional data exchanged between CRUD API Participants (client and server) during operations. It includes information such as client/server negotiation details and request/response metadata. This metadata determines"
+              - strong [ref=e239]: whether
+              - text: the participants can perform the operation using the same encoding, serialization, content type, async flow, and other capabilities.
+            - generic [ref=e240]:
+              - heading "3.4.1 Content negotiation" [level=3] [ref=e241]
+              - link "Section titled “3.4.1 Content negotiation”" [ref=e242] [cursor=pointer]:
+                - /url: "#341-content-negotiation"
+                - img [ref=e244]
+                - generic [ref=e246]: Section titled “3.4.1 Content negotiation”
+            - paragraph [ref=e247]:
+              - text: "\""
+              - strong [ref=e248]: Content negotiation
+              - text: "\" refers to the metadata exchanged between the Client and Server indicating their capabilities and preferences for Input and Output data."
+            - group [ref=e249]:
+              - generic "4 rules" [ref=e250] [cursor=pointer]
+            - generic [ref=e251]:
+              - heading "3.4.2 General metadata" [level=3] [ref=e252]
+              - link "Section titled “3.4.2 General metadata”" [ref=e253] [cursor=pointer]:
+                - /url: "#342-general-metadata"
+                - img [ref=e255]
+                - generic [ref=e257]: Section titled “3.4.2 General metadata”
+            - group [ref=e258]:
+              - generic "5 rules" [ref=e259] [cursor=pointer]
+            - generic [ref=e260]:
+              - heading "3.4.3 Error handling" [level=3] [ref=e261]
+              - link "Section titled “3.4.3 Error handling”" [ref=e262] [cursor=pointer]:
+                - /url: "#343-error-handling"
+                - img [ref=e264]
+                - generic [ref=e266]: Section titled “3.4.3 Error handling”
+            - group [ref=e267]:
+              - generic "4 rules" [ref=e268] [cursor=pointer]
+          - generic [ref=e270]:
+            - link "Previous 2. Terminology" [ref=e271] [cursor=pointer]:
+              - /url: /base/terminology/
+              - img [ref=e272]
+              - generic [ref=e274]:
+                - text: Previous
+                - text: 2. Terminology
+            - link "Next 4. Operation rules" [ref=e275] [cursor=pointer]:
+              - /url: /base/operation/
+              - img [ref=e276]
+              - generic [ref=e278]:
+                - text: Next
+                - text: 4. Operation rules
+  - generic [ref=e281]:
+    - button "Menu" [ref=e282]:
+      - img [ref=e284]
+      - generic: Menu
+    - button "Inspect" [ref=e288]:
+      - img [ref=e290]
+      - generic: Inspect
+    - button "Audit" [ref=e292]:
+      - generic [ref=e293]:
+        - img [ref=e294]
+        - img [ref=e297]
+      - generic: Audit
+    - button "Settings" [ref=e300]:
+      - img [ref=e302]
+      - generic: Settings

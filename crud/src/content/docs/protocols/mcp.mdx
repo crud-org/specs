@@ -1,0 +1,410 @@
+---
+title: MCP (Model Context Protocol)
+description: CRUD API Protocol Specification for MCP, mapping base CRUD operations to JSON-RPC 2.0 methods over the Model Context Protocol.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import RulesCardGrid from '../../../components/RulesCardGrid.astro';
+import SectionDescription from '../../../components/SectionDescription.astro';
+
+export const getExample = `// Request
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "crud/get",
+  "params": {
+    "collection": "users",
+    "id": "us_b8tRS7h4TJ2Vt43Dp85v2A",
+    "fields": "name,email",
+    "_meta": {
+      "crudVersion": "1.0.0",
+      "crudExtensions": [],
+      "correlationId": "d9088ac1-3d13-4f8e-a705-378ebcf5fd3c"
+    }
+  }
+}
+
+// Response
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "_id": "us_b8tRS7h4TJ2Vt43Dp85v2A",
+    "name": "Jane Doe",
+    "email": "jane@example.com",
+    "_meta": {
+      "crudVersion": "1.0.0",
+      "correlationId": "d9088ac1-3d13-4f8e-a705-378ebcf5fd3c"
+    }
+  }
+}`;
+
+export const listExample = `// Request
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "crud/list",
+  "params": {
+    "collection": "users",
+    "query": { "role": "admin" },
+    "sort": "name,-createdAt",
+    "page": 1,
+    "limit": 10,
+    "_meta": { "crudVersion": "1.0.0", "crudExtensions": [] }
+  }
+}
+
+// Response
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "result": {
+    "documents": [
+      { "_id": "us_abc", "name": "Alice", "role": "admin" },
+      { "_id": "us_def", "name": "Bob", "role": "admin" }
+    ],
+    "_meta": {
+      "crudVersion": "1.0.0",
+      "matchedCount": 2
+    }
+  }
+}`;
+
+export const createExample = `// Request
+{
+  "jsonrpc": "2.0",
+  "id": 3,
+  "method": "crud/create",
+  "params": {
+    "collection": "users",
+    "documents": [
+      { "name": "Charlie", "email": "charlie@example.com" }
+    ],
+    "_meta": { "crudVersion": "1.0.0", "crudExtensions": [] }
+  }
+}
+
+// Response
+{
+  "jsonrpc": "2.0",
+  "id": 3,
+  "result": {
+    "documents": [
+      { "_id": "us_ghi", "name": "Charlie", "email": "charlie@example.com" }
+    ],
+    "_meta": {
+      "crudVersion": "1.0.0",
+      "modifiedCount": 1
+    }
+  }
+}`;
+
+export const errorExample = `// Error: Resource not found
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "error": {
+    "code": -32001,
+    "message": "Resource not found",
+    "data": {
+      "collection": "users",
+      "id": "us_nonexistent"
+    }
+  }
+}`;
+
+export const asyncAcceptedExample = `// Request with async preference
+{
+  "jsonrpc": "2.0",
+  "id": 10,
+  "method": "crud/list",
+  "params": {
+    "collection": "analytics",
+    "query": { "date": { "$gte": "2025-01-01" } },
+    "_meta": {
+      "crudVersion": "1.0.0",
+      "crudExtensions": ["async"],
+      "async": "prefer",
+      "progressToken": "tok_abc123"
+    }
+  }
+}
+
+// Response: async accepted
+{
+  "jsonrpc": "2.0",
+  "id": 10,
+  "result": {
+    "_meta": {
+      "crudVersion": "1.0.0",
+      "async": "accepted",
+      "operationId": "op_7f3a9b2c"
+    }
+  }
+}
+
+// Polling: still running
+{
+  "jsonrpc": "2.0",
+  "id": 11,
+  "method": "crud/operationResult",
+  "params": { "operationId": "op_7f3a9b2c" }
+}
+// → { "result": { "_meta": { "async": "pending" } } }
+
+// Polling: completed
+// → { "result": { "documents": [...], "_meta": { "matchedCount": 42 } } }`;
+
+export const capExample = `// Server capabilities during initialize
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "protocolVersion": "2025-03-26",
+    "capabilities": {
+      "tools": { "listChanged": true },
+      "experimental": {
+        "crud": {
+          "version": "1.0.0",
+          "extensions": ["async"],
+          "collections": ["users", "products", "orders"]
+        }
+      }
+    },
+    "serverInfo": {
+      "name": "MyCrudServer",
+      "version": "2.1.0"
+    }
+  }
+}`;
+
+This Protocol Specification maps the [CRUD API Base Specification](/base/) to the **Model Context Protocol (MCP)**, as defined in [Protocols](/protocols/). It follows the [MCP Specification (2025-03-26)](https://modelcontextprotocol.io/specification/2025-03-26) and uses [JSON-RPC 2.0](https://www.jsonrpc.org/specification) as the message format.
+
+The five protocol concepts are realized as follows:
+
+| Concept | MCP realization |
+|---|---|
+| **Operations** | JSON-RPC methods with `crud/` namespace (e.g., `crud/get`, `crud/list`). |
+| **Parameters** | Top-level fields in the JSON-RPC `params` object (e.g., `fields`, `sort`, `query`). |
+| **Metadata** | `_meta` object within `params` (request) and `result` (response), following the MCP `_meta` convention. |
+| **Content negotiation** | `experimental.crud` capability declared during the MCP `initialize` handshake. |
+| **Error signaling** | JSON-RPC error object with CRUD-specific codes in the `-32000` to `-32099` range. |
+
+## 1. Methods
+
+---
+
+<SectionDescription sectionCode="M1" />
+
+| CRUD Operation | MCP Method | Subject in `params` |
+|---|---|---|
+| `get` | `crud/get` | `collection` + `id` |
+| `list` | `crud/list` | `collection` + optional `query` or `view` |
+| `create` | `crud/create` | `collection` + `documents` |
+| `patchById` | `crud/patch` | `collection` + `id` + `patch` |
+| `patchByQuery` | `crud/patch` | `collection` + `query` + `patch` |
+| `replaceById` | `crud/replace` | `collection` + `id` + `document` |
+| `replaceByQuery` | `crud/replace` | `collection` + `query` + `document` |
+| `deleteById` | `crud/delete` | `collection` + `id` |
+| `deleteByQuery` | `crud/delete` | `collection` + `query` |
+
+<RulesCardGrid sectionCode="M1" open />
+
+### 1.1 Read methods
+
+<RulesCardGrid sectionCode="M11" open />
+
+<Code code={getExample} lang="jsonc" title="crud/get example" />
+
+### 1.2 Write methods
+
+<RulesCardGrid sectionCode="M12" open />
+
+<Code code={createExample} lang="jsonc" title="crud/create example" />
+
+## 2. Parameters
+
+---
+
+<SectionDescription sectionCode="M2" />
+
+All parameters are top-level fields in `params`, alongside Subject fields:
+
+| Parameter | Field | Type | Operations |
+|---|---|---|---|
+| Projection | `fields` | `string` | All except `crud/delete` |
+| Sorting | `sort` | `string` | `crud/list` |
+| Pagination | `page`, `limit` | `number` | `crud/list` |
+| Expect match | `expectMatch` | `number` | `crud/patch`, `crud/replace`, `crud/delete` (batch) |
+| Deny upsert | `denyUpsert` | `boolean` | `crud/replace` (by id) |
+
+<RulesCardGrid sectionCode="M2" open />
+
+## 3. Metadata
+
+---
+
+<SectionDescription sectionCode="M3" />
+
+The `_meta` object in requests:
+
+| Field | Type | Requirement | Description |
+|---|---|---|---|
+| `crudVersion` | `string` | MUST | CRUD API Spec version |
+| `crudExtensions` | `string[]` | MUST | Supported extension names |
+| `correlationId` | `string` | SHOULD | Fresh `uuid-hex` |
+| `prefer` | `string` | MAY | `"representation"` (default) or `"status"` |
+| `handling` | `string` | MAY | `"lenient"` (default) or `"strict"` |
+
+The `_meta` object in responses:
+
+| Field | Type | Requirement | Description |
+|---|---|---|---|
+| `crudVersion` | `string` | MUST | Server's CRUD API Spec version |
+| `correlationId` | `string` | MUST | Echoed or newly generated |
+| `matchedCount` | `number` | SHOULD | For query-based operations |
+| `modifiedCount` | `number` | SHOULD | For write operations |
+| `upserted` | `boolean` | MUST | When replace creates a new Document |
+| `warnings` | `string[]` | MAY | Validation warnings |
+
+<RulesCardGrid sectionCode="M3" open />
+
+## 4. Response
+
+---
+
+<SectionDescription sectionCode="M4" />
+
+| Operation | `result` structure |
+|---|---|
+| `crud/get` | Document fields at top level + `_meta` |
+| `crud/list` | `{ documents: [...], _meta: {...} }` |
+| `crud/create`, `crud/patch`, `crud/replace` | `{ documents: [...], _meta: {...} }` |
+| `crud/delete` | `{ _meta: {...} }` |
+| Any (with `prefer: "status"`) | `{ _meta: {...} }` |
+
+<RulesCardGrid sectionCode="M4" open />
+
+<Code code={listExample} lang="jsonc" title="crud/list response" />
+
+## 5. Error handling
+
+---
+
+<SectionDescription sectionCode="M5" />
+
+| Error | Code | Equivalent HTTP |
+|---|---|---|
+| Not Found | `-32001` | `404` |
+| Conflict | `-32002` | `409` |
+| Precondition Failed | `-32003` | `412` |
+| Negotiation Failed | `-32004` | `400` / `406` |
+
+These codes are in the JSON-RPC Server-defined error range (`-32000` to `-32099`). Standard JSON-RPC errors (`-32600` to `-32603`) remain unchanged.
+
+<RulesCardGrid sectionCode="M5" open />
+
+<Code code={errorExample} lang="jsonc" title="Error response" />
+
+## 6. Capability negotiation
+
+---
+
+<SectionDescription sectionCode="M6" />
+
+During the MCP `initialize` handshake, the Server declares CRUD support via the `experimental.crud` capability object. This replaces per-request version and extension negotiation — Clients that have completed initialization already know the Server's CRUD version and capabilities.
+
+<RulesCardGrid sectionCode="M6" open />
+
+<Code code={capExample} lang="jsonc" title="Server capabilities" />
+
+## 7. Asyncability
+
+---
+
+<SectionDescription sectionCode="MA7" />
+
+Unlike HTTP (which uses `Prefer`/`Expect` headers and status codes), MCP leverages the `_meta` object for negotiation and JSON-RPC's native notification system for progress tracking.
+
+### 7.1 Negotiation
+
+<SectionDescription sectionCode="MA71" />
+
+| Client ability | `_meta.async` value |
+|---|---|
+| **Sync-only** (default) | Field absent |
+| **Async-preferred** | `"prefer"` |
+| **Async-required** | `"require"` |
+
+<RulesCardGrid sectionCode="MA71" open />
+
+### 7.2 Server response
+
+<SectionDescription sectionCode="MA72" />
+
+| Server × Client | Sync-only Client | Async-preferred | Async-required |
+|---|---|---|---|
+| **Sync-only Server** | Normal result | Normal result (MAY `-32005`) | MUST `-32005` |
+| **Async-only Server** | MUST `-32005` | Async accepted | Async accepted |
+| **Both Server** | Normal result | Async accepted | Async accepted |
+
+When accepted, the response contains `_meta.async: "accepted"` and `_meta.operationId`.
+
+<RulesCardGrid sectionCode="MA72" open />
+
+### 7.3 Operation polling
+
+<SectionDescription sectionCode="MA73" />
+
+| `crud/operationResult` response | `_meta.async` |
+|---|---|
+| Still running | `"pending"` |
+| Completed | Field absent (full result returned) |
+| Failed | JSON-RPC error |
+
+<RulesCardGrid sectionCode="MA73" open />
+
+<Code code={asyncAcceptedExample} lang="jsonc" title="Async flow example" />
+
+### 7.4 Progress notifications
+
+<SectionDescription sectionCode="MA74" />
+
+The Server uses the standard MCP `notifications/progress` mechanism with the `progressToken` provided by the Client. This gives real-time feedback without polling.
+
+<RulesCardGrid sectionCode="MA74" open />
+
+### 7.5 Callback notifications
+
+<SectionDescription sectionCode="MA75" />
+
+Instead of webhook URLs (as in HTTP), MCP uses JSON-RPC notification methods. The Client specifies method names that the Server invokes as notifications.
+
+<RulesCardGrid sectionCode="MA75" open />
+
+## 8. Resource Metadata
+
+---
+
+This section maps the [Metadata extension](/extensions/metadata/) to MCP. Resource-level Metadata is nested inside the `_meta` object that is already part of every CRUD result.
+
+### 8.1 Resource Metadata in `_meta`
+
+<SectionDescription sectionCode="MM81" />
+
+| `_meta` field | Type | Requirement | Maps to |
+|---|---|---|---|
+| `version` | `number` | MUST | Document version counter |
+| `hash` | `string` | SHOULD | Document hash (CRC32 base64) |
+| `events.created` | `object` | MUST | Creation event (timestamp, author) |
+| `events.updated` | `object` | MUST (on writes) | Last write event |
+| `events.published` | `object` | MAY | Publication event |
+| `events.archived` | `object` | MAY | Archival event |
+| `status` | `string` | MAY | Lifecycle: `"draft"` / `"published"` / `"archived"` |
+| `ancestor` | `string` | MUST (if cloned) | Original Document Resource ID |
+| `origin.realm` | `string` | MAY | External source hostname/workspace |
+| `origin.type` | `string` | MAY | External source Resource Type |
+
+For optimistic concurrency, the Client sends `_meta.ifMatch` in write requests with the expected hash. If mismatched, the Server returns error `-32003` (Precondition Failed).
+
+<RulesCardGrid sectionCode="MM81" open />

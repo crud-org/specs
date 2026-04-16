@@ -1,0 +1,34 @@
+---
+title: Extensions
+description: Optional extension specifications that add capabilities to the CRUD API Base Specification without modifying its core rules.
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+An **"Extension Specification"** adds optional capabilities to the [CRUD API Base Specification](/base/) that Participants MAY adopt. Extensions define abstract rules that Protocol Specifications then map to their transport mechanisms.
+
+Extensions MUST NOT contradict Base Specification rules. An extension's rules only apply to Participants that declare support for it — typically via the `crudExtensions` Metadata field defined in [Section 3.4.2 General metadata](/base/general/#342-general-metadata).
+
+Extension Specifications follow the same [RFC 2119](https://datatracker.ietf.org/doc/html/rfc2119) keyword conventions and [SemVer](https://semver.org/) versioning as the Base Specification.
+
+---
+
+## Available extensions
+
+<CardGrid>
+  <LinkCard
+    title="Asyncability"
+    href="/extensions/async/"
+    description="Enables Participants to negotiate synchronous or asynchronous operation execution, with polling and callback mechanisms."
+  />
+  <LinkCard
+    title="Metadata"
+    href="/extensions/metadata/"
+    description="Defines Resource-level Metadata fields for versioning, event timestamps, lifecycle status, and origin tracking."
+  />
+  <LinkCard
+    title="Relationships"
+    href="/extensions/relationships/"
+    description="Defines a $rel convention for expressing typed, self-describing references between Documents, with optional population support."
+  />
+</CardGrid>

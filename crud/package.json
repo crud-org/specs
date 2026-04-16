@@ -1,0 +1,27 @@
+{
+  "name": "crud",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "node scripts/build-markdown.mjs && astro build",
+    "build:markdown": "node scripts/build-markdown.mjs",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.38.3",
+    "@astrojs/starlight-tailwind": "^5.0.0",
+    "@lorenzo_lewis/starlight-utils": "^0.3.2",
+    "@tailwindcss/vite": "^4.1.18",
+    "astro": "^6.0.1",
+    "astro-mermaid": "^2.0.1",
+    "mermaid": "^11.14.0",
+    "sharp": "^0.34.2",
+    "starlight-heading-badges": "^0.7.0",
+    "starlight-links-validator": "^0.23.0",
+    "starlight-versions": "^0.8.1",
+    "tailwindcss": "^4.1.18"
+  }
+}

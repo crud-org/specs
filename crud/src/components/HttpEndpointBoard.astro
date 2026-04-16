@@ -1,0 +1,452 @@
+---
+import { DatabaseSync } from 'node:sqlite';
+import path from 'node:path';
+import { Tabs, TabItem, Code } from '@astrojs/starlight/components';
+
+interface Props {
+  signature: string;
+}
+
+interface HttpRule {
+  code: string;
+  name: string;
+  entity: string;
+  request_response: string;
+  requirement: string;
+  verb: string;
+  key: string | null;
+  value: string | null;
+  value_shortcode: string | null;
+  condition: string | null;
+  base_rule_codes: string | null;
+}
+
+const { signature } = Astro.props;
+
+const dbPath = path.join(process.cwd(), 'src/crud.db');
+const db = new DatabaseSync(dbPath);
+
+const specificRules = db.prepare(`
+  SELECT h.code, h.name, h.entity, h.request_response, h.requirement,
+         h.verb, h.key, h.value, h.value_shortcode, h.condition,
+         h.base_rule_codes
+  FROM http_rules h, json_each(h.signatures) s
+  WHERE s.value = ?
+    AND h.is_global = 0
+  ORDER BY h.display_order, h.rowid
+`).all(signature) as HttpRule[];
+
+const inheritedRules = db.prepare(`
+  SELECT h.code, h.name, h.entity, h.request_response, h.requirement,
+         h.verb, h.key, h.value, h.value_shortcode, h.condition,
+         h.base_rule_codes
+  FROM http_rules h, json_each(h.signatures) s
+  WHERE s.value = ?
+    AND h.is_global = 1
+  ORDER BY h.display_order, h.rowid
+`).all(signature) as HttpRule[];
+
+// Collect all base rule codes and fetch their details for tooltips
+const allHttpRules = [...specificRules, ...inheritedRules];
+const allBaseCodes = new Set<string>();
+for (const rule of allHttpRules) {
+  if (rule.base_rule_codes) {
+    try { (JSON.parse(rule.base_rule_codes) as string[]).forEach(c => allBaseCodes.add(c)); } catch {}
+  }
+}
+
+interface BaseRule { code: string; requirement: string; rule: string }
+const baseRulesMap = new Map<string, BaseRule>();
+for (const code of allBaseCodes) {
+  const row = db.prepare('SELECT code, requirement, rule FROM crud_api_rules WHERE code = ?').get(code) as BaseRule | undefined;
+  if (row) baseRulesMap.set(row.code, row);
+}
+
+const endpointRow = db.prepare(
+  'SELECT crud_operation FROM http_endpoints WHERE signature = ?'
+).get(signature) as { crud_operation: string } | undefined;
+const operationId = endpointRow?.crud_operation ?? 'unknown';
+
+db.close();
+
+const specificReq = specificRules.filter(r => r.request_response === 'Request');
+const specificRes = specificRules.filter(r => r.request_response === 'Response');
+const inheritedReq = inheritedRules.filter(r => r.request_response === 'Request');
+const inheritedRes = inheritedRules.filter(r => r.request_response === 'Response');
+
+function getBaseRules(rule: HttpRule): BaseRule[] {
+  if (!rule.base_rule_codes) return [];
+  try {
+    return (JSON.parse(rule.base_rule_codes) as string[])
+      .map(code => baseRulesMap.get(code))
+      .filter((r): r is BaseRule => !!r);
+  } catch { return []; }
+}
+
+// --- Styling ---
+
+const reqStyles: Record<string, string> = {
+  MUST:   'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300',
+  SHOULD: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300',
+  MAY:    'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300',
+};
+
+function toHtml(text: string): string {
+  return text
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, linkText, url) => {
+      const external = url.startsWith('http');
+      const attrs = external ? ' target="_blank" rel="noopener noreferrer"' : '';
+      return `<a href="${url}"${attrs}>${linkText}</a>`;
+    })
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/\\\$/g, '$');
+}
+
+function subjectHtml(rule: HttpRule): string {
+  if (rule.key) return `${rule.entity} <code>${rule.key}</code>`;
+  return rule.entity;
+}
+
+function predicateHtml(rule: HttpRule): string {
+  const verbMap: Record<string, string> = { 'be_=': 'be' };
+  const verbText = verbMap[rule.verb] || rule.verb;
+  const value = rule.value ? `<strong>${toHtml(rule.value)}</strong>` : '';
+  return `${verbText} ${value}`;
+}
+
+// --- OpenAPI schema generation ---
+
+function generateOasYaml(): string {
+  const [method, ...rest] = signature.split(' ');
+  const urlPath = rest.join(' ').replace(/:(\w+)/g, '{$1}');
+  const httpMethod = method.toLowerCase();
+  const allRules = [...specificRules, ...inheritedRules];
+  const req = allRules.filter(r => r.request_response === 'Request');
+  const res = allRules.filter(r => r.request_response === 'Response');
+  const I = (n: number) => '  '.repeat(n);
+
+  const lines: string[] = [];
+  lines.push(`${urlPath}:`);
+  lines.push(`${I(1)}${httpMethod}:`);
+  lines.push(`${I(2)}operationId: ${operationId}`);
+
+  // Parameters: path components, query params, request headers (skip Method, Body, Content-Type)
+  const params = req.filter(r =>
+    r.key &&
+    r.entity !== 'Method' &&
+    r.entity !== 'Body' &&
+    !(r.entity === 'Header' && r.key === 'Content-Type')
+  );
+
+  if (params.length > 0) {
+    lines.push(`${I(2)}parameters:`);
+    for (const p of params) {
+      const loc = p.entity === 'URL path component' ? 'path'
+        : p.entity === 'URL query parameter' ? 'query'
+        : 'header';
+      lines.push(`${I(3)}- name: ${p.key}`);
+      lines.push(`${I(4)}in: ${loc}`);
+      if (p.requirement === 'MUST' || loc === 'path') lines.push(`${I(4)}required: true`);
+      lines.push(`${I(4)}schema: { type: string }`);
+      if (p.value_shortcode && p.value_shortcode !== p.key) {
+        lines.push(`${I(4)}description: ${p.value_shortcode}`);
+      }
+    }
+  }
+
+  // Request body
+  const bodyRule = req.find(r => r.entity === 'Body');
+  if (bodyRule) {
+    const ctRule = req.find(r => r.entity === 'Header' && r.key === 'Content-Type');
+    const ct = ctRule?.value_shortcode || 'application/json';
+    lines.push(`${I(2)}requestBody:`);
+    lines.push(`${I(3)}required: true`);
+    lines.push(`${I(3)}content:`);
+    lines.push(`${I(4)}${ct}:`);
+    lines.push(`${I(5)}schema:`);
+    if (bodyRule.name.includes('/')) {
+      lines.push(`${I(6)}oneOf:`);
+      lines.push(`${I(7)}- type: object`);
+      lines.push(`${I(7)}- type: array`);
+      lines.push(`${I(8)}items: { type: object }`);
+    } else if (bodyRule.name.includes('JSON Patch')) {
+      lines.push(`${I(6)}type: array`);
+      lines.push(`${I(6)}items:`);
+      lines.push(`${I(7)}$ref: '#/components/schemas/JsonPatchOperation'`);
+    } else {
+      lines.push(`${I(6)}type: object`);
+    }
+  }
+
+  // Responses
+  const statuses = res.filter(r => r.entity === 'Status');
+  const resHeaders = res.filter(r => r.entity === 'Header');
+  const resBodies = res.filter(r => r.entity === 'Body' && r.name !== '{ error }');
+  const primaryBody = resBodies.find(b => b.name !== '∅');
+  const hasEmptyBody = resBodies.some(b => b.name === '∅');
+
+  lines.push(`${I(2)}responses:`);
+
+  // Deduplicate status codes (keep first of each code, append conditions)
+  const seenCodes = new Map<string, typeof statuses[0][]>();
+  for (const s of statuses) {
+    const code = s.value_shortcode || '200';
+    if (!seenCodes.has(code)) seenCodes.set(code, []);
+    seenCodes.get(code)!.push(s);
+  }
+
+  let isFirstSuccess = true;
+  for (const [code, rules] of seenCodes) {
+    const primary = rules[0];
+    const desc = primary.name.replace(/^\d+\s*/, '');
+    lines.push(`${I(3)}'${code}':`);
+    lines.push(`${I(4)}description: >-`);
+    lines.push(`${I(5)}${desc}.${rules.filter(r => r.condition).map(r => ' ' + r.condition).join('')}`);
+
+    const isSuccess = parseInt(code) < 400;
+
+    // Headers on first success response only
+    if (isSuccess && isFirstSuccess && resHeaders.length > 0) {
+      isFirstSuccess = false;
+      lines.push(`${I(4)}headers:`);
+      for (const h of resHeaders) {
+        lines.push(`${I(5)}${h.key}:`);
+        lines.push(`${I(6)}schema: { type: string }`);
+      }
+    }
+
+    // Body
+    if (code === '204') continue;
+
+    if (isSuccess && primaryBody) {
+      lines.push(`${I(4)}content:`);
+      lines.push(`${I(5)}application/json:`);
+      lines.push(`${I(6)}schema:`);
+      if (primaryBody.name.includes('Documents') || primaryBody.name.includes('(s)')) {
+        lines.push(`${I(7)}oneOf:`);
+        lines.push(`${I(8)}- type: object`);
+        lines.push(`${I(8)}- type: array`);
+        lines.push(`${I(9)}items: { type: object }`);
+      } else if (primaryBody.name.includes('Document')) {
+        lines.push(`${I(7)}type: object`);
+      }
+    } else if (!isSuccess) {
+      lines.push(`${I(4)}content:`);
+      lines.push(`${I(5)}application/json:`);
+      lines.push(`${I(6)}schema:`);
+      lines.push(`${I(7)}$ref: '#/components/schemas/Error'`);
+    }
+  }
+
+  return lines.join('\n');
+}
+
+const oasYaml = generateOasYaml();
+---
+
+<Tabs>
+  <TabItem label={`Specific rules (${specificRules.length})`}>
+    {specificRules.length === 0 ? (
+      <p class="text-sm text-[var(--sl-color-gray-3)] italic">No specific rules for this endpoint yet.</p>
+    ) : (
+      <div class="not-content grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300">Request</span>
+            <span class="text-xs text-[var(--sl-color-gray-3)]">{specificReq.length}</span>
+          </div>
+          <div class="flex flex-col gap-3">
+            {specificReq.map(rule => (
+              <div class="border border-[var(--sl-color-gray-5)] rounded-lg p-4 bg-[var(--sl-color-bg-sidebar)]">
+                <p class="text-sm text-[var(--sl-color-gray-2)] m-0 leading-relaxed">
+                  <Fragment set:html={subjectHtml(rule)} />
+                  {' '}
+                  <span class:list={['inline-flex items-center align-middle rounded px-1.5 py-0.5 text-xs font-semibold font-mono', reqStyles[rule.requirement]]}>
+                    {rule.requirement}
+                  </span>
+                  {' '}
+                  <Fragment set:html={predicateHtml(rule)} />.
+                </p>
+                {rule.condition && (
+                  <p class="text-xs text-[var(--sl-color-gray-3)] m-0 mt-2 italic">{rule.condition}</p>
+                )}
+                {getBaseRules(rule).length > 0 && (
+                  <div class="http-base-tags flex flex-wrap gap-1 mt-2 pt-2 border-t border-[var(--sl-color-gray-6)]">
+                    {getBaseRules(rule).map(br => (
+                      <span class="http-base-tag relative inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[10px] font-mono bg-[var(--sl-color-gray-6)] text-[var(--sl-color-gray-2)] cursor-help">
+                        <svg class="w-2.5 h-2.5 shrink-0 opacity-60" viewBox="0 0 16 16" fill="currentColor"><path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c0 .398.158.779.44 1.06l6.293 6.294a1.5 1.5 0 0 0 2.122 0l3.5-3.5a1.5 1.5 0 0 0 0-2.122L7.06 1.44A1.5 1.5 0 0 0 6 1H4.5A1.5 1.5 0 0 0 3 2.5v1zm1 0a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 .354.146L12.647 9l-3.5 3.5L2.854 6.354A.5.5 0 0 1 2.5 6V4.5a.5.5 0 0 1 .5-.5H4a.5.5 0 1 0 0-1h-.5z"/></svg>
+                        {br.code}
+                        <span class="http-base-tooltip">{br.rule}</span>
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-gray-100 text-gray-700 dark:bg-gray-800/50 dark:text-gray-300">Response</span>
+            <span class="text-xs text-[var(--sl-color-gray-3)]">{specificRes.length}</span>
+          </div>
+          <div class="flex flex-col gap-3">
+            {specificRes.map(rule => (
+              <div class="border border-[var(--sl-color-gray-5)] rounded-lg p-4 bg-[var(--sl-color-bg-sidebar)]">
+                <p class="text-sm text-[var(--sl-color-gray-2)] m-0 leading-relaxed">
+                  <Fragment set:html={subjectHtml(rule)} />
+                  {' '}
+                  <span class:list={['inline-flex items-center align-middle rounded px-1.5 py-0.5 text-xs font-semibold font-mono', reqStyles[rule.requirement]]}>
+                    {rule.requirement}
+                  </span>
+                  {' '}
+                  <Fragment set:html={predicateHtml(rule)} />.
+                </p>
+                {rule.condition && (
+                  <p class="text-xs text-[var(--sl-color-gray-3)] m-0 mt-2 italic">{rule.condition}</p>
+                )}
+                {getBaseRules(rule).length > 0 && (
+                  <div class="http-base-tags flex flex-wrap gap-1 mt-2 pt-2 border-t border-[var(--sl-color-gray-6)]">
+                    {getBaseRules(rule).map(br => (
+                      <span class="http-base-tag relative inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[10px] font-mono bg-[var(--sl-color-gray-6)] text-[var(--sl-color-gray-2)] cursor-help">
+                        <svg class="w-2.5 h-2.5 shrink-0 opacity-60" viewBox="0 0 16 16" fill="currentColor"><path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c0 .398.158.779.44 1.06l6.293 6.294a1.5 1.5 0 0 0 2.122 0l3.5-3.5a1.5 1.5 0 0 0 0-2.122L7.06 1.44A1.5 1.5 0 0 0 6 1H4.5A1.5 1.5 0 0 0 3 2.5v1zm1 0a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 .354.146L12.647 9l-3.5 3.5L2.854 6.354A.5.5 0 0 1 2.5 6V4.5a.5.5 0 0 1 .5-.5H4a.5.5 0 1 0 0-1h-.5z"/></svg>
+                        {br.code}
+                        <span class="http-base-tooltip">{br.rule}</span>
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )}
+  </TabItem>
+
+  <TabItem label={`Inherited rules (${inheritedRules.length})`}>
+    {inheritedRules.length === 0 ? (
+      <p class="text-sm text-[var(--sl-color-gray-3)] italic">No inherited global rules yet.</p>
+    ) : (
+      <div class="not-content grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300">Request</span>
+            <span class="text-xs text-[var(--sl-color-gray-3)]">{inheritedReq.length}</span>
+          </div>
+          <div class="flex flex-col gap-3">
+            {inheritedReq.map(rule => (
+              <div class="border border-[var(--sl-color-gray-5)] rounded-lg p-4 bg-[var(--sl-color-bg-sidebar)]">
+                <p class="text-sm text-[var(--sl-color-gray-2)] m-0 leading-relaxed">
+                  <Fragment set:html={subjectHtml(rule)} />
+                  {' '}
+                  <span class:list={['inline-flex items-center align-middle rounded px-1.5 py-0.5 text-xs font-semibold font-mono', reqStyles[rule.requirement]]}>
+                    {rule.requirement}
+                  </span>
+                  {' '}
+                  <Fragment set:html={predicateHtml(rule)} />.
+                </p>
+                {rule.condition && (
+                  <p class="text-xs text-[var(--sl-color-gray-3)] m-0 mt-2 italic">{rule.condition}</p>
+                )}
+                {getBaseRules(rule).length > 0 && (
+                  <div class="http-base-tags flex flex-wrap gap-1 mt-2 pt-2 border-t border-[var(--sl-color-gray-6)]">
+                    {getBaseRules(rule).map(br => (
+                      <span class="http-base-tag relative inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[10px] font-mono bg-[var(--sl-color-gray-6)] text-[var(--sl-color-gray-2)] cursor-help">
+                        <svg class="w-2.5 h-2.5 shrink-0 opacity-60" viewBox="0 0 16 16" fill="currentColor"><path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c0 .398.158.779.44 1.06l6.293 6.294a1.5 1.5 0 0 0 2.122 0l3.5-3.5a1.5 1.5 0 0 0 0-2.122L7.06 1.44A1.5 1.5 0 0 0 6 1H4.5A1.5 1.5 0 0 0 3 2.5v1zm1 0a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 .354.146L12.647 9l-3.5 3.5L2.854 6.354A.5.5 0 0 1 2.5 6V4.5a.5.5 0 0 1 .5-.5H4a.5.5 0 1 0 0-1h-.5z"/></svg>
+                        {br.code}
+                        <span class="http-base-tooltip">{br.rule}</span>
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-gray-100 text-gray-700 dark:bg-gray-800/50 dark:text-gray-300">Response</span>
+            <span class="text-xs text-[var(--sl-color-gray-3)]">{inheritedRes.length}</span>
+          </div>
+          <div class="flex flex-col gap-3">
+            {inheritedRes.map(rule => (
+              <div class="border border-[var(--sl-color-gray-5)] rounded-lg p-4 bg-[var(--sl-color-bg-sidebar)]">
+                <p class="text-sm text-[var(--sl-color-gray-2)] m-0 leading-relaxed">
+                  <Fragment set:html={subjectHtml(rule)} />
+                  {' '}
+                  <span class:list={['inline-flex items-center align-middle rounded px-1.5 py-0.5 text-xs font-semibold font-mono', reqStyles[rule.requirement]]}>
+                    {rule.requirement}
+                  </span>
+                  {' '}
+                  <Fragment set:html={predicateHtml(rule)} />.
+                </p>
+                {rule.condition && (
+                  <p class="text-xs text-[var(--sl-color-gray-3)] m-0 mt-2 italic">{rule.condition}</p>
+                )}
+                {getBaseRules(rule).length > 0 && (
+                  <div class="http-base-tags flex flex-wrap gap-1 mt-2 pt-2 border-t border-[var(--sl-color-gray-6)]">
+                    {getBaseRules(rule).map(br => (
+                      <span class="http-base-tag relative inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[10px] font-mono bg-[var(--sl-color-gray-6)] text-[var(--sl-color-gray-2)] cursor-help">
+                        <svg class="w-2.5 h-2.5 shrink-0 opacity-60" viewBox="0 0 16 16" fill="currentColor"><path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c0 .398.158.779.44 1.06l6.293 6.294a1.5 1.5 0 0 0 2.122 0l3.5-3.5a1.5 1.5 0 0 0 0-2.122L7.06 1.44A1.5 1.5 0 0 0 6 1H4.5A1.5 1.5 0 0 0 3 2.5v1zm1 0a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 .354.146L12.647 9l-3.5 3.5L2.854 6.354A.5.5 0 0 1 2.5 6V4.5a.5.5 0 0 1 .5-.5H4a.5.5 0 1 0 0-1h-.5z"/></svg>
+                        {br.code}
+                        <span class="http-base-tooltip">{br.rule}</span>
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )}
+  </TabItem>
+
+  <TabItem label="OpenAPI schema">
+    <Code code={oasYaml} lang="yaml" title={`${signature.replace(' ', '_')}.oas.yaml`} />
+  </TabItem>
+</Tabs>
+
+<style>
+  .http-base-tag {
+    transition: background-color 0.15s;
+  }
+  .http-base-tag:hover {
+    background-color: var(--sl-color-gray-5);
+  }
+  .http-base-tooltip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: 280px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-family: var(--sl-font);
+    font-size: 11px;
+    line-height: 1.4;
+    font-weight: 400;
+    white-space: normal;
+    color: #f3f6ff;
+    background: #1b2544;
+    box-shadow: 0 2px 8px rgba(0,0,0,.25);
+    z-index: 50;
+    pointer-events: none;
+  }
+  .http-base-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #1b2544;
+  }
+  .http-base-tag:hover .http-base-tooltip {
+    display: block;
+  }
+</style>

@@ -1,0 +1,143 @@
+[     111ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[     112ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[     112ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[     112ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[     112ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  343284ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  343298ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  343299ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  343299ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  343299ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  344160ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  344162ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  344162ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  344162ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  344162ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  344184ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4321/@vite/client:1596
+[  344200ms] [ERROR] [vite] Error: send was called before connect
+    at Object.send (http://localhost:4321/@vite/client:395:15)
+    at HMRClient.send (http://localhost:4321/@vite/client:157:18)
+    at HMRContext.send (http://localhost:4321/@vite/client:119:18)
+    at AstroDevToolbar.initApp (http://localhost:4321/node_modules/.vite/deps/toolbar-VDNNJGEC.js?v=385889ea:355:25) @ http://localhost:4321/@vite/client:1540
+[  344201ms] [ERROR] [vite] Error: send was called before connect
+    at Object.send (http://localhost:4321/@vite/client:395:15)
+    at HMRClient.send (http://localhost:4321/@vite/client:157:18)
+    at HMRContext.send (http://localhost:4321/@vite/client:119:18)
+    at AstroDevToolbar.initApp (http://localhost:4321/node_modules/.vite/deps/toolbar-VDNNJGEC.js?v=385889ea:355:25) @ http://localhost:4321/@vite/client:1540
+[  344201ms] [ERROR] [vite] Error: send was called before connect
+    at Object.send (http://localhost:4321/@vite/client:395:15)
+    at HMRClient.send (http://localhost:4321/@vite/client:157:18)
+    at HMRContext.send (http://localhost:4321/@vite/client:119:18)
+    at AstroDevToolbar.initApp (http://localhost:4321/node_modules/.vite/deps/toolbar-VDNNJGEC.js?v=385889ea:355:25) @ http://localhost:4321/@vite/client:1540
+[  344201ms] [ERROR] [vite] Error: send was called before connect
+    at Object.send (http://localhost:4321/@vite/client:395:15)
+    at HMRClient.send (http://localhost:4321/@vite/client:157:18)
+    at HMRContext.send (http://localhost:4321/@vite/client:119:18)
+    at AstroDevToolbar.initApp (http://localhost:4321/node_modules/.vite/deps/toolbar-VDNNJGEC.js?v=385889ea:355:25) @ http://localhost:4321/@vite/client:1540
+[  344212ms] [ERROR] [vite] Error: send was called before connect
+    at Object.send (http://localhost:4321/@vite/client:395:15)
+    at HMRClient.send (http://localhost:4321/@vite/client:157:18)
+    at HMRContext.send (http://localhost:4321/@vite/client:119:18)
+    at AstroDevToolbar.initApp (http://localhost:4321/node_modules/.vite/deps/toolbar-VDNNJGEC.js?v=385889ea:355:25) @ http://localhost:4321/@vite/client:1540
+[  345410ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  345412ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  345412ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  345412ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  345412ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  345603ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  345619ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  345619ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  345619ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  345619ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  346563ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  346565ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  346565ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  346565ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  346565ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  347093ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4321/@vite/client:1596
+[  348261ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  348262ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  348262ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  348262ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  348262ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  382013ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  382014ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  382014ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  382014ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  382014ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  382579ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4321/@vite/client:1596
+[  383492ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  383510ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  383510ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  383510ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  383510ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  398378ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  398380ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  398380ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  398380ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  398380ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  408481ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  408482ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  408482ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  408482ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  408482ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  446329ms] [ERROR] WebSocket connection to 'ws://localhost:4321/?token=CYWW_SmIczku' failed:  @ http://localhost:4321/@vite/client:1476
+[  446330ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4321/@vite/client:1596
+[  487416ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  487417ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  487417ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  487417ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  487417ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  508737ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  508738ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  508738ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  508738ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  508738ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  509392ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4321/@vite/client:1596
+[  511439ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  511441ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  511441ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  511441ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  511441ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  511625ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  511640ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  511640ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  511640ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  511640ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  511952ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  511965ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  511965ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  511965ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  511965ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  512527ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4321/@vite/client:1596
+[  513724ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  513725ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  513725ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  513725ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  513725ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  514123ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  514125ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  514125ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  514125ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  514125ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  514687ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4321/@vite/client:1596
+[  515523ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  515537ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  515537ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  515537ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  515537ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  698538ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  698552ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  698552ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  698552ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  698552ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  736535ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  736550ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  736550ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  736550ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  736550ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  761713ms] [LOG] [astro-mermaid] No mermaid diagrams found on initial load @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  761714ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  761714ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  761714ms] [LOG] [astro-mermaid] Initializing mermaid diagrams... @ http://localhost:4321/@id/astro:scripts/page.js:2
+[  761714ms] [LOG] [astro-mermaid] Found 0 mermaid diagrams @ http://localhost:4321/@id/astro:scripts/page.js:2

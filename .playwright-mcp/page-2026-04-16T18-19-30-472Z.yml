@@ -1,0 +1,1221 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#_top"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "CRUD API" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e8]: CRUD API
+        - button "Search" [ref=e11] [cursor=pointer]:
+          - img [ref=e12]
+          - generic [ref=e14]: Search
+          - generic [ref=e15]:
+            - generic [ref=e16]: ⌘
+            - generic [ref=e17]: K
+        - generic [ref=e18]:
+          - link "GitHub" [ref=e20] [cursor=pointer]:
+            - /url: https://github.com/withastro/starlight
+            - generic [ref=e21]: GitHub
+            - img [ref=e22]
+          - generic [ref=e25]:
+            - generic [ref=e26]: Select theme
+            - img
+            - combobox "Select theme" [ref=e27] [cursor=pointer]:
+              - option "Dark"
+              - option "Light"
+              - option "Auto" [selected]
+            - img
+    - navigation "Main":
+      - list [ref=e31]:
+        - listitem [ref=e32]:
+          - group [ref=e33]:
+            - generic "Base Specification" [ref=e34] [cursor=pointer]:
+              - generic [ref=e35]: Base Specification
+              - img [ref=e36]
+            - list [ref=e38]:
+              - listitem [ref=e39]:
+                - link "1. Overview" [ref=e40] [cursor=pointer]:
+                  - /url: /base/
+              - listitem [ref=e41]:
+                - link "2. Terminology" [ref=e42] [cursor=pointer]:
+                  - /url: /base/terminology/
+              - listitem [ref=e43]:
+                - link "3. General rules and definitions" [ref=e44] [cursor=pointer]:
+                  - /url: /base/general/
+              - listitem [ref=e45]:
+                - link "4. Operation rules" [ref=e46] [cursor=pointer]:
+                  - /url: /base/operation/
+        - listitem [ref=e47]:
+          - group [ref=e48]:
+            - generic "Extensions" [ref=e49] [cursor=pointer]:
+              - generic [ref=e50]: Extensions
+              - img [ref=e51]
+            - list [ref=e53]:
+              - listitem [ref=e54]:
+                - link "Async" [ref=e55] [cursor=pointer]:
+                  - /url: /extensions/async/
+        - listitem [ref=e56]:
+          - group [ref=e57]:
+            - generic "Protocols" [ref=e58] [cursor=pointer]:
+              - generic [ref=e59]: Protocols
+              - img [ref=e60]
+            - list [ref=e62]:
+              - listitem [ref=e63]:
+                - link "RESTful HTTP" [ref=e64] [cursor=pointer]:
+                  - /url: /protocols/http/
+    - generic [ref=e66]:
+      - complementary [ref=e67]:
+        - navigation "On this page" [ref=e72]:
+          - heading "On this page" [level=2] [ref=e73]
+          - list [ref=e74]:
+            - listitem [ref=e75]:
+              - link "Overview" [ref=e76] [cursor=pointer]:
+                - /url: "#_top"
+            - listitem [ref=e77]:
+              - link "1. Get" [ref=e78] [cursor=pointer]:
+                - /url: "#1-get"
+              - list [ref=e79]:
+                - listitem [ref=e80]:
+                  - link "1.1 GET /:collection/:id" [ref=e81] [cursor=pointer]:
+                    - /url: "#11-get-collectionid"
+                - listitem [ref=e82]:
+                  - link "1.2 GET /:collection" [ref=e83] [cursor=pointer]:
+                    - /url: "#12-get-collection"
+            - listitem [ref=e84]:
+              - link "2. Create" [ref=e85] [cursor=pointer]:
+                - /url: "#2-create"
+              - list [ref=e86]:
+                - listitem [ref=e87]:
+                  - link "2.1 POST /:collection" [ref=e88] [cursor=pointer]:
+                    - /url: "#21-post-collection"
+            - listitem [ref=e89]:
+              - link "3. Patch" [ref=e90] [cursor=pointer]:
+                - /url: "#3-patch"
+              - list [ref=e91]:
+                - listitem [ref=e92]:
+                  - link "3.1 PATCH /:collection/:id" [ref=e93] [cursor=pointer]:
+                    - /url: "#31-patch-collectionid"
+                - listitem [ref=e94]:
+                  - link "3.2 PATCH /:collection" [ref=e95] [cursor=pointer]:
+                    - /url: "#32-patch-collection"
+            - listitem [ref=e96]:
+              - link "4. Replace" [ref=e97] [cursor=pointer]:
+                - /url: "#4-replace"
+              - list [ref=e98]:
+                - listitem [ref=e99]:
+                  - link "4.1 PUT /:collection/:id" [ref=e100] [cursor=pointer]:
+                    - /url: "#41-put-collectionid"
+                - listitem [ref=e101]:
+                  - link "4.2 PUT /:collection" [ref=e102] [cursor=pointer]:
+                    - /url: "#42-put-collection"
+            - listitem [ref=e103]:
+              - link "5. Delete" [ref=e104] [cursor=pointer]:
+                - /url: "#5-delete"
+              - list [ref=e105]:
+                - listitem [ref=e106]:
+                  - link "5.1 DELETE /:collection/:id" [ref=e107] [cursor=pointer]:
+                    - /url: "#51-delete-collectionid"
+                - listitem [ref=e108]:
+                  - link "5.2 DELETE /:collection" [ref=e109] [cursor=pointer]:
+                    - /url: "#52-delete-collection"
+      - main [ref=e111]:
+        - heading "RESTful HTTP" [level=1] [ref=e114]
+        - generic [ref=e116]:
+          - generic [ref=e117]:
+            - paragraph [ref=e118]:
+              - text: This section defines the normative mapping of CRUD API operations to the
+              - strong [ref=e119]: RESTful HTTP
+              - text: protocol. Each endpoint specifies the HTTP method, URL pattern, headers, request body, and expected responses.
+            - paragraph [ref=e120]: "Rules are organized by endpoint signature. Each endpoint has two tabs:"
+            - list [ref=e121]:
+              - listitem [ref=e122]:
+                - strong [ref=e123]: Specific rules
+                - text: ": HTTP constraints specific to this endpoint."
+              - listitem [ref=e124]:
+                - strong [ref=e125]: Inherited rules
+                - text: ": Global HTTP rules that apply to all endpoints."
+            - generic [ref=e126]:
+              - heading "1. Get" [level=2] [ref=e127]
+              - link "Section titled “1. Get”" [ref=e128] [cursor=pointer]:
+                - /url: "#1-get"
+                - img [ref=e130]
+                - generic [ref=e132]: Section titled “1. Get”
+            - separator [ref=e133]
+            - generic [ref=e134]:
+              - heading "1.1 GET /:collection/:id" [level=3] [ref=e135]:
+                - text: "1.1"
+                - code [ref=e136]: GET /:collection/:id
+              - link "Section titled “1.1 GET /:collection/:id”" [ref=e137] [cursor=pointer]:
+                - /url: "#11-get-collectionid"
+                - img [ref=e139]
+                - generic [ref=e141]: Section titled “1.1 GET /:collection/:id”
+            - paragraph [ref=e142]:
+              - text: Retrieves a single Document by its Resource ID. Maps to the base
+              - code [ref=e143]: get
+              - text: operation.
+            - generic [ref=e144]:
+              - tablist [ref=e146]:
+                - tab "Specific rules (6)" [selected] [ref=e147] [cursor=pointer]
+                - tab "Inherited rules (9)" [ref=e148] [cursor=pointer]
+              - tabpanel "Specific rules (6)" [ref=e149]:
+                - generic [ref=e150]:
+                  - generic [ref=e151]:
+                    - generic [ref=e152]:
+                      - generic [ref=e153]: Request
+                      - generic [ref=e154]: "3"
+                    - generic [ref=e155]:
+                      - paragraph [ref=e157]:
+                        - text: Method
+                        - generic [ref=e158]: MUST
+                        - text: be
+                        - strong [ref=e159]: GET
+                        - text: .
+                      - paragraph [ref=e161]:
+                        - text: URL path component
+                        - code [ref=e162]: id
+                        - generic [ref=e163]: MUST
+                        - text: be
+                        - strong [ref=e164]:
+                          - text: a
+                          - link "Resource ID" [ref=e165] [cursor=pointer]:
+                            - /url: /base/general/#313-resource-ids
+                        - text: .
+                      - paragraph [ref=e167]:
+                        - text: URL query parameter
+                        - code [ref=e168]: fields
+                        - generic [ref=e169]: MAY
+                        - text: be
+                        - strong [ref=e170]:
+                          - text: a
+                          - link "Projection Parameter" [ref=e171] [cursor=pointer]:
+                            - /url: /base/general/#331-projection-parameter
+                        - text: .
+                  - generic [ref=e172]:
+                    - generic [ref=e173]:
+                      - generic [ref=e174]: Response
+                      - generic [ref=e175]: "3"
+                    - generic [ref=e176]:
+                      - paragraph [ref=e178]:
+                        - text: Status
+                        - generic [ref=e179]: MUST
+                        - text: be
+                        - strong [ref=e180]: "200"
+                        - text: .
+                      - generic [ref=e181]:
+                        - paragraph [ref=e182]:
+                          - text: Status
+                          - generic [ref=e183]: MUST
+                          - text: be
+                          - strong [ref=e184]: "404"
+                          - text: .
+                        - paragraph [ref=e185]: If the Server cannot find any Document matching the Input Subject.
+                      - paragraph [ref=e187]:
+                        - text: Body
+                        - generic [ref=e188]: MUST
+                        - text: be
+                        - strong [ref=e189]: a single Document
+                        - text: .
+            - generic [ref=e190]:
+              - heading "1.2 GET /:collection" [level=3] [ref=e191]:
+                - text: "1.2"
+                - code [ref=e192]: GET /:collection
+              - link "Section titled “1.2 GET /:collection”" [ref=e193] [cursor=pointer]:
+                - /url: "#12-get-collection"
+                - img [ref=e195]
+                - generic [ref=e197]: Section titled “1.2 GET /:collection”
+            - paragraph [ref=e198]:
+              - text: Lists Documents from a Collection, optionally filtered by a Search Query. Maps to the base
+              - code [ref=e199]: list
+              - text: operation.
+            - generic [ref=e200]:
+              - tablist [ref=e202]:
+                - tab "Specific rules (8)" [selected] [ref=e203] [cursor=pointer]
+                - tab "Inherited rules (9)" [ref=e204] [cursor=pointer]
+              - tabpanel "Specific rules (8)" [ref=e205]:
+                - generic [ref=e206]:
+                  - generic [ref=e207]:
+                    - generic [ref=e208]:
+                      - generic [ref=e209]: Request
+                      - generic [ref=e210]: "5"
+                    - generic [ref=e211]:
+                      - paragraph [ref=e213]:
+                        - text: Method
+                        - generic [ref=e214]: MUST
+                        - text: be
+                        - strong [ref=e215]: GET
+                        - text: .
+                      - paragraph [ref=e217]:
+                        - text: URL query parameter
+                        - code [ref=e218]: fields
+                        - generic [ref=e219]: MAY
+                        - text: be
+                        - strong [ref=e220]:
+                          - text: a
+                          - link "Projection Parameter" [ref=e221] [cursor=pointer]:
+                            - /url: /base/general/#331-projection-parameter
+                        - text: .
+                      - generic [ref=e222]:
+                        - paragraph [ref=e223]:
+                          - text: URL query parameter
+                          - code [ref=e224]: q
+                          - generic [ref=e225]: MAY
+                          - text: be
+                          - strong [ref=e226]:
+                            - text: a
+                            - link "Search Query" [ref=e227] [cursor=pointer]:
+                              - /url: /base/general/#321-definition-and-representation
+                          - text: .
+                        - paragraph [ref=e228]: Client MAY omit to list all Documents.
+                      - paragraph [ref=e230]:
+                        - text: URL query parameter
+                        - code [ref=e231]: sort
+                        - generic [ref=e232]: MAY
+                        - text: be
+                        - strong [ref=e233]:
+                          - text: a
+                          - link "Sorting Parameter" [ref=e234] [cursor=pointer]:
+                            - /url: /base/operation/#423-sorting-parameter
+                        - text: .
+                      - paragraph [ref=e236]:
+                        - text: URL query parameter
+                        - code [ref=e237]: page, limit
+                        - generic [ref=e238]: MAY
+                        - text: be
+                        - strong [ref=e239]: Pagination Parameters
+                        - text: .
+                  - generic [ref=e240]:
+                    - generic [ref=e241]:
+                      - generic [ref=e242]: Response
+                      - generic [ref=e243]: "3"
+                    - generic [ref=e244]:
+                      - paragraph [ref=e246]:
+                        - text: Status
+                        - generic [ref=e247]: MUST
+                        - text: be
+                        - strong [ref=e248]: "200"
+                        - text: .
+                      - paragraph [ref=e250]:
+                        - text: Header
+                        - code [ref=e251]: X-Matched-Count
+                        - generic [ref=e252]: SHOULD
+                        - text: be
+                        - strong [ref=e253]: the total number of Documents matched by the query
+                        - text: .
+                      - paragraph [ref=e255]:
+                        - text: Body
+                        - generic [ref=e256]: MUST
+                        - text: be
+                        - strong [ref=e257]: a list of Documents
+                        - text: .
+            - generic [ref=e258]:
+              - heading "2. Create" [level=2] [ref=e259]
+              - link "Section titled “2. Create”" [ref=e260] [cursor=pointer]:
+                - /url: "#2-create"
+                - img [ref=e262]
+                - generic [ref=e264]: Section titled “2. Create”
+            - separator [ref=e265]
+            - generic [ref=e266]:
+              - heading "2.1 POST /:collection" [level=3] [ref=e267]:
+                - text: "2.1"
+                - code [ref=e268]: POST /:collection
+              - link "Section titled “2.1 POST /:collection”" [ref=e269] [cursor=pointer]:
+                - /url: "#21-post-collection"
+                - img [ref=e271]
+                - generic [ref=e273]: Section titled “2.1 POST /:collection”
+            - paragraph [ref=e274]:
+              - text: Creates one or many Documents in a Collection. Maps to the base
+              - code [ref=e275]: create
+              - text: operation.
+            - generic [ref=e276]:
+              - tablist [ref=e278]:
+                - tab "Specific rules (13)" [selected] [ref=e279] [cursor=pointer]
+                - tab "Inherited rules (9)" [ref=e280] [cursor=pointer]
+              - tabpanel "Specific rules (13)" [ref=e281]:
+                - generic [ref=e282]:
+                  - generic [ref=e283]:
+                    - generic [ref=e284]:
+                      - generic [ref=e285]: Request
+                      - generic [ref=e286]: "5"
+                    - generic [ref=e287]:
+                      - paragraph [ref=e289]:
+                        - text: Method
+                        - generic [ref=e290]: MUST
+                        - text: be
+                        - strong [ref=e291]: POST
+                        - text: .
+                      - paragraph [ref=e293]:
+                        - text: URL query parameter
+                        - code [ref=e294]: fields
+                        - generic [ref=e295]: MAY
+                        - text: be
+                        - strong [ref=e296]:
+                          - text: a
+                          - link "Projection Parameter" [ref=e297] [cursor=pointer]:
+                            - /url: /base/general/#331-projection-parameter
+                        - text: .
+                      - paragraph [ref=e299]:
+                        - text: Header
+                        - code [ref=e300]: Content-Type
+                        - generic [ref=e301]: MUST
+                        - text: be
+                        - strong [ref=e302]:
+                          - code [ref=e303]: application/json
+                        - text: .
+                      - paragraph [ref=e305]:
+                        - text: Header
+                        - code [ref=e306]: Prefer
+                        - generic [ref=e307]: MAY
+                        - text: be
+                        - strong [ref=e308]:
+                          - code [ref=e309]: return=representation
+                          - text: (default) or
+                          - code [ref=e310]: return=minimal
+                        - text: .
+                      - paragraph [ref=e312]:
+                        - text: Body
+                        - generic [ref=e313]: MUST
+                        - text: be
+                        - strong [ref=e314]: a single Document or a list of multiple Documents
+                        - text: .
+                  - generic [ref=e315]:
+                    - generic [ref=e316]:
+                      - generic [ref=e317]: Response
+                      - generic [ref=e318]: "8"
+                    - generic [ref=e319]:
+                      - paragraph [ref=e321]:
+                        - text: Status
+                        - generic [ref=e322]: MUST
+                        - text: be
+                        - strong [ref=e323]: "201"
+                        - text: .
+                      - generic [ref=e324]:
+                        - paragraph [ref=e325]:
+                          - text: Status
+                          - generic [ref=e326]: MUST
+                          - text: be
+                          - strong [ref=e327]: "204"
+                          - text: .
+                        - paragraph [ref=e328]: "When the Client sends `Prefer: return=minimal`."
+                      - generic [ref=e329]:
+                        - paragraph [ref=e330]:
+                          - text: Status
+                          - generic [ref=e331]: MUST
+                          - text: be
+                          - strong [ref=e332]: "409"
+                          - text: .
+                        - paragraph [ref=e333]: If the Client sends Documents with Resource IDs that conflict with existing ones.
+                      - generic [ref=e334]:
+                        - paragraph [ref=e335]:
+                          - text: Status
+                          - generic [ref=e336]: MUST
+                          - text: be
+                          - strong [ref=e337]: "400"
+                          - text: .
+                        - paragraph [ref=e338]: If the Server cannot create Documents with Resource IDs sent by the Client.
+                      - paragraph [ref=e340]:
+                        - text: Header
+                        - code [ref=e341]: X-Modified-Count
+                        - generic [ref=e342]: SHOULD
+                        - text: be
+                        - strong [ref=e343]: the total number of Documents modified by the operation
+                        - text: .
+                      - generic [ref=e344]:
+                        - paragraph [ref=e345]:
+                          - text: Header
+                          - code [ref=e346]: Content-Location
+                          - generic [ref=e347]: MUST
+                          - text: be
+                          - strong [ref=e348]:
+                            - text: the
+                            - code [ref=e349]: GET /:collection/:id
+                            - text: endpoint URL of the written Document
+                          - text: .
+                        - paragraph [ref=e350]: "When the write operation targets a single Document and the Client prefers `return=representation`."
+                      - generic [ref=e351]:
+                        - paragraph [ref=e352]:
+                          - text: Header
+                          - code [ref=e353]: Location
+                          - generic [ref=e354]: MUST
+                          - text: be
+                          - strong [ref=e355]:
+                            - text: the
+                            - code [ref=e356]: GET /:collection/:id
+                            - text: endpoint URL of the written Document
+                          - text: .
+                        - paragraph [ref=e357]: "When the write operation targets a single Document and the Client sends `Prefer: return=minimal`."
+                      - generic [ref=e358]:
+                        - paragraph [ref=e359]:
+                          - text: Body
+                          - generic [ref=e360]: MUST
+                          - text: be
+                          - strong [ref=e361]: the Document(s) written by the operation, including Resource IDs
+                          - text: .
+                        - paragraph [ref=e362]: "When the Client prefers `return=representation` (default behavior)."
+            - generic [ref=e363]:
+              - heading "3. Patch" [level=2] [ref=e364]
+              - link "Section titled “3. Patch”" [ref=e365] [cursor=pointer]:
+                - /url: "#3-patch"
+                - img [ref=e367]
+                - generic [ref=e369]: Section titled “3. Patch”
+            - separator [ref=e370]
+            - generic [ref=e371]:
+              - heading "3.1 PATCH /:collection/:id" [level=3] [ref=e372]:
+                - text: "3.1"
+                - code [ref=e373]: PATCH /:collection/:id
+              - link "Section titled “3.1 PATCH /:collection/:id”" [ref=e374] [cursor=pointer]:
+                - /url: "#31-patch-collectionid"
+                - img [ref=e376]
+                - generic [ref=e378]: Section titled “3.1 PATCH /:collection/:id”
+            - paragraph [ref=e379]:
+              - text: Partially updates a single Document by its Resource ID using JSON Patch. Maps to the base
+              - code [ref=e380]: patchById
+              - text: operation.
+            - generic [ref=e381]:
+              - tablist [ref=e383]:
+                - tab "Specific rules (15)" [selected] [ref=e384] [cursor=pointer]
+                - tab "Inherited rules (9)" [ref=e385] [cursor=pointer]
+              - tabpanel "Specific rules (15)" [ref=e386]:
+                - generic [ref=e387]:
+                  - generic [ref=e388]:
+                    - generic [ref=e389]:
+                      - generic [ref=e390]: Request
+                      - generic [ref=e391]: "7"
+                    - generic [ref=e392]:
+                      - paragraph [ref=e394]:
+                        - text: Method
+                        - generic [ref=e395]: MUST
+                        - text: be
+                        - strong [ref=e396]: PATCH
+                        - text: .
+                      - paragraph [ref=e398]:
+                        - text: URL path component
+                        - code [ref=e399]: id
+                        - generic [ref=e400]: MUST
+                        - text: be
+                        - strong [ref=e401]:
+                          - text: a
+                          - link "Resource ID" [ref=e402] [cursor=pointer]:
+                            - /url: /base/general/#313-resource-ids
+                        - text: .
+                      - paragraph [ref=e404]:
+                        - text: URL query parameter
+                        - code [ref=e405]: fields
+                        - generic [ref=e406]: MAY
+                        - text: be
+                        - strong [ref=e407]:
+                          - text: a
+                          - link "Projection Parameter" [ref=e408] [cursor=pointer]:
+                            - /url: /base/general/#331-projection-parameter
+                        - text: .
+                      - generic [ref=e409]:
+                        - paragraph [ref=e410]:
+                          - text: URL query parameter
+                          - code [ref=e411]: expectMatch
+                          - generic [ref=e412]: MAY
+                          - text: be
+                          - strong [ref=e413]: the expected number of Documents to match
+                          - text: .
+                        - paragraph [ref=e414]: If the matched count differs, the Server MUST fail the operation.
+                      - paragraph [ref=e416]:
+                        - text: Header
+                        - code [ref=e417]: Content-Type
+                        - generic [ref=e418]: MUST
+                        - text: be
+                        - strong [ref=e419]:
+                          - code [ref=e420]: application/json-patch+json
+                        - text: .
+                      - paragraph [ref=e422]:
+                        - text: Header
+                        - code [ref=e423]: Prefer
+                        - generic [ref=e424]: MAY
+                        - text: be
+                        - strong [ref=e425]:
+                          - code [ref=e426]: return=representation
+                          - text: (default) or
+                          - code [ref=e427]: return=minimal
+                        - text: .
+                      - paragraph [ref=e429]:
+                        - text: Body
+                        - generic [ref=e430]: MUST
+                        - text: be
+                        - strong [ref=e431]:
+                          - text: a
+                          - link "JSON Patch" [ref=e432] [cursor=pointer]:
+                            - /url: https://jsonpatch.com/
+                          - text: operations list
+                        - text: .
+                  - generic [ref=e433]:
+                    - generic [ref=e434]:
+                      - generic [ref=e435]: Response
+                      - generic [ref=e436]: "8"
+                    - generic [ref=e437]:
+                      - paragraph [ref=e439]:
+                        - text: Status
+                        - generic [ref=e440]: MUST
+                        - text: be
+                        - strong [ref=e441]: "200"
+                        - text: .
+                      - generic [ref=e442]:
+                        - paragraph [ref=e443]:
+                          - text: Status
+                          - generic [ref=e444]: MUST
+                          - text: be
+                          - strong [ref=e445]: "204"
+                          - text: .
+                        - paragraph [ref=e446]: "When the Client sends `Prefer: return=minimal`."
+                      - generic [ref=e447]:
+                        - paragraph [ref=e448]:
+                          - text: Status
+                          - generic [ref=e449]: MUST
+                          - text: be
+                          - strong [ref=e450]: "404"
+                          - text: .
+                        - paragraph [ref=e451]: If the Server cannot find any Document matching the Input Subject.
+                      - generic [ref=e452]:
+                        - paragraph [ref=e453]:
+                          - text: Status
+                          - generic [ref=e454]: MUST
+                          - text: be
+                          - strong [ref=e455]: "412"
+                          - text: .
+                        - paragraph [ref=e456]: "If the matched count differs from the `expectMatch` parameter."
+                      - paragraph [ref=e458]:
+                        - text: Header
+                        - code [ref=e459]: X-Modified-Count
+                        - generic [ref=e460]: SHOULD
+                        - text: be
+                        - strong [ref=e461]: the total number of Documents modified by the operation
+                        - text: .
+                      - generic [ref=e462]:
+                        - paragraph [ref=e463]:
+                          - text: Header
+                          - code [ref=e464]: Content-Location
+                          - generic [ref=e465]: MUST
+                          - text: be
+                          - strong [ref=e466]:
+                            - text: the
+                            - code [ref=e467]: GET /:collection/:id
+                            - text: endpoint URL of the written Document
+                          - text: .
+                        - paragraph [ref=e468]: "When the write operation targets a single Document and the Client prefers `return=representation`."
+                      - generic [ref=e469]:
+                        - paragraph [ref=e470]:
+                          - text: Header
+                          - code [ref=e471]: Location
+                          - generic [ref=e472]: MUST
+                          - text: be
+                          - strong [ref=e473]:
+                            - text: the
+                            - code [ref=e474]: GET /:collection/:id
+                            - text: endpoint URL of the written Document
+                          - text: .
+                        - paragraph [ref=e475]: "When the write operation targets a single Document and the Client sends `Prefer: return=minimal`."
+                      - generic [ref=e476]:
+                        - paragraph [ref=e477]:
+                          - text: Body
+                          - generic [ref=e478]: MUST
+                          - text: be
+                          - strong [ref=e479]: the Document(s) written by the operation, including Resource IDs
+                          - text: .
+                        - paragraph [ref=e480]: "When the Client prefers `return=representation` (default behavior)."
+            - generic [ref=e481]:
+              - heading "3.2 PATCH /:collection" [level=3] [ref=e482]:
+                - text: "3.2"
+                - code [ref=e483]: PATCH /:collection
+              - link "Section titled “3.2 PATCH /:collection”" [ref=e484] [cursor=pointer]:
+                - /url: "#32-patch-collection"
+                - img [ref=e486]
+                - generic [ref=e488]: Section titled “3.2 PATCH /:collection”
+            - paragraph [ref=e489]:
+              - text: Partially updates Documents matching a Search Query using JSON Patch. Maps to the base
+              - code [ref=e490]: patchByQuery
+              - text: operation.
+            - generic [ref=e491]:
+              - tablist [ref=e493]:
+                - tab "Specific rules (11)" [selected] [ref=e494] [cursor=pointer]
+                - tab "Inherited rules (9)" [ref=e495] [cursor=pointer]
+              - tabpanel "Specific rules (11)" [ref=e496]:
+                - generic [ref=e497]:
+                  - generic [ref=e498]:
+                    - generic [ref=e499]:
+                      - generic [ref=e500]: Request
+                      - generic [ref=e501]: "6"
+                    - generic [ref=e502]:
+                      - paragraph [ref=e504]:
+                        - text: Method
+                        - generic [ref=e505]: MUST
+                        - text: be
+                        - strong [ref=e506]: PATCH
+                        - text: .
+                      - paragraph [ref=e508]:
+                        - text: URL query parameter
+                        - code [ref=e509]: fields
+                        - generic [ref=e510]: MAY
+                        - text: be
+                        - strong [ref=e511]:
+                          - text: a
+                          - link "Projection Parameter" [ref=e512] [cursor=pointer]:
+                            - /url: /base/general/#331-projection-parameter
+                        - text: .
+                      - paragraph [ref=e514]:
+                        - text: URL query parameter
+                        - code [ref=e515]: q
+                        - generic [ref=e516]: MUST
+                        - text: be
+                        - strong [ref=e517]:
+                          - text: a
+                          - link "Search Query" [ref=e518] [cursor=pointer]:
+                            - /url: /base/general/#321-definition-and-representation
+                        - text: .
+                      - paragraph [ref=e520]:
+                        - text: Header
+                        - code [ref=e521]: Content-Type
+                        - generic [ref=e522]: MUST
+                        - text: be
+                        - strong [ref=e523]:
+                          - code [ref=e524]: application/json-patch+json
+                        - text: .
+                      - paragraph [ref=e526]:
+                        - text: Header
+                        - code [ref=e527]: Prefer
+                        - generic [ref=e528]: MAY
+                        - text: be
+                        - strong [ref=e529]:
+                          - code [ref=e530]: return=representation
+                          - text: (default) or
+                          - code [ref=e531]: return=minimal
+                        - text: .
+                      - paragraph [ref=e533]:
+                        - text: Body
+                        - generic [ref=e534]: MUST
+                        - text: be
+                        - strong [ref=e535]:
+                          - text: a
+                          - link "JSON Patch" [ref=e536] [cursor=pointer]:
+                            - /url: https://jsonpatch.com/
+                          - text: operations list
+                        - text: .
+                  - generic [ref=e537]:
+                    - generic [ref=e538]:
+                      - generic [ref=e539]: Response
+                      - generic [ref=e540]: "5"
+                    - generic [ref=e541]:
+                      - paragraph [ref=e543]:
+                        - text: Status
+                        - generic [ref=e544]: MUST
+                        - text: be
+                        - strong [ref=e545]: "200"
+                        - text: .
+                      - generic [ref=e546]:
+                        - paragraph [ref=e547]:
+                          - text: Status
+                          - generic [ref=e548]: MUST
+                          - text: be
+                          - strong [ref=e549]: "204"
+                          - text: .
+                        - paragraph [ref=e550]: "When the Client sends `Prefer: return=minimal`."
+                      - paragraph [ref=e552]:
+                        - text: Header
+                        - code [ref=e553]: X-Matched-Count
+                        - generic [ref=e554]: SHOULD
+                        - text: be
+                        - strong [ref=e555]: the total number of Documents matched by the query
+                        - text: .
+                      - paragraph [ref=e557]:
+                        - text: Header
+                        - code [ref=e558]: X-Modified-Count
+                        - generic [ref=e559]: SHOULD
+                        - text: be
+                        - strong [ref=e560]: the total number of Documents modified by the operation
+                        - text: .
+                      - generic [ref=e561]:
+                        - paragraph [ref=e562]:
+                          - text: Body
+                          - generic [ref=e563]: MUST
+                          - text: be
+                          - strong [ref=e564]: the Document(s) written by the operation, including Resource IDs
+                          - text: .
+                        - paragraph [ref=e565]: "When the Client prefers `return=representation` (default behavior)."
+            - generic [ref=e566]:
+              - heading "4. Replace" [level=2] [ref=e567]
+              - link "Section titled “4. Replace”" [ref=e568] [cursor=pointer]:
+                - /url: "#4-replace"
+                - img [ref=e570]
+                - generic [ref=e572]: Section titled “4. Replace”
+            - separator [ref=e573]
+            - generic [ref=e574]:
+              - heading "4.1 PUT /:collection/:id" [level=3] [ref=e575]:
+                - text: "4.1"
+                - code [ref=e576]: PUT /:collection/:id
+              - link "Section titled “4.1 PUT /:collection/:id”" [ref=e577] [cursor=pointer]:
+                - /url: "#41-put-collectionid"
+                - img [ref=e579]
+                - generic [ref=e581]: Section titled “4.1 PUT /:collection/:id”
+            - paragraph [ref=e582]:
+              - text: Fully replaces a single Document by its Resource ID. May create the Document if it does not exist (upsert). Maps to the base
+              - code [ref=e583]: replaceById
+              - text: operation.
+            - generic [ref=e584]:
+              - tablist [ref=e586]:
+                - tab "Specific rules (15)" [selected] [ref=e587] [cursor=pointer]
+                - tab "Inherited rules (9)" [ref=e588] [cursor=pointer]
+              - tabpanel "Specific rules (15)" [ref=e589]:
+                - generic [ref=e590]:
+                  - generic [ref=e591]:
+                    - generic [ref=e592]:
+                      - generic [ref=e593]: Request
+                      - generic [ref=e594]: "7"
+                    - generic [ref=e595]:
+                      - paragraph [ref=e597]:
+                        - text: Method
+                        - generic [ref=e598]: MUST
+                        - text: be
+                        - strong [ref=e599]: PUT
+                        - text: .
+                      - paragraph [ref=e601]:
+                        - text: URL path component
+                        - code [ref=e602]: id
+                        - generic [ref=e603]: MUST
+                        - text: be
+                        - strong [ref=e604]:
+                          - text: a
+                          - link "Resource ID" [ref=e605] [cursor=pointer]:
+                            - /url: /base/general/#313-resource-ids
+                        - text: .
+                      - paragraph [ref=e607]:
+                        - text: URL query parameter
+                        - code [ref=e608]: fields
+                        - generic [ref=e609]: MAY
+                        - text: be
+                        - strong [ref=e610]:
+                          - text: a
+                          - link "Projection Parameter" [ref=e611] [cursor=pointer]:
+                            - /url: /base/general/#331-projection-parameter
+                        - text: .
+                      - paragraph [ref=e613]:
+                        - text: URL query parameter
+                        - code [ref=e614]: denyUpsert
+                        - generic [ref=e615]: MAY
+                        - text: be
+                        - strong [ref=e616]:
+                          - code [ref=e617]: "true"
+                          - text: to prevent Document creation if not found
+                        - text: .
+                      - paragraph [ref=e619]:
+                        - text: Header
+                        - code [ref=e620]: Content-Type
+                        - generic [ref=e621]: MUST
+                        - text: be
+                        - strong [ref=e622]:
+                          - code [ref=e623]: application/json
+                        - text: .
+                      - paragraph [ref=e625]:
+                        - text: Header
+                        - code [ref=e626]: Prefer
+                        - generic [ref=e627]: MAY
+                        - text: be
+                        - strong [ref=e628]:
+                          - code [ref=e629]: return=representation
+                          - text: (default) or
+                          - code [ref=e630]: return=minimal
+                        - text: .
+                      - generic [ref=e631]:
+                        - paragraph [ref=e632]:
+                          - text: Body
+                          - generic [ref=e633]: MUST
+                          - text: be
+                          - strong [ref=e634]: a complete replacement Document
+                          - text: .
+                        - paragraph [ref=e635]: The replacement Document SHOULD NOT include a Resource ID.
+                  - generic [ref=e636]:
+                    - generic [ref=e637]:
+                      - generic [ref=e638]: Response
+                      - generic [ref=e639]: "8"
+                    - generic [ref=e640]:
+                      - paragraph [ref=e642]:
+                        - text: Status
+                        - generic [ref=e643]: MUST
+                        - text: be
+                        - strong [ref=e644]: "200"
+                        - text: .
+                      - generic [ref=e645]:
+                        - paragraph [ref=e646]:
+                          - text: Status
+                          - generic [ref=e647]: MUST
+                          - text: be
+                          - strong [ref=e648]: "201"
+                          - text: .
+                        - paragraph [ref=e649]: If the Resource ID is not found and the Server creates a new Document (upsert).
+                      - generic [ref=e650]:
+                        - paragraph [ref=e651]:
+                          - text: Status
+                          - generic [ref=e652]: MUST
+                          - text: be
+                          - strong [ref=e653]: "204"
+                          - text: .
+                        - paragraph [ref=e654]: "When the Client sends `Prefer: return=minimal`."
+                      - generic [ref=e655]:
+                        - paragraph [ref=e656]:
+                          - text: Status
+                          - generic [ref=e657]: MUST
+                          - text: be
+                          - strong [ref=e658]: "412"
+                          - text: .
+                        - paragraph [ref=e659]: "If the Document is not found and the Client explicitly denied upsert via `?denyUpsert=true`."
+                      - paragraph [ref=e661]:
+                        - text: Header
+                        - code [ref=e662]: X-Modified-Count
+                        - generic [ref=e663]: SHOULD
+                        - text: be
+                        - strong [ref=e664]: the total number of Documents modified by the operation
+                        - text: .
+                      - generic [ref=e665]:
+                        - paragraph [ref=e666]:
+                          - text: Header
+                          - code [ref=e667]: Content-Location
+                          - generic [ref=e668]: MUST
+                          - text: be
+                          - strong [ref=e669]:
+                            - text: the
+                            - code [ref=e670]: GET /:collection/:id
+                            - text: endpoint URL of the written Document
+                          - text: .
+                        - paragraph [ref=e671]: "When the write operation targets a single Document and the Client prefers `return=representation`."
+                      - generic [ref=e672]:
+                        - paragraph [ref=e673]:
+                          - text: Header
+                          - code [ref=e674]: Location
+                          - generic [ref=e675]: MUST
+                          - text: be
+                          - strong [ref=e676]:
+                            - text: the
+                            - code [ref=e677]: GET /:collection/:id
+                            - text: endpoint URL of the written Document
+                          - text: .
+                        - paragraph [ref=e678]: "When the write operation targets a single Document and the Client sends `Prefer: return=minimal`."
+                      - generic [ref=e679]:
+                        - paragraph [ref=e680]:
+                          - text: Body
+                          - generic [ref=e681]: MUST
+                          - text: be
+                          - strong [ref=e682]: the Document(s) written by the operation, including Resource IDs
+                          - text: .
+                        - paragraph [ref=e683]: "When the Client prefers `return=representation` (default behavior)."
+            - generic [ref=e684]:
+              - heading "4.2 PUT /:collection" [level=3] [ref=e685]:
+                - text: "4.2"
+                - code [ref=e686]: PUT /:collection
+              - link "Section titled “4.2 PUT /:collection”" [ref=e687] [cursor=pointer]:
+                - /url: "#42-put-collection"
+                - img [ref=e689]
+                - generic [ref=e691]: Section titled “4.2 PUT /:collection”
+            - paragraph [ref=e692]:
+              - text: Fully replaces Documents matching a Search Query. Maps to the base
+              - code [ref=e693]: replaceByQuery
+              - text: operation.
+            - generic [ref=e694]:
+              - tablist [ref=e696]:
+                - tab "Specific rules (13)" [selected] [ref=e697] [cursor=pointer]
+                - tab "Inherited rules (9)" [ref=e698] [cursor=pointer]
+              - tabpanel "Specific rules (13)" [ref=e699]:
+                - generic [ref=e700]:
+                  - generic [ref=e701]:
+                    - generic [ref=e702]:
+                      - generic [ref=e703]: Request
+                      - generic [ref=e704]: "7"
+                    - generic [ref=e705]:
+                      - paragraph [ref=e707]:
+                        - text: Method
+                        - generic [ref=e708]: MUST
+                        - text: be
+                        - strong [ref=e709]: PUT
+                        - text: .
+                      - paragraph [ref=e711]:
+                        - text: URL query parameter
+                        - code [ref=e712]: fields
+                        - generic [ref=e713]: MAY
+                        - text: be
+                        - strong [ref=e714]:
+                          - text: a
+                          - link "Projection Parameter" [ref=e715] [cursor=pointer]:
+                            - /url: /base/general/#331-projection-parameter
+                        - text: .
+                      - paragraph [ref=e717]:
+                        - text: URL query parameter
+                        - code [ref=e718]: q
+                        - generic [ref=e719]: MUST
+                        - text: be
+                        - strong [ref=e720]:
+                          - text: a
+                          - link "Search Query" [ref=e721] [cursor=pointer]:
+                            - /url: /base/general/#321-definition-and-representation
+                        - text: .
+                      - generic [ref=e722]:
+                        - paragraph [ref=e723]:
+                          - text: URL query parameter
+                          - code [ref=e724]: expectMatch
+                          - generic [ref=e725]: MAY
+                          - text: be
+                          - strong [ref=e726]: the expected number of Documents to match
+                          - text: .
+                        - paragraph [ref=e727]: If the matched count differs, the Server MUST fail the operation.
+                      - paragraph [ref=e729]:
+                        - text: Header
+                        - code [ref=e730]: Content-Type
+                        - generic [ref=e731]: MUST
+                        - text: be
+                        - strong [ref=e732]:
+                          - code [ref=e733]: application/json
+                        - text: .
+                      - paragraph [ref=e735]:
+                        - text: Header
+                        - code [ref=e736]: Prefer
+                        - generic [ref=e737]: MAY
+                        - text: be
+                        - strong [ref=e738]:
+                          - code [ref=e739]: return=representation
+                          - text: (default) or
+                          - code [ref=e740]: return=minimal
+                        - text: .
+                      - generic [ref=e741]:
+                        - paragraph [ref=e742]:
+                          - text: Body
+                          - generic [ref=e743]: MUST
+                          - text: be
+                          - strong [ref=e744]: a complete replacement Document
+                          - text: .
+                        - paragraph [ref=e745]: The replacement Document SHOULD NOT include a Resource ID.
+                  - generic [ref=e746]:
+                    - generic [ref=e747]:
+                      - generic [ref=e748]: Response
+                      - generic [ref=e749]: "6"
+                    - generic [ref=e750]:
+                      - paragraph [ref=e752]:
+                        - text: Status
+                        - generic [ref=e753]: MUST
+                        - text: be
+                        - strong [ref=e754]: "200"
+                        - text: .
+                      - generic [ref=e755]:
+                        - paragraph [ref=e756]:
+                          - text: Status
+                          - generic [ref=e757]: MUST
+                          - text: be
+                          - strong [ref=e758]: "204"
+                          - text: .
+                        - paragraph [ref=e759]: "When the Client sends `Prefer: return=minimal`."
+                      - generic [ref=e760]:
+                        - paragraph [ref=e761]:
+                          - text: Status
+                          - generic [ref=e762]: MUST
+                          - text: be
+                          - strong [ref=e763]: "412"
+                          - text: .
+                        - paragraph [ref=e764]: "If the matched count differs from the `expectMatch` parameter."
+                      - paragraph [ref=e766]:
+                        - text: Header
+                        - code [ref=e767]: X-Matched-Count
+                        - generic [ref=e768]: SHOULD
+                        - text: be
+                        - strong [ref=e769]: the total number of Documents matched by the query
+                        - text: .
+                      - paragraph [ref=e771]:
+                        - text: Header
+                        - code [ref=e772]: X-Modified-Count
+                        - generic [ref=e773]: SHOULD
+                        - text: be
+                        - strong [ref=e774]: the total number of Documents modified by the operation
+                        - text: .
+                      - generic [ref=e775]:
+                        - paragraph [ref=e776]:
+                          - text: Body
+                          - generic [ref=e777]: MUST
+                          - text: be
+                          - strong [ref=e778]: the Document(s) written by the operation, including Resource IDs
+                          - text: .
+                        - paragraph [ref=e779]: "When the Client prefers `return=representation` (default behavior)."
+            - generic [ref=e780]:
+              - heading "5. Delete" [level=2] [ref=e781]
+              - link "Section titled “5. Delete”" [ref=e782] [cursor=pointer]:
+                - /url: "#5-delete"
+                - img [ref=e784]
+                - generic [ref=e786]: Section titled “5. Delete”
+            - separator [ref=e787]
+            - generic [ref=e788]:
+              - heading "5.1 DELETE /:collection/:id" [level=3] [ref=e789]:
+                - text: "5.1"
+                - code [ref=e790]: DELETE /:collection/:id
+              - link "Section titled “5.1 DELETE /:collection/:id”" [ref=e791] [cursor=pointer]:
+                - /url: "#51-delete-collectionid"
+                - img [ref=e793]
+                - generic [ref=e795]: Section titled “5.1 DELETE /:collection/:id”
+            - paragraph [ref=e796]:
+              - text: Deletes a single Document by its Resource ID. Maps to the base
+              - code [ref=e797]: deleteById
+              - text: operation.
+            - generic [ref=e798]:
+              - tablist [ref=e800]:
+                - tab "Specific rules (6)" [selected] [ref=e801] [cursor=pointer]
+                - tab "Inherited rules (9)" [ref=e802] [cursor=pointer]
+              - tabpanel "Specific rules (6)" [ref=e803]:
+                - generic [ref=e804]:
+                  - generic [ref=e805]:
+                    - generic [ref=e806]:
+                      - generic [ref=e807]: Request
+                      - generic [ref=e808]: "2"
+                    - generic [ref=e809]:
+                      - paragraph [ref=e811]:
+                        - text: Method
+                        - generic [ref=e812]: MUST
+                        - text: be
+                        - strong [ref=e813]: DELETE
+                        - text: .
+                      - paragraph [ref=e815]:
+                        - text: URL path component
+                        - code [ref=e816]: id
+                        - generic [ref=e817]: MUST
+                        - text: be
+                        - strong [ref=e818]:
+                          - text: a
+                          - link "Resource ID" [ref=e819] [cursor=pointer]:
+                            - /url: /base/general/#313-resource-ids
+                        - text: .
+                  - generic [ref=e820]:
+                    - generic [ref=e821]:
+                      - generic [ref=e822]: Response
+                      - generic [ref=e823]: "4"
+                    - generic [ref=e824]:
+                      - paragraph [ref=e826]:
+                        - text: Status
+                        - generic [ref=e827]: MUST
+                        - text: be
+                        - strong [ref=e828]: "204"
+                        - text: .
+                      - generic [ref=e829]:
+                        - paragraph [ref=e830]:
+                          - text: Status
+                          - generic [ref=e831]: MUST
+                          - text: be
+                          - strong [ref=e832]: "404"
+                          - text: .
+                        - paragraph [ref=e833]: If the Server cannot find any Document matching the Input Subject.
+                      - paragraph [ref=e835]:
+                        - text: Header
+                        - code [ref=e836]: X-Modified-Count
+                        - generic [ref=e837]: SHOULD
+                        - text: be
+                        - strong [ref=e838]: the total number of Documents modified by the operation
+                        - text: .
+                      - paragraph [ref=e840]:
+                        - text: Body
+                        - generic [ref=e841]: MUST
+                        - text: be
+                        - strong [ref=e842]: empty (no body)
+                        - text: .
+            - generic [ref=e843]:
+              - heading "5.2 DELETE /:collection" [level=3] [ref=e844]:
+                - text: "5.2"
+                - code [ref=e845]: DELETE /:collection
+              - link "Section titled “5.2 DELETE /:collection”" [ref=e846] [cursor=pointer]:
+                - /url: "#52-delete-collection"
+                - img [ref=e848]
+                - generic [ref=e850]: Section titled “5.2 DELETE /:collection”
+            - paragraph [ref=e851]:
+              - text: Deletes Documents matching a Search Query. Maps to the base
+              - code [ref=e852]: deleteByQuery
+              - text: operation.
+            - generic [ref=e853]:
+              - tablist [ref=e855]:
+                - tab "Specific rules (8)" [selected] [ref=e856] [cursor=pointer]
+                - tab "Inherited rules (9)" [ref=e857] [cursor=pointer]
+              - tabpanel "Specific rules (8)" [ref=e858]:
+                - generic [ref=e859]:
+                  - generic [ref=e860]:
+                    - generic [ref=e861]:
+                      - generic [ref=e862]: Request
+                      - generic [ref=e863]: "3"
+                    - generic [ref=e864]:
+                      - paragraph [ref=e866]:
+                        - text: Method
+                        - generic [ref=e867]: MUST
+                        - text: be
+                        - strong [ref=e868]: DELETE
+                        - text: .
+                      - paragraph [ref=e870]:
+                        - text: URL query parameter
+                        - code [ref=e871]: q
+                        - generic [ref=e872]: MUST
+                        - text: be
+                        - strong [ref=e873]:
+                          - text: a
+                          - link "Search Query" [ref=e874] [cursor=pointer]:
+                            - /url: /base/general/#321-definition-and-representation
+                        - text: .
+                      - generic [ref=e875]:
+                        - paragraph [ref=e876]:
+                          - text: URL query parameter
+                          - code [ref=e877]: expectMatch
+                          - generic [ref=e878]: MAY
+                          - text: be
+                          - strong [ref=e879]: the expected number of Documents to match
+                          - text: .
+                        - paragraph [ref=e880]: If the matched count differs, the Server MUST fail the operation.
+                  - generic [ref=e881]:
+                    - generic [ref=e882]:
+                      - generic [ref=e883]: Response
+                      - generic [ref=e884]: "5"
+                    - generic [ref=e885]:
+                      - paragraph [ref=e887]:
+                        - text: Status
+                        - generic [ref=e888]: MUST
+                        - text: be
+                        - strong [ref=e889]: "204"
+                        - text: .
+                      - generic [ref=e890]:
+                        - paragraph [ref=e891]:
+                          - text: Status
+                          - generic [ref=e892]: MUST
+                          - text: be
+                          - strong [ref=e893]: "412"
+                          - text: .
+                        - paragraph [ref=e894]: "If the matched count differs from the `expectMatch` parameter."
+                      - paragraph [ref=e896]:
+                        - text: Header
+                        - code [ref=e897]: X-Matched-Count
+                        - generic [ref=e898]: SHOULD
+                        - text: be
+                        - strong [ref=e899]: the total number of Documents matched by the query
+                        - text: .
+                      - paragraph [ref=e901]:
+                        - text: Header
+                        - code [ref=e902]: X-Modified-Count
+                        - generic [ref=e903]: SHOULD
+                        - text: be
+                        - strong [ref=e904]: the total number of Documents modified by the operation
+                        - text: .
+                      - paragraph [ref=e906]:
+                        - text: Body
+                        - generic [ref=e907]: MUST
+                        - text: be
+                        - strong [ref=e908]: empty (no body)
+                        - text: .
+          - link "Previous Async" [ref=e911] [cursor=pointer]:
+            - /url: /extensions/async/
+            - img [ref=e912]
+            - generic [ref=e914]:
+              - text: Previous
+              - text: Async
+  - generic [ref=e917]:
+    - button "Menu" [ref=e918]:
+      - img [ref=e920]
+      - generic: Menu
+    - button "Inspect" [ref=e924]:
+      - img [ref=e926]
+      - generic: Inspect
+    - button "Audit" [ref=e928]:
+      - img [ref=e930]
+      - generic: Audit
+    - button "Settings" [ref=e933]:
+      - img [ref=e935]
+      - generic: Settings

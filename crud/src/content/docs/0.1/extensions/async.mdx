@@ -1,0 +1,68 @@
+---
+title: Asyncability
+description: Extension specification that enables CRUD API Participants to
+  negotiate synchronous or asynchronous operation execution, including polling
+  and callback mechanisms.
+slug: 0.1/extensions/async
+---
+
+import RulesCardGrid from '../../../../components/RulesCardGrid.astro';
+import SectionDescription from '../../../../components/SectionDescription.astro';
+
+<SectionDescription sectionCode="A1" />
+
+This extension is OPTIONAL. CRUD APIs that do not support asynchronous operations are not required to implement any of the rules in this section. However, APIs that do support asynchronous operations MUST adhere to the rules below.
+
+## 1. Negotiation
+
+***
+
+<SectionDescription sectionCode="A11" />
+
+The negotiation follows a simple model based on three possible Client abilities:
+
+1. **Sync-only** (default) — the Client expects a synchronous response and does not send any async-specific Metadata.
+2. **Async-preferred** — the Client supports both modes but prefers an asynchronous response.
+3. **Async-required** — the Client only supports asynchronous operations and requires the Server to respond accordingly.
+
+<RulesCardGrid sectionCode="A11" />
+
+## 2. Server response matrix
+
+***
+
+<SectionDescription sectionCode="A12" />
+
+The table below summarizes the expected behavior:
+
+| | Client sync-only | Client async-preferred | Client async-required |
+|---|---|---|---|
+| **Server sync-only** | Sync response | Sync response (MAY fail) | MUST fail |
+| **Server async-only** | MUST fail | Async response | Async response |
+| **Server both** | Sync response | Async response | Async response |
+
+<RulesCardGrid sectionCode="A12" />
+
+## 3. Operation polling
+
+***
+
+<SectionDescription sectionCode="A13" />
+
+The polling flow is:
+
+1. Server accepts the async operation and returns an **Operation Result URL** in the response Metadata.
+2. Client periodically polls the Operation Result URL.
+3. The URL responds with one of three states: **pending** (still running), **success** (completed with results), or **failure** (completed with error).
+
+<RulesCardGrid sectionCode="A13" />
+
+## 4. Callback notifications
+
+***
+
+<SectionDescription sectionCode="A14" />
+
+The callback mechanism complements polling — it does not replace it. The Server MUST always provide the polling URL even when callbacks are configured.
+
+<RulesCardGrid sectionCode="A14" />

@@ -1,0 +1,33 @@
+---
+title: Protocols
+description: Protocol-specific specifications that implement the CRUD API Base
+  Specification by mapping its abstract operations, metadata, and rules to
+  concrete transport protocol constructs.
+slug: 0.1/protocols
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+A **"Protocol Specification"** is a derived specification that maps the abstract definitions of the [CRUD API Base Specification](/0.1/base/) to a concrete **Transport Protocol**, as defined in [Section 2.2 Anatomy and behavior of a CRUD operation](/0.1/base/terminology/#22-anatomy-and-behavior-of-a-crud-operation).
+
+Each Protocol Specification MUST define how the following base concepts are realized in the target protocol:
+
+1. **Operations** — how each CRUD operation verb and its Subject are expressed (e.g. HTTP methods and URL patterns, RPC procedure names).
+2. **Parameters** — how operation Parameters such as projection, sorting, and pagination are transported (e.g. query strings, request fields).
+3. **Metadata** — how Input and Output Metadata are exchanged between Participants (e.g. HTTP headers, RPC metadata frames).
+4. **Content negotiation** — how Clients and Servers negotiate Resource representation formats (e.g. `Accept` / `Content-Type` headers, codec identifiers).
+5. **Error signaling** — how operation failures are communicated (e.g. HTTP status codes, RPC error codes).
+
+A Protocol Specification MUST NOT contradict a Base Specification rule. Where ambiguity exists, the Base Specification takes precedence.
+
+Protocol Specifications follow the same [RFC 2119](https://datatracker.ietf.org/doc/html/rfc2119) keyword conventions and [SemVer](https://semver.org/) versioning as the Base Specification.
+
+***
+
+## Implemented protocols
+
+<CardGrid>
+  <LinkCard title="RESTful HTTP" href="/protocols/http/" description="Maps CRUD operations to HTTP methods, URLs, headers, and status codes following REST architectural constraints." />
+
+  <LinkCard title="MCP (Model Context Protocol)" href="/protocols/mcp/" description="Maps CRUD operations to JSON-RPC 2.0 methods over the Model Context Protocol for AI-integrated data access." />
+</CardGrid>

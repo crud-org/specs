@@ -1,0 +1,37 @@
+---
+import { DatabaseSync } from 'node:sqlite';
+import path from 'node:path';
+
+interface Props {
+  termId: string;
+}
+
+const { termId } = Astro.props;
+
+const dbPath = path.join(process.cwd(), 'src/crud.db');
+const db = new DatabaseSync(dbPath);
+const term = db.prepare('SELECT label, definition FROM crud_terms WHERE id = ?').get(termId) as {
+  label: string;
+  definition: string;
+} | undefined;
+db.close();
+
+function termToHtml(text: string): string {
+  return text
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, linkText, url) => {
+      const external = url.startsWith('http');
+      const attrs = external ? ' target="_blank" rel="noopener noreferrer"' : '';
+      return `<a href="${url}"${attrs}>${linkText}</a>`;
+    })
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/\\\$/g, '$');
+}
+---
+
+{term && (
+  <details id={termId}>
+    <summary set:html={termToHtml(term.label)} />
+    <p set:html={termToHtml(term.definition)} />
+  </details>
+)}

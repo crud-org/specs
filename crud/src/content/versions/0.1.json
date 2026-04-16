@@ -1,0 +1,66 @@
+{
+  "sidebar": [
+    {
+      "label": "Specifications",
+      "items": [
+        {
+          "label": "Base Specification",
+          "items": [
+            {
+              "slug": "base",
+              "label": "Overview"
+            },
+            {
+              "slug": "base/terminology",
+              "label": "Terminology"
+            },
+            {
+              "slug": "base/general",
+              "label": "General rules"
+            },
+            {
+              "slug": "base/operation",
+              "label": "Operation rules"
+            }
+          ]
+        },
+        {
+          "label": "Extensions",
+          "items": [
+            {
+              "slug": "extensions",
+              "label": "Overview"
+            },
+            {
+              "slug": "extensions/async",
+              "label": "Asyncability"
+            },
+            {
+              "slug": "extensions/metadata",
+              "label": "Metadata"
+            },
+            {
+              "slug": "extensions/relationships",
+              "label": "Relationships"
+            }
+          ]
+        },
+        {
+          "label": "Protocols",
+          "items": [
+            {
+              "slug": "protocols",
+              "label": "Overview"
+            },
+            {
+              "slug": "protocols/http"
+            },
+            {
+              "slug": "protocols/mcp"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

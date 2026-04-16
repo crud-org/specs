@@ -1,0 +1,165 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#_top"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "CRUD API" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e8]: CRUD API
+        - button "Search" [ref=e11] [cursor=pointer]:
+          - img [ref=e12]
+          - generic [ref=e14]: Search
+          - generic [ref=e15]:
+            - generic [ref=e16]: ⌘
+            - generic [ref=e17]: K
+        - generic [ref=e18]:
+          - link "GitHub" [ref=e20] [cursor=pointer]:
+            - /url: https://github.com/withastro/starlight
+            - generic [ref=e21]: GitHub
+            - img [ref=e22]
+          - generic [ref=e25]:
+            - generic [ref=e26]: Select theme
+            - img
+            - combobox "Select theme" [ref=e27] [cursor=pointer]:
+              - option "Dark"
+              - option "Light"
+              - option "Auto" [selected]
+            - img
+    - navigation "Main":
+      - list [ref=e31]:
+        - listitem [ref=e32]:
+          - group [ref=e33]:
+            - generic "Base Specification" [ref=e34] [cursor=pointer]:
+              - generic [ref=e35]: Base Specification
+              - img [ref=e36]
+            - list [ref=e38]:
+              - listitem [ref=e39]:
+                - link "1. Overview" [ref=e40] [cursor=pointer]:
+                  - /url: /base/
+              - listitem [ref=e41]:
+                - link "2. Terminology" [ref=e42] [cursor=pointer]:
+                  - /url: /base/terminology/
+              - listitem [ref=e43]:
+                - link "3. General rules and definitions" [ref=e44] [cursor=pointer]:
+                  - /url: /base/general/
+              - listitem [ref=e45]:
+                - link "4. Operation rules" [ref=e46] [cursor=pointer]:
+                  - /url: /base/operation/
+        - listitem [ref=e47]:
+          - group [ref=e48]:
+            - generic "Extensions" [ref=e49] [cursor=pointer]:
+              - generic [ref=e50]: Extensions
+              - img [ref=e51]
+            - list [ref=e53]:
+              - listitem [ref=e54]:
+                - link "Async" [ref=e55] [cursor=pointer]:
+                  - /url: /extensions/async/
+        - listitem [ref=e56]:
+          - group [ref=e57]:
+            - generic "Protocols" [ref=e58] [cursor=pointer]:
+              - generic [ref=e59]: Protocols
+              - img [ref=e60]
+            - list [ref=e62]:
+              - listitem [ref=e63]:
+                - link "Protocols" [ref=e64] [cursor=pointer]:
+                  - /url: /protocols/
+              - listitem [ref=e65]:
+                - link "RESTful HTTP" [ref=e66] [cursor=pointer]:
+                  - /url: /protocols/http/
+    - generic [ref=e68]:
+      - complementary [ref=e69]:
+        - navigation "On this page" [ref=e74]:
+          - heading "On this page" [level=2] [ref=e75]
+          - list [ref=e76]:
+            - listitem [ref=e77]:
+              - link "Overview" [ref=e78] [cursor=pointer]:
+                - /url: "#_top"
+            - listitem [ref=e79]:
+              - link "Implemented protocols" [ref=e80] [cursor=pointer]:
+                - /url: "#implemented-protocols"
+      - main [ref=e82]:
+        - heading "Protocols" [level=1] [ref=e85]
+        - generic [ref=e87]:
+          - generic [ref=e88]:
+            - paragraph [ref=e89]:
+              - text: A
+              - strong [ref=e90]: “Protocol Specification”
+              - text: is a derived specification that maps the abstract definitions of the
+              - link "CRUD API Base Specification" [ref=e91] [cursor=pointer]:
+                - /url: /base/
+              - text: to a concrete
+              - strong [ref=e92]: Transport Protocol
+              - text: ", as defined in"
+              - link "Section 2.2 Anatomy and behavior of a CRUD operation" [ref=e93] [cursor=pointer]:
+                - /url: /base/terminology/#22-anatomy-and-behavior-of-a-crud-operation
+              - text: .
+            - paragraph [ref=e94]: "Each Protocol Specification MUST define how the following base concepts are realized in the target protocol:"
+            - list [ref=e95]:
+              - listitem [ref=e96]:
+                - strong [ref=e97]: Operations
+                - text: — how each CRUD operation verb and its Subject are expressed (e.g. HTTP methods and URL patterns, RPC procedure names).
+              - listitem [ref=e98]:
+                - strong [ref=e99]: Parameters
+                - text: — how operation Parameters such as projection, sorting, and pagination are transported (e.g. query strings, request fields).
+              - listitem [ref=e100]:
+                - strong [ref=e101]: Metadata
+                - text: — how Input and Output Metadata are exchanged between Participants (e.g. HTTP headers, RPC metadata frames).
+              - listitem [ref=e102]:
+                - strong [ref=e103]: Content negotiation
+                - text: — how Clients and Servers negotiate Resource representation formats (e.g.
+                - code [ref=e104]: Accept
+                - text: /
+                - code [ref=e105]: Content-Type
+                - text: headers, codec identifiers).
+              - listitem [ref=e106]:
+                - strong [ref=e107]: Error signaling
+                - text: — how operation failures are communicated (e.g. HTTP status codes, RPC error codes).
+            - paragraph [ref=e108]: A Protocol Specification MUST NOT contradict a Base Specification rule. Where ambiguity exists, the Base Specification takes precedence.
+            - paragraph [ref=e109]:
+              - text: Protocol Specifications follow the same
+              - link "RFC 2119" [ref=e110] [cursor=pointer]:
+                - /url: https://datatracker.ietf.org/doc/html/rfc2119
+              - text: keyword conventions and
+              - link "SemVer" [ref=e111] [cursor=pointer]:
+                - /url: https://semver.org/
+              - text: versioning as the Base Specification.
+            - separator [ref=e112]
+            - generic [ref=e113]:
+              - heading "Implemented protocols" [level=2] [ref=e114]
+              - link "Section titled “Implemented protocols”" [ref=e115] [cursor=pointer]:
+                - /url: "#implemented-protocols"
+                - img [ref=e117]
+                - generic [ref=e119]: Section titled “Implemented protocols”
+            - generic [ref=e121]:
+              - generic [ref=e122]:
+                - link "RESTful HTTP" [ref=e123] [cursor=pointer]:
+                  - /url: /protocols/http/
+                - generic [ref=e124]: Maps CRUD operations to HTTP methods, URLs, headers, and status codes following REST architectural constraints.
+              - img [ref=e125]
+          - generic [ref=e128]:
+            - link "Previous Async" [ref=e129] [cursor=pointer]:
+              - /url: /extensions/async/
+              - img [ref=e130]
+              - generic [ref=e132]:
+                - text: Previous
+                - text: Async
+            - link "Next RESTful HTTP" [ref=e133] [cursor=pointer]:
+              - /url: /protocols/http/
+              - img [ref=e134]
+              - generic [ref=e136]:
+                - text: Next
+                - text: RESTful HTTP
+  - generic [ref=e139]:
+    - button "Menu" [ref=e140]:
+      - img [ref=e142]
+      - generic: Menu
+    - button "Inspect" [ref=e146]:
+      - img [ref=e148]
+      - generic: Inspect
+    - button "Audit" [ref=e150]:
+      - img [ref=e152]
+      - generic: Audit
+    - button "Settings" [ref=e155]:
+      - img [ref=e157]
+      - generic: Settings

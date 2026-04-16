@@ -1,0 +1,95 @@
+---
+title: Relationships
+description: Extension specification that defines a convention for expressing typed, self-describing references between Documents using the $rel metadata property.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import RulesCardGrid from '../../../components/RulesCardGrid.astro';
+import SectionDescription from '../../../components/SectionDescription.astro';
+
+export const basicExample = `{
+  "date": "2025-04-16",
+  "title": "Hello World",
+
+  "author": {
+    "$rel": "users",
+    "value": "us_b8tRS7h4TJ2Vt43Dp85v2A"
+  },
+
+  "tags": {
+    "$rel": "tags",
+    "value": ["tag_abc", "tag_def"]
+  },
+
+  "category": {
+    "$rel": "google.com/categories",
+    "value": "tech-ai"
+  }
+}`;
+
+export const writeExample = `// Client MUST send references (not populated objects):
+{
+  "title": "Updated Post",
+  "author": {
+    "$rel": "users",
+    "value": "us_newAuthorId"
+  },
+  "tags": {
+    "$rel": "tags",
+    "value": ["tag_abc", "tag_ghi"]
+  }
+}`;
+
+<SectionDescription sectionCode="R1" />
+
+This extension is OPTIONAL. CRUD APIs that do not need relationship tracking are not required to implement any of the rules in this section.
+
+The `$rel` convention follows the `$`-prefix reserved for metadata about Properties, as defined in [Section 3.1.2 Resource Fields](/base/general/#312-resource-fields). Unlike regular metadata that Servers may strip, `$rel` fields are structural — they define the shape of the Document and MUST be preserved.
+
+<Code code={basicExample} lang="jsonc" title="Document with relationships" />
+
+## 1. Relationship structure
+
+---
+
+<SectionDescription sectionCode="R11" />
+
+Each relationship Property is a JSON object with:
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `$rel` | `string` | MUST | Target Collection slug or external URI. |
+| `value` | `string \| string[] \| null` | MUST | Resource ID(s) of the referenced Document(s). |
+| _(other)_ | any | MAY | Denormalized fields for convenience (non-normative). |
+
+<RulesCardGrid sectionCode="R11" open />
+
+<Code code={writeExample} lang="jsonc" title="Write format (reference only)" />
+
+## 2. Relationship targets
+
+---
+
+<SectionDescription sectionCode="R12" />
+
+| Target type | `$rel` format | Example |
+|---|---|---|
+| **Internal** | Collection slug | `"users"`, `"tags"` |
+| **External** | URI or URL | `"google.com/categories"`, `"https://api.example.com/products"` |
+
+External relationships are opaque references — the Server stores them but does not resolve or validate them.
+
+<RulesCardGrid sectionCode="R12" open />
+
+## 3. Cardinality
+
+---
+
+<SectionDescription sectionCode="R13" />
+
+| Cardinality | `value` type | Empty state |
+|---|---|---|
+| **Single** (one-to-one) | `string` (Resource ID) | `null` |
+| **Multiple** (one-to-many) | `string[]` (Resource ID array) | `[]` |
+
+<RulesCardGrid sectionCode="R13" open />

@@ -1,0 +1,1382 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#_top"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "CRUD API" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e8]: CRUD API
+        - button "Search" [ref=e11] [cursor=pointer]:
+          - img [ref=e12]
+          - generic [ref=e14]: Search
+          - generic [ref=e15]:
+            - generic [ref=e16]: ⌘
+            - generic [ref=e17]: K
+        - generic [ref=e18]:
+          - link "GitHub" [ref=e20] [cursor=pointer]:
+            - /url: https://github.com/withastro/starlight
+            - generic [ref=e21]: GitHub
+            - img [ref=e22]
+          - generic [ref=e25]:
+            - generic [ref=e26]: Select theme
+            - img
+            - combobox "Select theme" [ref=e27] [cursor=pointer]:
+              - option "Dark"
+              - option "Light"
+              - option "Auto" [selected]
+            - img
+    - navigation "Main":
+      - list [ref=e31]:
+        - listitem [ref=e32]:
+          - group [ref=e33]:
+            - generic "Base Specification" [ref=e34] [cursor=pointer]:
+              - generic [ref=e35]: Base Specification
+              - img [ref=e36]
+            - list [ref=e38]:
+              - listitem [ref=e39]:
+                - link "1. Overview" [ref=e40] [cursor=pointer]:
+                  - /url: /base/
+              - listitem [ref=e41]:
+                - link "2. Terminology" [ref=e42] [cursor=pointer]:
+                  - /url: /base/terminology/
+              - listitem [ref=e43]:
+                - link "3. General rules and definitions" [ref=e44] [cursor=pointer]:
+                  - /url: /base/general/
+              - listitem [ref=e45]:
+                - link "4. Operation rules" [ref=e46] [cursor=pointer]:
+                  - /url: /base/operation/
+        - listitem [ref=e47]:
+          - group [ref=e48]:
+            - generic "Extensions" [ref=e49] [cursor=pointer]:
+              - generic [ref=e50]: Extensions
+              - img [ref=e51]
+            - list [ref=e53]:
+              - listitem [ref=e54]:
+                - link "Async" [ref=e55] [cursor=pointer]:
+                  - /url: /extensions/async/
+        - listitem [ref=e56]:
+          - group [ref=e57]:
+            - generic "Protocols" [ref=e58] [cursor=pointer]:
+              - generic [ref=e59]: Protocols
+              - img [ref=e60]
+            - list [ref=e62]:
+              - listitem [ref=e63]:
+                - link "RESTful HTTP" [ref=e64] [cursor=pointer]:
+                  - /url: /protocols/http/
+    - generic [ref=e66]:
+      - complementary [ref=e67]:
+        - navigation "On this page" [ref=e72]:
+          - heading "On this page" [level=2] [ref=e73]
+          - list [ref=e74]:
+            - listitem [ref=e75]:
+              - link "Overview" [ref=e76] [cursor=pointer]:
+                - /url: "#_top"
+            - listitem [ref=e77]:
+              - link "1. Get" [ref=e78] [cursor=pointer]:
+                - /url: "#1-get"
+              - list [ref=e79]:
+                - listitem [ref=e80]:
+                  - link "1.1 GET /:collection/:id" [ref=e81] [cursor=pointer]:
+                    - /url: "#11-get-collectionid"
+                - listitem [ref=e82]:
+                  - link "1.2 GET /:collection" [ref=e83] [cursor=pointer]:
+                    - /url: "#12-get-collection"
+            - listitem [ref=e84]:
+              - link "2. Create" [ref=e85] [cursor=pointer]:
+                - /url: "#2-create"
+              - list [ref=e86]:
+                - listitem [ref=e87]:
+                  - link "2.1 POST /:collection" [ref=e88] [cursor=pointer]:
+                    - /url: "#21-post-collection"
+            - listitem [ref=e89]:
+              - link "3. Patch" [ref=e90] [cursor=pointer]:
+                - /url: "#3-patch"
+              - list [ref=e91]:
+                - listitem [ref=e92]:
+                  - link "3.1 PATCH /:collection/:id" [ref=e93] [cursor=pointer]:
+                    - /url: "#31-patch-collectionid"
+                - listitem [ref=e94]:
+                  - link "3.2 PATCH /:collection" [ref=e95] [cursor=pointer]:
+                    - /url: "#32-patch-collection"
+            - listitem [ref=e96]:
+              - link "4. Replace" [ref=e97] [cursor=pointer]:
+                - /url: "#4-replace"
+              - list [ref=e98]:
+                - listitem [ref=e99]:
+                  - link "4.1 PUT /:collection/:id" [ref=e100] [cursor=pointer]:
+                    - /url: "#41-put-collectionid"
+                - listitem [ref=e101]:
+                  - link "4.2 PUT /:collection" [ref=e102] [cursor=pointer]:
+                    - /url: "#42-put-collection"
+            - listitem [ref=e103]:
+              - link "5. Delete" [ref=e104] [cursor=pointer]:
+                - /url: "#5-delete"
+              - list [ref=e105]:
+                - listitem [ref=e106]:
+                  - link "5.1 DELETE /:collection/:id" [ref=e107] [cursor=pointer]:
+                    - /url: "#51-delete-collectionid"
+                - listitem [ref=e108]:
+                  - link "5.2 DELETE /:collection" [ref=e109] [cursor=pointer]:
+                    - /url: "#52-delete-collection"
+      - main [ref=e111]:
+        - heading "RESTful HTTP" [level=1] [ref=e114]
+        - generic [ref=e116]:
+          - generic [ref=e117]:
+            - paragraph [ref=e118]:
+              - text: This section defines the normative mapping of CRUD API operations to the
+              - strong [ref=e119]: RESTful HTTP
+              - text: protocol. Each endpoint specifies the HTTP method, URL pattern, headers, request body, and expected responses.
+            - paragraph [ref=e120]: "Rules are organized by endpoint signature. Each endpoint has two tabs:"
+            - list [ref=e121]:
+              - listitem [ref=e122]:
+                - strong [ref=e123]: Specific rules
+                - text: ": HTTP-specific constraints for this endpoint."
+              - listitem [ref=e124]:
+                - strong [ref=e125]: Inherited rules
+                - text: ": Base CRUD rules from the operation this endpoint implements."
+            - generic [ref=e126]:
+              - heading "1. Get" [level=2] [ref=e127]
+              - link "Section titled “1. Get”" [ref=e128] [cursor=pointer]:
+                - /url: "#1-get"
+                - img [ref=e130]
+                - generic [ref=e132]: Section titled “1. Get”
+            - separator [ref=e133]
+            - generic [ref=e134]:
+              - heading "1.1 GET /:collection/:id" [level=3] [ref=e135]:
+                - text: "1.1"
+                - code [ref=e136]: GET /:collection/:id
+              - link "Section titled “1.1 GET /:collection/:id”" [ref=e137] [cursor=pointer]:
+                - /url: "#11-get-collectionid"
+                - img [ref=e139]
+                - generic [ref=e141]: Section titled “1.1 GET /:collection/:id”
+            - paragraph [ref=e142]:
+              - text: Retrieves a single Document by its Resource ID. Maps to the base
+              - code [ref=e143]: get
+              - text: operation.
+            - generic [ref=e144]:
+              - generic [ref=e145]:
+                - button "Specific rules (13)" [ref=e146]
+                - button "Inherited rules (4)" [ref=e147]
+              - generic [ref=e149]:
+                - generic [ref=e150]:
+                  - generic [ref=e151]:
+                    - generic [ref=e152]: Request
+                    - generic [ref=e153]: 7 rules
+                  - generic [ref=e154]:
+                    - generic [ref=e155]:
+                      - generic [ref=e156]:
+                        - generic [ref=e157]: METHOD
+                        - generic [ref=e158]: MUST
+                      - paragraph [ref=e159]: GET
+                      - paragraph [ref=e160]: GET
+                    - generic [ref=e161]:
+                      - generic [ref=e162]:
+                        - generic [ref=e163]: PATH
+                        - generic [ref=e164]: MUST
+                      - paragraph [ref=e165]: /:collection
+                      - paragraph [ref=e166]:
+                        - text: a Collection
+                        - link "Slug" [ref=e167] [cursor=pointer]:
+                          - /url: /base/terminology/#slug
+                    - generic [ref=e168]:
+                      - generic [ref=e169]:
+                        - generic [ref=e170]: PATH
+                        - generic [ref=e171]: MUST
+                      - paragraph [ref=e172]: /:id = ID
+                      - paragraph [ref=e173]:
+                        - text: a
+                        - link "Resource ID" [ref=e174] [cursor=pointer]:
+                          - /url: /base/general/#313-resource-ids
+                    - generic [ref=e175]:
+                      - generic [ref=e176]:
+                        - generic [ref=e177]: QUERY
+                        - generic [ref=e178]: MAY
+                      - paragraph [ref=e179]: "?fields = Projection"
+                      - paragraph [ref=e180]:
+                        - text: a
+                        - link "Projection Parameter" [ref=e181] [cursor=pointer]:
+                          - /url: /base/general/#331-projection-parameter
+                    - generic [ref=e182]:
+                      - generic [ref=e183]:
+                        - generic [ref=e184]: HEADER
+                        - generic [ref=e185]: SHOULD
+                      - paragraph [ref=e186]: "Accept: application/json"
+                      - paragraph [ref=e187]:
+                        - code [ref=e188]: application/json
+                    - generic [ref=e189]:
+                      - generic [ref=e190]:
+                        - generic [ref=e191]: HEADER
+                        - generic [ref=e192]: MUST
+                      - paragraph [ref=e193]: X-CRUD-Version
+                      - paragraph [ref=e194]: the CRUD API Spec version
+                    - generic [ref=e195]:
+                      - generic [ref=e196]:
+                        - generic [ref=e197]: HEADER
+                        - generic [ref=e198]: SHOULD
+                      - paragraph [ref=e199]: X-Correlation-ID
+                      - paragraph [ref=e200]:
+                        - text: a fresh
+                        - link "uuid-hex" [ref=e201] [cursor=pointer]:
+                          - /url: /base/terminology/#uuid-hex
+                          - code [ref=e202]: uuid-hex
+                - generic [ref=e203]:
+                  - generic [ref=e204]:
+                    - generic [ref=e205]: Response
+                    - generic [ref=e206]: 6 rules
+                  - generic [ref=e207]:
+                    - generic [ref=e208]:
+                      - generic [ref=e209]:
+                        - generic [ref=e210]: STATUS
+                        - generic [ref=e211]: MUST
+                      - paragraph [ref=e212]: 200 OK
+                      - paragraph [ref=e213]: "200"
+                    - generic [ref=e214]:
+                      - generic [ref=e215]:
+                        - generic [ref=e216]: STATUS
+                        - generic [ref=e217]: MUST
+                      - paragraph [ref=e218]: 404 Not Found
+                      - paragraph [ref=e219]: "404"
+                      - paragraph [ref=e220]: If the Server cannot find any Document matching the Input Subject.
+                    - generic [ref=e221]:
+                      - generic [ref=e222]:
+                        - generic [ref=e223]: HEADER
+                        - generic [ref=e224]: MUST
+                      - paragraph [ref=e225]: X-CRUD-Version
+                      - paragraph [ref=e226]: the CRUD API Spec version
+                    - generic [ref=e227]:
+                      - generic [ref=e228]:
+                        - generic [ref=e229]: HEADER
+                        - generic [ref=e230]: SHOULD
+                      - paragraph [ref=e231]: X-Correlation-ID
+                      - paragraph [ref=e232]:
+                        - text: the request's
+                        - link "uuid-hex" [ref=e233] [cursor=pointer]:
+                          - /url: /base/terminology/#uuid-hex
+                          - code [ref=e234]: uuid-hex
+                    - generic [ref=e235]:
+                      - generic [ref=e236]:
+                        - generic [ref=e237]: BODY
+                        - generic [ref=e238]: MUST
+                      - paragraph [ref=e239]: "{ Document }"
+                      - paragraph [ref=e240]: a single Document
+                    - generic [ref=e241]:
+                      - generic [ref=e242]:
+                        - generic [ref=e243]: BODY
+                        - generic [ref=e244]: MUST
+                      - paragraph [ref=e245]: "{ error }"
+                      - paragraph [ref=e246]:
+                        - text: error data matching
+                        - link "Section 3.4.3" [ref=e247] [cursor=pointer]:
+                          - /url: /base/general/#343-error-handling
+                      - paragraph [ref=e248]: When the operation fails.
+            - generic [ref=e249]:
+              - heading "1.2 GET /:collection" [level=3] [ref=e250]:
+                - text: "1.2"
+                - code [ref=e251]: GET /:collection
+              - link "Section titled “1.2 GET /:collection”" [ref=e252] [cursor=pointer]:
+                - /url: "#12-get-collection"
+                - img [ref=e254]
+                - generic [ref=e256]: Section titled “1.2 GET /:collection”
+            - paragraph [ref=e257]:
+              - text: Lists Documents from a Collection, optionally filtered by a Search Query. Maps to the base
+              - code [ref=e258]: list
+              - text: operation.
+            - generic [ref=e259]:
+              - generic [ref=e260]:
+                - button "Specific rules (14)" [ref=e261]
+                - button "Inherited rules (8)" [ref=e262]
+              - generic [ref=e264]:
+                - generic [ref=e265]:
+                  - generic [ref=e266]:
+                    - generic [ref=e267]: Request
+                    - generic [ref=e268]: 9 rules
+                  - generic [ref=e269]:
+                    - generic [ref=e270]:
+                      - generic [ref=e271]:
+                        - generic [ref=e272]: METHOD
+                        - generic [ref=e273]: MUST
+                      - paragraph [ref=e274]: GET
+                      - paragraph [ref=e275]: GET
+                    - generic [ref=e276]:
+                      - generic [ref=e277]:
+                        - generic [ref=e278]: PATH
+                        - generic [ref=e279]: MUST
+                      - paragraph [ref=e280]: /:collection
+                      - paragraph [ref=e281]:
+                        - text: a Collection
+                        - link "Slug" [ref=e282] [cursor=pointer]:
+                          - /url: /base/terminology/#slug
+                    - generic [ref=e283]:
+                      - generic [ref=e284]:
+                        - generic [ref=e285]: QUERY
+                        - generic [ref=e286]: MAY
+                      - paragraph [ref=e287]: "?fields = Projection"
+                      - paragraph [ref=e288]:
+                        - text: a
+                        - link "Projection Parameter" [ref=e289] [cursor=pointer]:
+                          - /url: /base/general/#331-projection-parameter
+                    - generic [ref=e290]:
+                      - generic [ref=e291]:
+                        - generic [ref=e292]: QUERY
+                        - generic [ref=e293]: MAY
+                      - paragraph [ref=e294]: "?q = Search Query"
+                      - paragraph [ref=e295]:
+                        - text: a
+                        - link "Search Query" [ref=e296] [cursor=pointer]:
+                          - /url: /base/general/#321-definition-and-representation
+                      - paragraph [ref=e297]: Client MAY omit to list all Documents.
+                    - generic [ref=e298]:
+                      - generic [ref=e299]:
+                        - generic [ref=e300]: QUERY
+                        - generic [ref=e301]: MAY
+                      - paragraph [ref=e302]: "?sort = Sorting"
+                      - paragraph [ref=e303]:
+                        - text: a
+                        - link "Sorting Parameter" [ref=e304] [cursor=pointer]:
+                          - /url: /base/operation/#423-sorting-parameter
+                    - generic [ref=e305]:
+                      - generic [ref=e306]:
+                        - generic [ref=e307]: QUERY
+                        - generic [ref=e308]: MAY
+                      - paragraph [ref=e309]: "?page, ?limit"
+                      - paragraph [ref=e310]: Pagination Parameters
+                    - generic [ref=e311]:
+                      - generic [ref=e312]:
+                        - generic [ref=e313]: HEADER
+                        - generic [ref=e314]: SHOULD
+                      - paragraph [ref=e315]: "Accept: application/json"
+                      - paragraph [ref=e316]:
+                        - code [ref=e317]: application/json
+                    - generic [ref=e318]:
+                      - generic [ref=e319]:
+                        - generic [ref=e320]: HEADER
+                        - generic [ref=e321]: MUST
+                      - paragraph [ref=e322]: X-CRUD-Version
+                      - paragraph [ref=e323]: the CRUD API Spec version
+                    - generic [ref=e324]:
+                      - generic [ref=e325]:
+                        - generic [ref=e326]: HEADER
+                        - generic [ref=e327]: SHOULD
+                      - paragraph [ref=e328]: X-Correlation-ID
+                      - paragraph [ref=e329]:
+                        - text: a fresh
+                        - link "uuid-hex" [ref=e330] [cursor=pointer]:
+                          - /url: /base/terminology/#uuid-hex
+                          - code [ref=e331]: uuid-hex
+                - generic [ref=e332]:
+                  - generic [ref=e333]:
+                    - generic [ref=e334]: Response
+                    - generic [ref=e335]: 5 rules
+                  - generic [ref=e336]:
+                    - generic [ref=e337]:
+                      - generic [ref=e338]:
+                        - generic [ref=e339]: STATUS
+                        - generic [ref=e340]: MUST
+                      - paragraph [ref=e341]: 200 OK
+                      - paragraph [ref=e342]: "200"
+                    - generic [ref=e343]:
+                      - generic [ref=e344]:
+                        - generic [ref=e345]: HEADER
+                        - generic [ref=e346]: MUST
+                      - paragraph [ref=e347]: X-CRUD-Version
+                      - paragraph [ref=e348]: the CRUD API Spec version
+                    - generic [ref=e349]:
+                      - generic [ref=e350]:
+                        - generic [ref=e351]: HEADER
+                        - generic [ref=e352]: SHOULD
+                      - paragraph [ref=e353]: X-Correlation-ID
+                      - paragraph [ref=e354]:
+                        - text: the request's
+                        - link "uuid-hex" [ref=e355] [cursor=pointer]:
+                          - /url: /base/terminology/#uuid-hex
+                          - code [ref=e356]: uuid-hex
+                    - generic [ref=e357]:
+                      - generic [ref=e358]:
+                        - generic [ref=e359]: BODY
+                        - generic [ref=e360]: MUST
+                      - paragraph [ref=e361]: "[ Document[] ]"
+                      - paragraph [ref=e362]: a list of Documents
+                    - generic [ref=e363]:
+                      - generic [ref=e364]:
+                        - generic [ref=e365]: BODY
+                        - generic [ref=e366]: MUST
+                      - paragraph [ref=e367]: "{ error }"
+                      - paragraph [ref=e368]:
+                        - text: error data matching
+                        - link "Section 3.4.3" [ref=e369] [cursor=pointer]:
+                          - /url: /base/general/#343-error-handling
+                      - paragraph [ref=e370]: When the operation fails.
+            - generic [ref=e371]:
+              - heading "2. Create" [level=2] [ref=e372]
+              - link "Section titled “2. Create”" [ref=e373] [cursor=pointer]:
+                - /url: "#2-create"
+                - img [ref=e375]
+                - generic [ref=e377]: Section titled “2. Create”
+            - separator [ref=e378]
+            - generic [ref=e379]:
+              - heading "2.1 POST /:collection" [level=3] [ref=e380]:
+                - text: "2.1"
+                - code [ref=e381]: POST /:collection
+              - link "Section titled “2.1 POST /:collection”" [ref=e382] [cursor=pointer]:
+                - /url: "#21-post-collection"
+                - img [ref=e384]
+                - generic [ref=e386]: Section titled “2.1 POST /:collection”
+            - paragraph [ref=e387]:
+              - text: Creates one or many Documents in a Collection. Maps to the base
+              - code [ref=e388]: create
+              - text: operation.
+            - generic [ref=e389]:
+              - generic [ref=e390]:
+                - button "Specific rules (14)" [ref=e391]
+                - button "Inherited rules (8)" [ref=e392]
+              - generic [ref=e394]:
+                - generic [ref=e395]:
+                  - generic [ref=e396]:
+                    - generic [ref=e397]: Request
+                    - generic [ref=e398]: 8 rules
+                  - generic [ref=e399]:
+                    - generic [ref=e400]:
+                      - generic [ref=e401]:
+                        - generic [ref=e402]: METHOD
+                        - generic [ref=e403]: MUST
+                      - paragraph [ref=e404]: POST
+                      - paragraph [ref=e405]: POST
+                    - generic [ref=e406]:
+                      - generic [ref=e407]:
+                        - generic [ref=e408]: PATH
+                        - generic [ref=e409]: MUST
+                      - paragraph [ref=e410]: /:collection
+                      - paragraph [ref=e411]:
+                        - text: a Collection
+                        - link "Slug" [ref=e412] [cursor=pointer]:
+                          - /url: /base/terminology/#slug
+                    - generic [ref=e413]:
+                      - generic [ref=e414]:
+                        - generic [ref=e415]: QUERY
+                        - generic [ref=e416]: MAY
+                      - paragraph [ref=e417]: "?fields = Projection"
+                      - paragraph [ref=e418]:
+                        - text: a
+                        - link "Projection Parameter" [ref=e419] [cursor=pointer]:
+                          - /url: /base/general/#331-projection-parameter
+                    - generic [ref=e420]:
+                      - generic [ref=e421]:
+                        - generic [ref=e422]: HEADER
+                        - generic [ref=e423]: MUST
+                      - paragraph [ref=e424]: "Content-Type: application/json"
+                      - paragraph [ref=e425]:
+                        - code [ref=e426]: application/json
+                    - generic [ref=e427]:
+                      - generic [ref=e428]:
+                        - generic [ref=e429]: HEADER
+                        - generic [ref=e430]: SHOULD
+                      - paragraph [ref=e431]: "Accept: application/json"
+                      - paragraph [ref=e432]:
+                        - code [ref=e433]: application/json
+                    - generic [ref=e434]:
+                      - generic [ref=e435]:
+                        - generic [ref=e436]: HEADER
+                        - generic [ref=e437]: MUST
+                      - paragraph [ref=e438]: X-CRUD-Version
+                      - paragraph [ref=e439]: the CRUD API Spec version
+                    - generic [ref=e440]:
+                      - generic [ref=e441]:
+                        - generic [ref=e442]: HEADER
+                        - generic [ref=e443]: SHOULD
+                      - paragraph [ref=e444]: X-Correlation-ID
+                      - paragraph [ref=e445]:
+                        - text: a fresh
+                        - link "uuid-hex" [ref=e446] [cursor=pointer]:
+                          - /url: /base/terminology/#uuid-hex
+                          - code [ref=e447]: uuid-hex
+                    - generic [ref=e448]:
+                      - generic [ref=e449]:
+                        - generic [ref=e450]: BODY
+                        - generic [ref=e451]: MUST
+                      - paragraph [ref=e452]: "{ Document / Document[] }"
+                      - paragraph [ref=e453]: a single Document or a list of Documents
+                - generic [ref=e454]:
+                  - generic [ref=e455]:
+                    - generic [ref=e456]: Response
+                    - generic [ref=e457]: 6 rules
+                  - generic [ref=e458]:
+                    - generic [ref=e459]:
+                      - generic [ref=e460]:
+                        - generic [ref=e461]: STATUS
+                        - generic [ref=e462]: MUST
+                      - paragraph [ref=e463]: 201 Created
+                      - paragraph [ref=e464]: "201"
+                    - generic [ref=e465]:
+                      - generic [ref=e466]:
+                        - generic [ref=e467]: STATUS
+                        - generic [ref=e468]: MUST
+                      - paragraph [ref=e469]: 409 Conflict
+                      - paragraph [ref=e470]: "409"
+                      - paragraph [ref=e471]: If the Client sends Documents with Resource IDs that conflict with existing ones.
+                    - generic [ref=e472]:
+                      - generic [ref=e473]:
+                        - generic [ref=e474]: HEADER
+                        - generic [ref=e475]: MUST
+                      - paragraph [ref=e476]: X-CRUD-Version
+                      - paragraph [ref=e477]: the CRUD API Spec version
+                    - generic [ref=e478]:
+                      - generic [ref=e479]:
+                        - generic [ref=e480]: HEADER
+                        - generic [ref=e481]: SHOULD
+                      - paragraph [ref=e482]: X-Correlation-ID
+                      - paragraph [ref=e483]:
+                        - text: the request's
+                        - link "uuid-hex" [ref=e484] [cursor=pointer]:
+                          - /url: /base/terminology/#uuid-hex
+                          - code [ref=e485]: uuid-hex
+                    - generic [ref=e486]:
+                      - generic [ref=e487]:
+                        - generic [ref=e488]: BODY
+                        - generic [ref=e489]: MUST
+                      - paragraph [ref=e490]: "{ Document(s) }"
+                      - paragraph [ref=e491]: the written Document(s)
+                      - paragraph [ref=e492]: "When the Client prefers `return=representation` (default behavior)."
+                    - generic [ref=e493]:
+                      - generic [ref=e494]:
+                        - generic [ref=e495]: BODY
+                        - generic [ref=e496]: MUST
+                      - paragraph [ref=e497]: "{ error }"
+                      - paragraph [ref=e498]:
+                        - text: error data matching
+                        - link "Section 3.4.3" [ref=e499] [cursor=pointer]:
+                          - /url: /base/general/#343-error-handling
+                      - paragraph [ref=e500]: When the operation fails.
+            - generic [ref=e501]:
+              - heading "3. Patch" [level=2] [ref=e502]
+              - link "Section titled “3. Patch”" [ref=e503] [cursor=pointer]:
+                - /url: "#3-patch"
+                - img [ref=e505]
+                - generic [ref=e507]: Section titled “3. Patch”
+            - separator [ref=e508]
+            - generic [ref=e509]:
+              - heading "3.1 PATCH /:collection/:id" [level=3] [ref=e510]:
+                - text: "3.1"
+                - code [ref=e511]: PATCH /:collection/:id
+              - link "Section titled “3.1 PATCH /:collection/:id”" [ref=e512] [cursor=pointer]:
+                - /url: "#31-patch-collectionid"
+                - img [ref=e514]
+                - generic [ref=e516]: Section titled “3.1 PATCH /:collection/:id”
+            - paragraph [ref=e517]:
+              - text: Partially updates a single Document by its Resource ID using JSON Patch. Maps to the base
+              - code [ref=e518]: patchById
+              - text: operation.
+            - generic [ref=e519]:
+              - generic [ref=e520]:
+                - button "Specific rules (15)" [ref=e521]
+                - button "Inherited rules (6)" [ref=e522]
+              - generic [ref=e524]:
+                - generic [ref=e525]:
+                  - generic [ref=e526]:
+                    - generic [ref=e527]: Request
+                    - generic [ref=e528]: 9 rules
+                  - generic [ref=e529]:
+                    - generic [ref=e530]:
+                      - generic [ref=e531]:
+                        - generic [ref=e532]: METHOD
+                        - generic [ref=e533]: MUST
+                      - paragraph [ref=e534]: PATCH
+                      - paragraph [ref=e535]: PATCH
+                    - generic [ref=e536]:
+                      - generic [ref=e537]:
+                        - generic [ref=e538]: PATH
+                        - generic [ref=e539]: MUST
+                      - paragraph [ref=e540]: /:collection
+                      - paragraph [ref=e541]:
+                        - text: a Collection
+                        - link "Slug" [ref=e542] [cursor=pointer]:
+                          - /url: /base/terminology/#slug
+                    - generic [ref=e543]:
+                      - generic [ref=e544]:
+                        - generic [ref=e545]: PATH
+                        - generic [ref=e546]: MUST
+                      - paragraph [ref=e547]: /:id = ID
+                      - paragraph [ref=e548]:
+                        - text: a
+                        - link "Resource ID" [ref=e549] [cursor=pointer]:
+                          - /url: /base/general/#313-resource-ids
+                    - generic [ref=e550]:
+                      - generic [ref=e551]:
+                        - generic [ref=e552]: QUERY
+                        - generic [ref=e553]: MAY
+                      - paragraph [ref=e554]: "?fields = Projection"
+                      - paragraph [ref=e555]:
+                        - text: a
+                        - link "Projection Parameter" [ref=e556] [cursor=pointer]:
+                          - /url: /base/general/#331-projection-parameter
+                    - generic [ref=e557]:
+                      - generic [ref=e558]:
+                        - generic [ref=e559]: HEADER
+                        - generic [ref=e560]: MUST
+                      - paragraph [ref=e561]: "Content-Type: application/json-patch+json"
+                      - paragraph [ref=e562]:
+                        - code [ref=e563]: application/json-patch+json
+                    - generic [ref=e564]:
+                      - generic [ref=e565]:
+                        - generic [ref=e566]: HEADER
+                        - generic [ref=e567]: SHOULD
+                      - paragraph [ref=e568]: "Accept: application/json"
+                      - paragraph [ref=e569]:
+                        - code [ref=e570]: application/json
+                    - generic [ref=e571]:
+                      - generic [ref=e572]:
+                        - generic [ref=e573]: HEADER
+                        - generic [ref=e574]: MUST
+                      - paragraph [ref=e575]: X-CRUD-Version
+                      - paragraph [ref=e576]: the CRUD API Spec version
+                    - generic [ref=e577]:
+                      - generic [ref=e578]:
+                        - generic [ref=e579]: HEADER
+                        - generic [ref=e580]: SHOULD
+                      - paragraph [ref=e581]: X-Correlation-ID
+                      - paragraph [ref=e582]:
+                        - text: a fresh
+                        - link "uuid-hex" [ref=e583] [cursor=pointer]:
+                          - /url: /base/terminology/#uuid-hex
+                          - code [ref=e584]: uuid-hex
+                    - generic [ref=e585]:
+                      - generic [ref=e586]:
+                        - generic [ref=e587]: BODY
+                        - generic [ref=e588]: MUST
+                      - paragraph [ref=e589]: "[ JSON Patch ]"
+                      - paragraph [ref=e590]:
+                        - text: a
+                        - link "JSON Patch" [ref=e591] [cursor=pointer]:
+                          - /url: https://jsonpatch.com/
+                        - text: operations list
+                - generic [ref=e592]:
+                  - generic [ref=e593]:
+                    - generic [ref=e594]: Response
+                    - generic [ref=e595]: 6 rules
+                  - generic [ref=e596]:
+                    - generic [ref=e597]:
+                      - generic [ref=e598]:
+                        - generic [ref=e599]: STATUS
+                        - generic [ref=e600]: MUST
+                      - paragraph [ref=e601]: 200 OK
+                      - paragraph [ref=e602]: "200"
+                    - generic [ref=e603]:
+                      - generic [ref=e604]:
+                        - generic [ref=e605]: STATUS
+                        - generic [ref=e606]: MUST
+                      - paragraph [ref=e607]: 404 Not Found
+                      - paragraph [ref=e608]: "404"
+                      - paragraph [ref=e609]: If the Server cannot find any Document matching the Input Subject.
+                    - generic [ref=e610]:
+                      - generic [ref=e611]:
+                        - generic [ref=e612]: HEADER
+                        - generic [ref=e613]: MUST
+                      - paragraph [ref=e614]: X-CRUD-Version
+                      - paragraph [ref=e615]: the CRUD API Spec version
+                    - generic [ref=e616]:
+                      - generic [ref=e617]:
+                        - generic [ref=e618]: HEADER
+                        - generic [ref=e619]: SHOULD
+                      - paragraph [ref=e620]: X-Correlation-ID
+                      - paragraph [ref=e621]:
+                        - text: the request's
+                        - link "uuid-hex" [ref=e622] [cursor=pointer]:
+                          - /url: /base/terminology/#uuid-hex
+                          - code [ref=e623]: uuid-hex
+                    - generic [ref=e624]:
+                      - generic [ref=e625]:
+                        - generic [ref=e626]: BODY
+                        - generic [ref=e627]: MUST
+                      - paragraph [ref=e628]: "{ Document(s) }"
+                      - paragraph [ref=e629]: the written Document(s)
+                      - paragraph [ref=e630]: "When the Client prefers `return=representation` (default behavior)."
+                    - generic [ref=e631]:
+                      - generic [ref=e632]:
+                        - generic [ref=e633]: BODY
+                        - generic [ref=e634]: MUST
+                      - paragraph [ref=e635]: "{ error }"
+                      - paragraph [ref=e636]:
+                        - text: error data matching
+                        - link "Section 3.4.3" [ref=e637] [cursor=pointer]:
+                          - /url: /base/general/#343-error-handling
+                      - paragraph [ref=e638]: When the operation fails.
+            - generic [ref=e639]:
+              - heading "3.2 PATCH /:collection" [level=3] [ref=e640]:
+                - text: "3.2"
+                - code [ref=e641]: PATCH /:collection
+              - link "Section titled “3.2 PATCH /:collection”" [ref=e642] [cursor=pointer]:
+                - /url: "#32-patch-collection"
+                - img [ref=e644]
+                - generic [ref=e646]: Section titled “3.2 PATCH /:collection”
+            - paragraph [ref=e647]:
+              - text: Partially updates Documents matching a Search Query using JSON Patch. Maps to the base
+              - code [ref=e648]: patchByQuery
+              - text: operation.
+            - generic [ref=e649]:
+              - generic [ref=e650]:
+                - button "Specific rules (14)" [ref=e651]
+                - button "Inherited rules (5)" [ref=e652]
+              - generic [ref=e654]:
+                - generic [ref=e655]:
+                  - generic [ref=e656]:
+                    - generic [ref=e657]: Request
+                    - generic [ref=e658]: 9 rules
+                  - generic [ref=e659]:
+                    - generic [ref=e660]:
+                      - generic [ref=e661]:
+                        - generic [ref=e662]: METHOD
+                        - generic [ref=e663]: MUST
+                      - paragraph [ref=e664]: PATCH
+                      - paragraph [ref=e665]: PATCH
+                    - generic [ref=e666]:
+                      - generic [ref=e667]:
+                        - generic [ref=e668]: PATH
+                        - generic [ref=e669]: MUST
+                      - paragraph [ref=e670]: /:collection
+                      - paragraph [ref=e671]:
+                        - text: a Collection
+                        - link "Slug" [ref=e672] [cursor=pointer]:
+                          - /url: /base/terminology/#slug
+                    - generic [ref=e673]:
+                      - generic [ref=e674]:
+                        - generic [ref=e675]: QUERY
+                        - generic [ref=e676]: MAY
+                      - paragraph [ref=e677]: "?fields = Projection"
+                      - paragraph [ref=e678]:
+                        - text: a
+                        - link "Projection Parameter" [ref=e679] [cursor=pointer]:
+                          - /url: /base/general/#331-projection-parameter
+                    - generic [ref=e680]:
+                      - generic [ref=e681]:
+                        - generic [ref=e682]: QUERY
+                        - generic [ref=e683]: MUST
+                      - paragraph [ref=e684]: "?q = Search Query"
+                      - paragraph [ref=e685]:
+                        - text: a
+                        - link "Search Query" [ref=e686] [cursor=pointer]:
+                          - /url: /base/general/#321-definition-and-representation
+                    - generic [ref=e687]:
+                      - generic [ref=e688]:
+                        - generic [ref=e689]: HEADER
+                        - generic [ref=e690]: MUST
+                      - paragraph [ref=e691]: "Content-Type: application/json-patch+json"
+                      - paragraph [ref=e692]:
+                        - code [ref=e693]: application/json-patch+json
+                    - generic [ref=e694]:
+                      - generic [ref=e695]:
+                        - generic [ref=e696]: HEADER
+                        - generic [ref=e697]: SHOULD
+                      - paragraph [ref=e698]: "Accept: application/json"
+                      - paragraph [ref=e699]:
+                        - code [ref=e700]: application/json
+                    - generic [ref=e701]:
+                      - generic [ref=e702]:
+                        - generic [ref=e703]: HEADER
+                        - generic [ref=e704]: MUST
+                      - paragraph [ref=e705]: X-CRUD-Version
+                      - paragraph [ref=e706]: the CRUD API Spec version
+                    - generic [ref=e707]:
+                      - generic [ref=e708]:
+                        - generic [ref=e709]: HEADER
+                        - generic [ref=e710]: SHOULD
+                      - paragraph [ref=e711]: X-Correlation-ID
+                      - paragraph [ref=e712]:
+                        - text: a fresh
+                        - link "uuid-hex" [ref=e713] [cursor=pointer]:
+                          - /url: /base/terminology/#uuid-hex
+                          - code [ref=e714]: uuid-hex
+                    - generic [ref=e715]:
+                      - generic [ref=e716]:
+                        - generic [ref=e717]: BODY
+                        - generic [ref=e718]: MUST
+                      - paragraph [ref=e719]: "[ JSON Patch ]"
+                      - paragraph [ref=e720]:
+                        - text: a
+                        - link "JSON Patch" [ref=e721] [cursor=pointer]:
+                          - /url: https://jsonpatch.com/
+                        - text: operations list
+                - generic [ref=e722]:
+                  - generic [ref=e723]:
+                    - generic [ref=e724]: Response
+                    - generic [ref=e725]: 5 rules
+                  - generic [ref=e726]:
+                    - generic [ref=e727]:
+                      - generic [ref=e728]:
+                        - generic [ref=e729]: STATUS
+                        - generic [ref=e730]: MUST
+                      - paragraph [ref=e731]: 200 OK
+                      - paragraph [ref=e732]: "200"
+                    - generic [ref=e733]:
+                      - generic [ref=e734]:
+                        - generic [ref=e735]: HEADER
+                        - generic [ref=e736]: MUST
+                      - paragraph [ref=e737]: X-CRUD-Version
+                      - paragraph [ref=e738]: the CRUD API Spec version
+                    - generic [ref=e739]:
+                      - generic [ref=e740]:
+                        - generic [ref=e741]: HEADER
+                        - generic [ref=e742]: SHOULD
+                      - paragraph [ref=e743]: X-Correlation-ID
+                      - paragraph [ref=e744]:
+                        - text: the request's
+                        - link "uuid-hex" [ref=e745] [cursor=pointer]:
+                          - /url: /base/terminology/#uuid-hex
+                          - code [ref=e746]: uuid-hex
+                    - generic [ref=e747]:
+                      - generic [ref=e748]:
+                        - generic [ref=e749]: BODY
+                        - generic [ref=e750]: MUST
+                      - paragraph [ref=e751]: "{ Document(s) }"
+                      - paragraph [ref=e752]: the written Document(s)
+                      - paragraph [ref=e753]: "When the Client prefers `return=representation` (default behavior)."
+                    - generic [ref=e754]:
+                      - generic [ref=e755]:
+                        - generic [ref=e756]: BODY
+                        - generic [ref=e757]: MUST
+                      - paragraph [ref=e758]: "{ error }"
+                      - paragraph [ref=e759]:
+                        - text: error data matching
+                        - link "Section 3.4.3" [ref=e760] [cursor=pointer]:
+                          - /url: /base/general/#343-error-handling
+                      - paragraph [ref=e761]: When the operation fails.
+            - generic [ref=e762]:
+              - heading "4. Replace" [level=2] [ref=e763]
+              - link "Section titled “4. Replace”" [ref=e764] [cursor=pointer]:
+                - /url: "#4-replace"
+                - img [ref=e766]
+                - generic [ref=e768]: Section titled “4. Replace”
+            - separator [ref=e769]
+            - generic [ref=e770]:
+              - heading "4.1 PUT /:collection/:id" [level=3] [ref=e771]:
+                - text: "4.1"
+                - code [ref=e772]: PUT /:collection/:id
+              - link "Section titled “4.1 PUT /:collection/:id”" [ref=e773] [cursor=pointer]:
+                - /url: "#41-put-collectionid"
+                - img [ref=e775]
+                - generic [ref=e777]: Section titled “4.1 PUT /:collection/:id”
+            - paragraph [ref=e778]:
+              - text: Fully replaces a single Document by its Resource ID. May create the Document if it does not exist (upsert). Maps to the base
+              - code [ref=e779]: replaceById
+              - text: operation.
+            - generic [ref=e780]:
+              - generic [ref=e781]:
+                - button "Specific rules (15)" [ref=e782]
+                - button "Inherited rules (7)" [ref=e783]
+              - generic [ref=e785]:
+                - generic [ref=e786]:
+                  - generic [ref=e787]:
+                    - generic [ref=e788]: Request
+                    - generic [ref=e789]: 9 rules
+                  - generic [ref=e790]:
+                    - generic [ref=e791]:
+                      - generic [ref=e792]:
+                        - generic [ref=e793]: METHOD
+                        - generic [ref=e794]: MUST
+                      - paragraph [ref=e795]: PUT
+                      - paragraph [ref=e796]: PUT
+                    - generic [ref=e797]:
+                      - generic [ref=e798]:
+                        - generic [ref=e799]: PATH
+                        - generic [ref=e800]: MUST
+                      - paragraph [ref=e801]: /:collection
+                      - paragraph [ref=e802]:
+                        - text: a Collection
+                        - link "Slug" [ref=e803] [cursor=pointer]:
+                          - /url: /base/terminology/#slug
+                    - generic [ref=e804]:
+                      - generic [ref=e805]:
+                        - generic [ref=e806]: PATH
+                        - generic [ref=e807]: MUST
+                      - paragraph [ref=e808]: /:id = ID
+                      - paragraph [ref=e809]:
+                        - text: a
+                        - link "Resource ID" [ref=e810] [cursor=pointer]:
+                          - /url: /base/general/#313-resource-ids
+                    - generic [ref=e811]:
+                      - generic [ref=e812]:
+                        - generic [ref=e813]: QUERY
+                        - generic [ref=e814]: MAY
+                      - paragraph [ref=e815]: "?fields = Projection"
+                      - paragraph [ref=e816]:
+                        - text: a
+                        - link "Projection Parameter" [ref=e817] [cursor=pointer]:
+                          - /url: /base/general/#331-projection-parameter
+                    - generic [ref=e818]:
+                      - generic [ref=e819]:
+                        - generic [ref=e820]: HEADER
+                        - generic [ref=e821]: MUST
+                      - paragraph [ref=e822]: "Content-Type: application/json"
+                      - paragraph [ref=e823]:
+                        - code [ref=e824]: application/json
+                    - generic [ref=e825]:
+                      - generic [ref=e826]:
+                        - generic [ref=e827]: HEADER
+                        - generic [ref=e828]: SHOULD
+                      - paragraph [ref=e829]: "Accept: application/json"
+                      - paragraph [ref=e830]:
+                        - code [ref=e831]: application/json
+                    - generic [ref=e832]:
+                      - generic [ref=e833]:
+                        - generic [ref=e834]: HEADER
+                        - generic [ref=e835]: MUST
+                      - paragraph [ref=e836]: X-CRUD-Version
+                      - paragraph [ref=e837]: the CRUD API Spec version
+                    - generic [ref=e838]:
+                      - generic [ref=e839]:
+                        - generic [ref=e840]: HEADER
+                        - generic [ref=e841]: SHOULD
+                      - paragraph [ref=e842]: X-Correlation-ID
+                      - paragraph [ref=e843]:
+                        - text: a fresh
+                        - link "uuid-hex" [ref=e844] [cursor=pointer]:
+                          - /url: /base/terminology/#uuid-hex
+                          - code [ref=e845]: uuid-hex
+                    - generic [ref=e846]:
+                      - generic [ref=e847]:
+                        - generic [ref=e848]: BODY
+                        - generic [ref=e849]: MUST
+                      - paragraph [ref=e850]: "{ Document }"
+                      - paragraph [ref=e851]: a replacement Document
+                - generic [ref=e852]:
+                  - generic [ref=e853]:
+                    - generic [ref=e854]: Response
+                    - generic [ref=e855]: 6 rules
+                  - generic [ref=e856]:
+                    - generic [ref=e857]:
+                      - generic [ref=e858]:
+                        - generic [ref=e859]: STATUS
+                        - generic [ref=e860]: MUST
+                      - paragraph [ref=e861]: 200 OK
+                      - paragraph [ref=e862]: "200"
+                    - generic [ref=e863]:
+                      - generic [ref=e864]:
+                        - generic [ref=e865]: STATUS
+                        - generic [ref=e866]: MUST
+                      - paragraph [ref=e867]: 201 Created
+                      - paragraph [ref=e868]: "201"
+                      - paragraph [ref=e869]: If the Resource ID is not found and the Server creates a new Document (upsert).
+                    - generic [ref=e870]:
+                      - generic [ref=e871]:
+                        - generic [ref=e872]: HEADER
+                        - generic [ref=e873]: MUST
+                      - paragraph [ref=e874]: X-CRUD-Version
+                      - paragraph [ref=e875]: the CRUD API Spec version
+                    - generic [ref=e876]:
+                      - generic [ref=e877]:
+                        - generic [ref=e878]: HEADER
+                        - generic [ref=e879]: SHOULD
+                      - paragraph [ref=e880]: X-Correlation-ID
+                      - paragraph [ref=e881]:
+                        - text: the request's
+                        - link "uuid-hex" [ref=e882] [cursor=pointer]:
+                          - /url: /base/terminology/#uuid-hex
+                          - code [ref=e883]: uuid-hex
+                    - generic [ref=e884]:
+                      - generic [ref=e885]:
+                        - generic [ref=e886]: BODY
+                        - generic [ref=e887]: MUST
+                      - paragraph [ref=e888]: "{ Document(s) }"
+                      - paragraph [ref=e889]: the written Document(s)
+                      - paragraph [ref=e890]: "When the Client prefers `return=representation` (default behavior)."
+                    - generic [ref=e891]:
+                      - generic [ref=e892]:
+                        - generic [ref=e893]: BODY
+                        - generic [ref=e894]: MUST
+                      - paragraph [ref=e895]: "{ error }"
+                      - paragraph [ref=e896]:
+                        - text: error data matching
+                        - link "Section 3.4.3" [ref=e897] [cursor=pointer]:
+                          - /url: /base/general/#343-error-handling
+                      - paragraph [ref=e898]: When the operation fails.
+            - generic [ref=e899]:
+              - heading "4.2 PUT /:collection" [level=3] [ref=e900]:
+                - text: "4.2"
+                - code [ref=e901]: PUT /:collection
+              - link "Section titled “4.2 PUT /:collection”" [ref=e902] [cursor=pointer]:
+                - /url: "#42-put-collection"
+                - img [ref=e904]
+                - generic [ref=e906]: Section titled “4.2 PUT /:collection”
+            - paragraph [ref=e907]:
+              - text: Fully replaces Documents matching a Search Query. Maps to the base
+              - code [ref=e908]: replaceByQuery
+              - text: operation.
+            - generic [ref=e909]:
+              - generic [ref=e910]:
+                - button "Specific rules (14)" [ref=e911]
+                - button "Inherited rules (7)" [ref=e912]
+              - generic [ref=e914]:
+                - generic [ref=e915]:
+                  - generic [ref=e916]:
+                    - generic [ref=e917]: Request
+                    - generic [ref=e918]: 9 rules
+                  - generic [ref=e919]:
+                    - generic [ref=e920]:
+                      - generic [ref=e921]:
+                        - generic [ref=e922]: METHOD
+                        - generic [ref=e923]: MUST
+                      - paragraph [ref=e924]: PUT
+                      - paragraph [ref=e925]: PUT
+                    - generic [ref=e926]:
+                      - generic [ref=e927]:
+                        - generic [ref=e928]: PATH
+                        - generic [ref=e929]: MUST
+                      - paragraph [ref=e930]: /:collection
+                      - paragraph [ref=e931]:
+                        - text: a Collection
+                        - link "Slug" [ref=e932] [cursor=pointer]:
+                          - /url: /base/terminology/#slug
+                    - generic [ref=e933]:
+                      - generic [ref=e934]:
+                        - generic [ref=e935]: QUERY
+                        - generic [ref=e936]: MAY
+                      - paragraph [ref=e937]: "?fields = Projection"
+                      - paragraph [ref=e938]:
+                        - text: a
+                        - link "Projection Parameter" [ref=e939] [cursor=pointer]:
+                          - /url: /base/general/#331-projection-parameter
+                    - generic [ref=e940]:
+                      - generic [ref=e941]:
+                        - generic [ref=e942]: QUERY
+                        - generic [ref=e943]: MUST
+                      - paragraph [ref=e944]: "?q = Search Query"
+                      - paragraph [ref=e945]:
+                        - text: a
+                        - link "Search Query" [ref=e946] [cursor=pointer]:
+                          - /url: /base/general/#321-definition-and-representation
+                    - generic [ref=e947]:
+                      - generic [ref=e948]:
+                        - generic [ref=e949]: HEADER
+                        - generic [ref=e950]: MUST
+                      - paragraph [ref=e951]: "Content-Type: application/json"
+                      - paragraph [ref=e952]:
+                        - code [ref=e953]: application/json
+                    - generic [ref=e954]:
+                      - generic [ref=e955]:
+                        - generic [ref=e956]: HEADER
+                        - generic [ref=e957]: SHOULD
+                      - paragraph [ref=e958]: "Accept: application/json"
+                      - paragraph [ref=e959]:
+                        - code [ref=e960]: application/json
+                    - generic [ref=e961]:
+                      - generic [ref=e962]:
+                        - generic [ref=e963]: HEADER
+                        - generic [ref=e964]: MUST
+                      - paragraph [ref=e965]: X-CRUD-Version
+                      - paragraph [ref=e966]: the CRUD API Spec version
+                    - generic [ref=e967]:
+                      - generic [ref=e968]:
+                        - generic [ref=e969]: HEADER
+                        - generic [ref=e970]: SHOULD
+                      - paragraph [ref=e971]: X-Correlation-ID
+                      - paragraph [ref=e972]:
+                        - text: a fresh
+                        - link "uuid-hex" [ref=e973] [cursor=pointer]:
+                          - /url: /base/terminology/#uuid-hex
+                          - code [ref=e974]: uuid-hex
+                    - generic [ref=e975]:
+                      - generic [ref=e976]:
+                        - generic [ref=e977]: BODY
+                        - generic [ref=e978]: MUST
+                      - paragraph [ref=e979]: "{ Document }"
+                      - paragraph [ref=e980]: a replacement Document
+                - generic [ref=e981]:
+                  - generic [ref=e982]:
+                    - generic [ref=e983]: Response
+                    - generic [ref=e984]: 5 rules
+                  - generic [ref=e985]:
+                    - generic [ref=e986]:
+                      - generic [ref=e987]:
+                        - generic [ref=e988]: STATUS
+                        - generic [ref=e989]: MUST
+                      - paragraph [ref=e990]: 200 OK
+                      - paragraph [ref=e991]: "200"
+                    - generic [ref=e992]:
+                      - generic [ref=e993]:
+                        - generic [ref=e994]: HEADER
+                        - generic [ref=e995]: MUST
+                      - paragraph [ref=e996]: X-CRUD-Version
+                      - paragraph [ref=e997]: the CRUD API Spec version
+                    - generic [ref=e998]:
+                      - generic [ref=e999]:
+                        - generic [ref=e1000]: HEADER
+                        - generic [ref=e1001]: SHOULD
+                      - paragraph [ref=e1002]: X-Correlation-ID
+                      - paragraph [ref=e1003]:
+                        - text: the request's
+                        - link "uuid-hex" [ref=e1004] [cursor=pointer]:
+                          - /url: /base/terminology/#uuid-hex
+                          - code [ref=e1005]: uuid-hex
+                    - generic [ref=e1006]:
+                      - generic [ref=e1007]:
+                        - generic [ref=e1008]: BODY
+                        - generic [ref=e1009]: MUST
+                      - paragraph [ref=e1010]: "{ Document(s) }"
+                      - paragraph [ref=e1011]: the written Document(s)
+                      - paragraph [ref=e1012]: "When the Client prefers `return=representation` (default behavior)."
+                    - generic [ref=e1013]:
+                      - generic [ref=e1014]:
+                        - generic [ref=e1015]: BODY
+                        - generic [ref=e1016]: MUST
+                      - paragraph [ref=e1017]: "{ error }"
+                      - paragraph [ref=e1018]:
+                        - text: error data matching
+                        - link "Section 3.4.3" [ref=e1019] [cursor=pointer]:
+                          - /url: /base/general/#343-error-handling
+                      - paragraph [ref=e1020]: When the operation fails.
+            - generic [ref=e1021]:
+              - heading "5. Delete" [level=2] [ref=e1022]
+              - link "Section titled “5. Delete”" [ref=e1023] [cursor=pointer]:
+                - /url: "#5-delete"
+                - img [ref=e1025]
+                - generic [ref=e1027]: Section titled “5. Delete”
+            - separator [ref=e1028]
+            - generic [ref=e1029]:
+              - heading "5.1 DELETE /:collection/:id" [level=3] [ref=e1030]:
+                - text: "5.1"
+                - code [ref=e1031]: DELETE /:collection/:id
+              - link "Section titled “5.1 DELETE /:collection/:id”" [ref=e1032] [cursor=pointer]:
+                - /url: "#51-delete-collectionid"
+                - img [ref=e1034]
+                - generic [ref=e1036]: Section titled “5.1 DELETE /:collection/:id”
+            - paragraph [ref=e1037]:
+              - text: Deletes a single Document by its Resource ID. Maps to the base
+              - code [ref=e1038]: deleteById
+              - text: operation.
+            - generic [ref=e1039]:
+              - generic [ref=e1040]:
+                - button "Specific rules (12)" [ref=e1041]
+                - button "Inherited rules (3)" [ref=e1042]
+              - generic [ref=e1044]:
+                - generic [ref=e1045]:
+                  - generic [ref=e1046]:
+                    - generic [ref=e1047]: Request
+                    - generic [ref=e1048]: 6 rules
+                  - generic [ref=e1049]:
+                    - generic [ref=e1050]:
+                      - generic [ref=e1051]:
+                        - generic [ref=e1052]: METHOD
+                        - generic [ref=e1053]: MUST
+                      - paragraph [ref=e1054]: DELETE
+                      - paragraph [ref=e1055]: DELETE
+                    - generic [ref=e1056]:
+                      - generic [ref=e1057]:
+                        - generic [ref=e1058]: PATH
+                        - generic [ref=e1059]: MUST
+                      - paragraph [ref=e1060]: /:collection
+                      - paragraph [ref=e1061]:
+                        - text: a Collection
+                        - link "Slug" [ref=e1062] [cursor=pointer]:
+                          - /url: /base/terminology/#slug
+                    - generic [ref=e1063]:
+                      - generic [ref=e1064]:
+                        - generic [ref=e1065]: PATH
+                        - generic [ref=e1066]: MUST
+                      - paragraph [ref=e1067]: /:id = ID
+                      - paragraph [ref=e1068]:
+                        - text: a
+                        - link "Resource ID" [ref=e1069] [cursor=pointer]:
+                          - /url: /base/general/#313-resource-ids
+                    - generic [ref=e1070]:
+                      - generic [ref=e1071]:
+                        - generic [ref=e1072]: HEADER
+                        - generic [ref=e1073]: SHOULD
+                      - paragraph [ref=e1074]: "Accept: application/json"
+                      - paragraph [ref=e1075]:
+                        - code [ref=e1076]: application/json
+                    - generic [ref=e1077]:
+                      - generic [ref=e1078]:
+                        - generic [ref=e1079]: HEADER
+                        - generic [ref=e1080]: MUST
+                      - paragraph [ref=e1081]: X-CRUD-Version
+                      - paragraph [ref=e1082]: the CRUD API Spec version
+                    - generic [ref=e1083]:
+                      - generic [ref=e1084]:
+                        - generic [ref=e1085]: HEADER
+                        - generic [ref=e1086]: SHOULD
+                      - paragraph [ref=e1087]: X-Correlation-ID
+                      - paragraph [ref=e1088]:
+                        - text: a fresh
+                        - link "uuid-hex" [ref=e1089] [cursor=pointer]:
+                          - /url: /base/terminology/#uuid-hex
+                          - code [ref=e1090]: uuid-hex
+                - generic [ref=e1091]:
+                  - generic [ref=e1092]:
+                    - generic [ref=e1093]: Response
+                    - generic [ref=e1094]: 6 rules
+                  - generic [ref=e1095]:
+                    - generic [ref=e1096]:
+                      - generic [ref=e1097]:
+                        - generic [ref=e1098]: STATUS
+                        - generic [ref=e1099]: MUST
+                      - paragraph [ref=e1100]: 204 No Content
+                      - paragraph [ref=e1101]: "204"
+                    - generic [ref=e1102]:
+                      - generic [ref=e1103]:
+                        - generic [ref=e1104]: STATUS
+                        - generic [ref=e1105]: MUST
+                      - paragraph [ref=e1106]: 404 Not Found
+                      - paragraph [ref=e1107]: "404"
+                      - paragraph [ref=e1108]: If the Server cannot find any Document matching the Input Subject.
+                    - generic [ref=e1109]:
+                      - generic [ref=e1110]:
+                        - generic [ref=e1111]: HEADER
+                        - generic [ref=e1112]: MUST
+                      - paragraph [ref=e1113]: X-CRUD-Version
+                      - paragraph [ref=e1114]: the CRUD API Spec version
+                    - generic [ref=e1115]:
+                      - generic [ref=e1116]:
+                        - generic [ref=e1117]: HEADER
+                        - generic [ref=e1118]: SHOULD
+                      - paragraph [ref=e1119]: X-Correlation-ID
+                      - paragraph [ref=e1120]:
+                        - text: the request's
+                        - link "uuid-hex" [ref=e1121] [cursor=pointer]:
+                          - /url: /base/terminology/#uuid-hex
+                          - code [ref=e1122]: uuid-hex
+                    - generic [ref=e1123]:
+                      - generic [ref=e1124]:
+                        - generic [ref=e1125]: BODY
+                        - generic [ref=e1126]: MUST
+                      - paragraph [ref=e1127]: ∅
+                      - paragraph [ref=e1128]: (empty)
+                    - generic [ref=e1129]:
+                      - generic [ref=e1130]:
+                        - generic [ref=e1131]: BODY
+                        - generic [ref=e1132]: MUST
+                      - paragraph [ref=e1133]: "{ error }"
+                      - paragraph [ref=e1134]:
+                        - text: error data matching
+                        - link "Section 3.4.3" [ref=e1135] [cursor=pointer]:
+                          - /url: /base/general/#343-error-handling
+                      - paragraph [ref=e1136]: When the operation fails.
+            - generic [ref=e1137]:
+              - heading "5.2 DELETE /:collection" [level=3] [ref=e1138]:
+                - text: "5.2"
+                - code [ref=e1139]: DELETE /:collection
+              - link "Section titled “5.2 DELETE /:collection”" [ref=e1140] [cursor=pointer]:
+                - /url: "#52-delete-collection"
+                - img [ref=e1142]
+                - generic [ref=e1144]: Section titled “5.2 DELETE /:collection”
+            - paragraph [ref=e1145]:
+              - text: Deletes Documents matching a Search Query. Maps to the base
+              - code [ref=e1146]: deleteByQuery
+              - text: operation.
+            - generic [ref=e1147]:
+              - generic [ref=e1148]:
+                - button "Specific rules (11)" [ref=e1149]
+                - button "Inherited rules (4)" [ref=e1150]
+              - generic [ref=e1152]:
+                - generic [ref=e1153]:
+                  - generic [ref=e1154]:
+                    - generic [ref=e1155]: Request
+                    - generic [ref=e1156]: 6 rules
+                  - generic [ref=e1157]:
+                    - generic [ref=e1158]:
+                      - generic [ref=e1159]:
+                        - generic [ref=e1160]: METHOD
+                        - generic [ref=e1161]: MUST
+                      - paragraph [ref=e1162]: DELETE
+                      - paragraph [ref=e1163]: DELETE
+                    - generic [ref=e1164]:
+                      - generic [ref=e1165]:
+                        - generic [ref=e1166]: PATH
+                        - generic [ref=e1167]: MUST
+                      - paragraph [ref=e1168]: /:collection
+                      - paragraph [ref=e1169]:
+                        - text: a Collection
+                        - link "Slug" [ref=e1170] [cursor=pointer]:
+                          - /url: /base/terminology/#slug
+                    - generic [ref=e1171]:
+                      - generic [ref=e1172]:
+                        - generic [ref=e1173]: QUERY
+                        - generic [ref=e1174]: MUST
+                      - paragraph [ref=e1175]: "?q = Search Query"
+                      - paragraph [ref=e1176]:
+                        - text: a
+                        - link "Search Query" [ref=e1177] [cursor=pointer]:
+                          - /url: /base/general/#321-definition-and-representation
+                    - generic [ref=e1178]:
+                      - generic [ref=e1179]:
+                        - generic [ref=e1180]: HEADER
+                        - generic [ref=e1181]: SHOULD
+                      - paragraph [ref=e1182]: "Accept: application/json"
+                      - paragraph [ref=e1183]:
+                        - code [ref=e1184]: application/json
+                    - generic [ref=e1185]:
+                      - generic [ref=e1186]:
+                        - generic [ref=e1187]: HEADER
+                        - generic [ref=e1188]: MUST
+                      - paragraph [ref=e1189]: X-CRUD-Version
+                      - paragraph [ref=e1190]: the CRUD API Spec version
+                    - generic [ref=e1191]:
+                      - generic [ref=e1192]:
+                        - generic [ref=e1193]: HEADER
+                        - generic [ref=e1194]: SHOULD
+                      - paragraph [ref=e1195]: X-Correlation-ID
+                      - paragraph [ref=e1196]:
+                        - text: a fresh
+                        - link "uuid-hex" [ref=e1197] [cursor=pointer]:
+                          - /url: /base/terminology/#uuid-hex
+                          - code [ref=e1198]: uuid-hex
+                - generic [ref=e1199]:
+                  - generic [ref=e1200]:
+                    - generic [ref=e1201]: Response
+                    - generic [ref=e1202]: 5 rules
+                  - generic [ref=e1203]:
+                    - generic [ref=e1204]:
+                      - generic [ref=e1205]:
+                        - generic [ref=e1206]: STATUS
+                        - generic [ref=e1207]: MUST
+                      - paragraph [ref=e1208]: 204 No Content
+                      - paragraph [ref=e1209]: "204"
+                    - generic [ref=e1210]:
+                      - generic [ref=e1211]:
+                        - generic [ref=e1212]: HEADER
+                        - generic [ref=e1213]: MUST
+                      - paragraph [ref=e1214]: X-CRUD-Version
+                      - paragraph [ref=e1215]: the CRUD API Spec version
+                    - generic [ref=e1216]:
+                      - generic [ref=e1217]:
+                        - generic [ref=e1218]: HEADER
+                        - generic [ref=e1219]: SHOULD
+                      - paragraph [ref=e1220]: X-Correlation-ID
+                      - paragraph [ref=e1221]:
+                        - text: the request's
+                        - link "uuid-hex" [ref=e1222] [cursor=pointer]:
+                          - /url: /base/terminology/#uuid-hex
+                          - code [ref=e1223]: uuid-hex
+                    - generic [ref=e1224]:
+                      - generic [ref=e1225]:
+                        - generic [ref=e1226]: BODY
+                        - generic [ref=e1227]: MUST
+                      - paragraph [ref=e1228]: ∅
+                      - paragraph [ref=e1229]: (empty)
+                    - generic [ref=e1230]:
+                      - generic [ref=e1231]:
+                        - generic [ref=e1232]: BODY
+                        - generic [ref=e1233]: MUST
+                      - paragraph [ref=e1234]: "{ error }"
+                      - paragraph [ref=e1235]:
+                        - text: error data matching
+                        - link "Section 3.4.3" [ref=e1236] [cursor=pointer]:
+                          - /url: /base/general/#343-error-handling
+                      - paragraph [ref=e1237]: When the operation fails.
+          - link "Previous Async" [ref=e1240] [cursor=pointer]:
+            - /url: /extensions/async/
+            - img [ref=e1241]
+            - generic [ref=e1243]:
+              - text: Previous
+              - text: Async
+  - generic [ref=e1246]:
+    - button "Menu" [ref=e1247]:
+      - img [ref=e1249]
+      - generic: Menu
+    - button "Inspect" [ref=e1253]:
+      - img [ref=e1255]
+      - generic: Inspect
+    - button "Audit" [ref=e1257]:
+      - img [ref=e1259]
+      - generic: Audit
+    - button "Settings" [ref=e1262]:
+      - img [ref=e1264]
+      - generic: Settings

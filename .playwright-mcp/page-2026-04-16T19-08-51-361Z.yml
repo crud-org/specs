@@ -1,0 +1,230 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#_top"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "CRUD API" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e8]: CRUD API
+        - button "Search" [ref=e11] [cursor=pointer]:
+          - img [ref=e12]
+          - generic [ref=e14]: Search
+          - generic [ref=e15]:
+            - generic [ref=e16]: ⌘
+            - generic [ref=e17]: K
+        - generic [ref=e18]:
+          - link "GitHub" [ref=e20] [cursor=pointer]:
+            - /url: https://github.com/withastro/starlight
+            - generic [ref=e21]: GitHub
+            - img [ref=e22]
+          - generic [ref=e25]:
+            - generic [ref=e26]: Select theme
+            - img
+            - combobox "Select theme" [ref=e27] [cursor=pointer]:
+              - option "Dark"
+              - option "Light"
+              - option "Auto" [selected]
+            - img
+    - navigation "Main":
+      - list [ref=e31]:
+        - listitem [ref=e32]:
+          - group [ref=e33]:
+            - generic "Base Specification" [ref=e34] [cursor=pointer]:
+              - generic [ref=e35]: Base Specification
+              - img [ref=e36]
+            - list [ref=e38]:
+              - listitem [ref=e39]:
+                - link "Overview" [ref=e40] [cursor=pointer]:
+                  - /url: /base/
+              - listitem [ref=e41]:
+                - link "Terminology" [ref=e42] [cursor=pointer]:
+                  - /url: /base/terminology/
+              - listitem [ref=e43]:
+                - link "General rules" [ref=e44] [cursor=pointer]:
+                  - /url: /base/general/
+              - listitem [ref=e45]:
+                - link "Operation rules" [ref=e46] [cursor=pointer]:
+                  - /url: /base/operation/
+        - listitem [ref=e47]:
+          - group [ref=e48]:
+            - generic "Extensions" [ref=e49] [cursor=pointer]:
+              - generic [ref=e50]: Extensions
+              - img [ref=e51]
+            - list [ref=e53]:
+              - listitem [ref=e54]:
+                - link "Overview" [ref=e55] [cursor=pointer]:
+                  - /url: /extensions/
+              - listitem [ref=e56]:
+                - link "Asyncabilty" [ref=e57] [cursor=pointer]:
+                  - /url: /extensions/async/
+        - listitem [ref=e58]:
+          - group [ref=e59]:
+            - generic "Protocols" [ref=e60] [cursor=pointer]:
+              - generic [ref=e61]: Protocols
+              - img [ref=e62]
+            - list [ref=e64]:
+              - listitem [ref=e65]:
+                - link "Overview" [ref=e66] [cursor=pointer]:
+                  - /url: /protocols/
+              - listitem [ref=e67]:
+                - link "RESTful HTTP" [ref=e68] [cursor=pointer]:
+                  - /url: /protocols/http/
+    - generic [ref=e70]:
+      - complementary [ref=e71]:
+        - navigation "On this page" [ref=e76]:
+          - heading "On this page" [level=2] [ref=e77]
+          - list [ref=e78]:
+            - listitem [ref=e79]:
+              - link "Overview" [ref=e80] [cursor=pointer]:
+                - /url: "#_top"
+            - listitem [ref=e81]:
+              - link "1. Negotiation" [ref=e82] [cursor=pointer]:
+                - /url: "#1-negotiation"
+            - listitem [ref=e83]:
+              - link "2. Server response matrix" [ref=e84] [cursor=pointer]:
+                - /url: "#2-server-response-matrix"
+            - listitem [ref=e85]:
+              - link "3. Operation polling" [ref=e86] [cursor=pointer]:
+                - /url: "#3-operation-polling"
+            - listitem [ref=e87]:
+              - link "4. Callback notifications" [ref=e88] [cursor=pointer]:
+                - /url: "#4-callback-notifications"
+      - main [ref=e90]:
+        - heading "Async" [level=1] [ref=e93]
+        - generic [ref=e95]:
+          - generic [ref=e96]:
+            - paragraph [ref=e97]:
+              - text: The
+              - strong [ref=e98]: "\"Asyncability\""
+              - text: extension allows CRUD API Participants to negotiate whether an operation should be performed synchronously or asynchronously. By default, all CRUD operations are synchronous.
+            - paragraph [ref=e99]: This extension is OPTIONAL. CRUD APIs that do not support asynchronous operations are not required to implement any of the rules in this section. However, APIs that do support asynchronous operations MUST adhere to the rules below.
+            - generic [ref=e100]:
+              - heading "1. Negotiation" [level=2] [ref=e101]
+              - link "Section titled “1. Negotiation”" [ref=e102] [cursor=pointer]:
+                - /url: "#1-negotiation"
+                - img [ref=e104]
+                - generic [ref=e106]: Section titled “1. Negotiation”
+            - separator [ref=e107]
+            - paragraph [ref=e108]:
+              - text: CRUD API Participants with asynchronous abilities SHOULD negotiate the synchronicity of the operation using Metadata fields, as described in
+              - link "Section 3.4 Metadata" [ref=e109] [cursor=pointer]:
+                - /url: /base/general/#34-metadata
+              - text: . The negotiation determines whether the Server will process the operation synchronously (default) or asynchronously.
+            - paragraph [ref=e110]: "The negotiation follows a simple model based on three possible Client abilities:"
+            - list [ref=e111]:
+              - listitem [ref=e112]:
+                - strong [ref=e113]: Sync-only
+                - text: (default) — the Client expects a synchronous response and does not send any async-specific Metadata.
+              - listitem [ref=e114]:
+                - strong [ref=e115]: Async-preferred
+                - text: — the Client supports both modes but prefers an asynchronous response.
+              - listitem [ref=e116]:
+                - strong [ref=e117]: Async-required
+                - text: — the Client only supports asynchronous operations and requires the Server to respond accordingly.
+            - group [ref=e118]:
+              - generic "4 rules" [ref=e119] [cursor=pointer]
+            - generic [ref=e120]:
+              - heading "2. Server response matrix" [level=2] [ref=e121]
+              - link "Section titled “2. Server response matrix”" [ref=e122] [cursor=pointer]:
+                - /url: "#2-server-response-matrix"
+                - img [ref=e124]
+                - generic [ref=e126]: Section titled “2. Server response matrix”
+            - separator [ref=e127]
+            - paragraph [ref=e128]: The Server MUST select the appropriate response behavior based on the combination of its own abilities and the Client's indicated preference. The following rules define the expected behavior for each combination.
+            - paragraph [ref=e129]: "The table below summarizes the expected behavior:"
+            - table [ref=e130]:
+              - rowgroup [ref=e131]:
+                - row "Client sync-only Client async-preferred Client async-required" [ref=e132]:
+                  - columnheader [ref=e133]
+                  - columnheader "Client sync-only" [ref=e134]
+                  - columnheader "Client async-preferred" [ref=e135]
+                  - columnheader "Client async-required" [ref=e136]
+              - rowgroup [ref=e137]:
+                - row "Server sync-only Sync response Sync response (MAY fail) MUST fail" [ref=e138]:
+                  - cell "Server sync-only" [ref=e139]:
+                    - strong [ref=e140]: Server sync-only
+                  - cell "Sync response" [ref=e141]
+                  - cell "Sync response (MAY fail)" [ref=e142]
+                  - cell "MUST fail" [ref=e143]
+                - row "Server async-only MUST fail Async response Async response" [ref=e144]:
+                  - cell "Server async-only" [ref=e145]:
+                    - strong [ref=e146]: Server async-only
+                  - cell "MUST fail" [ref=e147]
+                  - cell "Async response" [ref=e148]
+                  - cell "Async response" [ref=e149]
+                - row "Server both Sync response Async response Async response" [ref=e150]:
+                  - cell "Server both" [ref=e151]:
+                    - strong [ref=e152]: Server both
+                  - cell "Sync response" [ref=e153]
+                  - cell "Async response" [ref=e154]
+                  - cell "Async response" [ref=e155]
+            - group [ref=e156]:
+              - generic "4 rules" [ref=e157] [cursor=pointer]
+            - generic [ref=e158]:
+              - heading "3. Operation polling" [level=2] [ref=e159]
+              - link "Section titled “3. Operation polling”" [ref=e160] [cursor=pointer]:
+                - /url: "#3-operation-polling"
+                - img [ref=e162]
+                - generic [ref=e164]: Section titled “3. Operation polling”
+            - separator [ref=e165]
+            - paragraph [ref=e166]:
+              - text: After the Server accepts an asynchronous operation, the Client MUST be able to check the operation status. The Server provides an
+              - strong [ref=e167]: "\"Operation Result URL\""
+              - text: that the Client can poll periodically.
+            - paragraph [ref=e168]: "The polling flow is:"
+            - list [ref=e169]:
+              - listitem [ref=e170]:
+                - text: Server accepts the async operation and returns an
+                - strong [ref=e171]: Operation Result URL
+                - text: in the response Metadata.
+              - listitem [ref=e172]: Client periodically polls the Operation Result URL.
+              - listitem [ref=e173]:
+                - text: "The URL responds with one of three states:"
+                - strong [ref=e174]: pending
+                - text: (still running),
+                - strong [ref=e175]: success
+                - text: (completed with results), or
+                - strong [ref=e176]: failure
+                - text: (completed with error).
+            - group [ref=e177]:
+              - generic "4 rules" [ref=e178] [cursor=pointer]
+            - generic [ref=e179]:
+              - heading "4. Callback notifications" [level=2] [ref=e180]
+              - link "Section titled “4. Callback notifications”" [ref=e181] [cursor=pointer]:
+                - /url: "#4-callback-notifications"
+                - img [ref=e183]
+                - generic [ref=e185]: Section titled “4. Callback notifications”
+            - separator [ref=e186]
+            - paragraph [ref=e187]: As an alternative to polling, the Client MAY specify a callback URL (a "webhook") where the Server MUST send the operation results upon completion.
+            - paragraph [ref=e188]: The callback mechanism complements polling — it does not replace it. The Server MUST always provide the polling URL even when callbacks are configured.
+            - group [ref=e189]:
+              - generic "3 rules" [ref=e190] [cursor=pointer]
+          - generic [ref=e192]:
+            - link "Previous Overview" [ref=e193] [cursor=pointer]:
+              - /url: /extensions/
+              - img [ref=e194]
+              - generic [ref=e196]:
+                - text: Previous
+                - text: Overview
+            - link "Next Overview" [ref=e197] [cursor=pointer]:
+              - /url: /protocols/
+              - img [ref=e198]
+              - generic [ref=e200]:
+                - text: Next
+                - text: Overview
+  - generic [ref=e203]:
+    - button "Menu" [ref=e204]:
+      - img [ref=e206]
+      - generic: Menu
+    - button "Inspect" [ref=e210]:
+      - img [ref=e212]
+      - generic: Inspect
+    - button "Audit" [ref=e214]:
+      - generic [ref=e215]:
+        - img [ref=e216]
+        - img [ref=e219]
+      - generic: Audit
+    - button "Settings" [ref=e222]:
+      - img [ref=e224]
+      - generic: Settings

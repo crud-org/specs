@@ -1,0 +1,52 @@
+@layer base, starlight, theme, components, utilities;
+
+@import '@astrojs/starlight-tailwind';
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+@theme {
+	/* Generated accent color palettes. */
+	--color-accent-200: #aec9ff;
+	--color-accent-600: #1451ff;
+	--color-accent-900: #0c2975;
+	--color-accent-950: #0c204f;
+	/* Generated gray color palettes. */
+	--color-gray-100: #f3f6ff;
+	--color-gray-200: #e7eeff;
+	--color-gray-300: #bac2d6;
+	--color-gray-400: #7c8ab1;
+	--color-gray-500: #4a577a;
+	--color-gray-700: #2b3657;
+	--color-gray-800: #1b2544;
+	--color-gray-900: #121826;
+}
+
+/* Inline code: pink/red tint like most doc sites */
+:not(pre) > code {
+  color: #d63384;
+  background: color-mix(in srgb, #d63384 8%, transparent);
+  padding: 0.125em 0.35em;
+  border-radius: 0.25em;
+  font-size: 0.875em;
+}
+
+:root[data-theme='dark'] :not(pre) > code {
+  color: #f472b6;
+  background: color-mix(in srgb, #f472b6 12%, transparent);
+}
+
+/* Multi-sidebar switcher: clean bottom-border-only style */
+starlight-multi-sidebar-tabs [role="tablist"] {
+  border-bottom: 1px solid var(--sl-color-gray-5) !important;
+}
+
+starlight-multi-sidebar-tabs .tab > [role="tab"] {
+  border: none !important;
+  border-bottom: 2px solid transparent !important;
+  margin-bottom: -1px;
+}
+
+starlight-multi-sidebar-tabs .tab > [role="tab"][aria-selected="true"] {
+  border: none !important;
+  border-bottom: 2px solid var(--sl-color-text-accent) !important;
+}

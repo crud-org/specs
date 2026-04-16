@@ -1,0 +1,397 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#_top"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "CRUD API" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e8]: CRUD API
+        - button "Search" [ref=e11] [cursor=pointer]:
+          - img [ref=e12]
+          - generic [ref=e14]: Search
+          - generic [ref=e15]:
+            - generic [ref=e16]: ⌘
+            - generic [ref=e17]: K
+        - generic [ref=e18]:
+          - link "GitHub" [ref=e20] [cursor=pointer]:
+            - /url: https://github.com/withastro/starlight
+            - generic [ref=e21]: GitHub
+            - img [ref=e22]
+          - generic [ref=e25]:
+            - generic [ref=e26]: Select theme
+            - img
+            - combobox "Select theme" [ref=e27] [cursor=pointer]:
+              - option "Dark"
+              - option "Light"
+              - option "Auto" [selected]
+            - img
+    - navigation "Main":
+      - list [ref=e31]:
+        - listitem [ref=e32]:
+          - group [ref=e33]:
+            - generic "Base Specification" [ref=e34] [cursor=pointer]:
+              - generic [ref=e35]: Base Specification
+              - img [ref=e36]
+            - list [ref=e38]:
+              - listitem [ref=e39]:
+                - link "1. Overview" [ref=e40] [cursor=pointer]:
+                  - /url: /base/
+              - listitem [ref=e41]:
+                - link "2. Terminology" [ref=e42] [cursor=pointer]:
+                  - /url: /base/terminology/
+              - listitem [ref=e43]:
+                - link "3. General rules and definitions" [ref=e44] [cursor=pointer]:
+                  - /url: /base/general/
+              - listitem [ref=e45]:
+                - link "4. Operation rules" [ref=e46] [cursor=pointer]:
+                  - /url: /base/operation/
+        - listitem [ref=e47]:
+          - group [ref=e48]:
+            - generic "Extensions" [ref=e49] [cursor=pointer]:
+              - generic [ref=e50]: Extensions
+              - img [ref=e51]
+            - list [ref=e53]:
+              - listitem [ref=e54]:
+                - link "Async" [ref=e55] [cursor=pointer]:
+                  - /url: /extensions/async/
+        - listitem [ref=e56]:
+          - group [ref=e57]:
+            - generic "Protocols" [ref=e58] [cursor=pointer]:
+              - generic [ref=e59]: Protocols
+              - img [ref=e60]
+            - list [ref=e62]:
+              - listitem [ref=e63]:
+                - link "RESTful HTTP" [ref=e64] [cursor=pointer]:
+                  - /url: /protocols/http/
+    - generic [ref=e66]:
+      - complementary [ref=e67]:
+        - navigation "On this page" [ref=e72]:
+          - heading "On this page" [level=2] [ref=e73]
+          - list [ref=e74]:
+            - listitem [ref=e75]:
+              - link "Overview" [ref=e76] [cursor=pointer]:
+                - /url: "#_top"
+            - listitem [ref=e77]:
+              - link "1. Get" [ref=e78] [cursor=pointer]:
+                - /url: "#1-get"
+              - list [ref=e79]:
+                - listitem [ref=e80]:
+                  - link "1.1 GET /:collection/:id" [ref=e81] [cursor=pointer]:
+                    - /url: "#11-get-collectionid"
+                - listitem [ref=e82]:
+                  - link "1.2 GET /:collection" [ref=e83] [cursor=pointer]:
+                    - /url: "#12-get-collection"
+            - listitem [ref=e84]:
+              - link "2. Create" [ref=e85] [cursor=pointer]:
+                - /url: "#2-create"
+              - list [ref=e86]:
+                - listitem [ref=e87]:
+                  - link "2.1 POST /:collection" [ref=e88] [cursor=pointer]:
+                    - /url: "#21-post-collection"
+            - listitem [ref=e89]:
+              - link "3. Patch" [ref=e90] [cursor=pointer]:
+                - /url: "#3-patch"
+              - list [ref=e91]:
+                - listitem [ref=e92]:
+                  - link "3.1 PATCH /:collection/:id" [ref=e93] [cursor=pointer]:
+                    - /url: "#31-patch-collectionid"
+                - listitem [ref=e94]:
+                  - link "3.2 PATCH /:collection" [ref=e95] [cursor=pointer]:
+                    - /url: "#32-patch-collection"
+            - listitem [ref=e96]:
+              - link "4. Replace" [ref=e97] [cursor=pointer]:
+                - /url: "#4-replace"
+              - list [ref=e98]:
+                - listitem [ref=e99]:
+                  - link "4.1 PUT /:collection/:id" [ref=e100] [cursor=pointer]:
+                    - /url: "#41-put-collectionid"
+                - listitem [ref=e101]:
+                  - link "4.2 PUT /:collection" [ref=e102] [cursor=pointer]:
+                    - /url: "#42-put-collection"
+            - listitem [ref=e103]:
+              - link "5. Delete" [ref=e104] [cursor=pointer]:
+                - /url: "#5-delete"
+              - list [ref=e105]:
+                - listitem [ref=e106]:
+                  - link "5.1 DELETE /:collection/:id" [ref=e107] [cursor=pointer]:
+                    - /url: "#51-delete-collectionid"
+                - listitem [ref=e108]:
+                  - link "5.2 DELETE /:collection" [ref=e109] [cursor=pointer]:
+                    - /url: "#52-delete-collection"
+      - main [ref=e111]:
+        - heading "RESTful HTTP" [level=1] [ref=e114]
+        - generic [ref=e116]:
+          - generic [ref=e117]:
+            - paragraph [ref=e118]:
+              - text: This section defines the normative mapping of CRUD API operations to the
+              - strong [ref=e119]: RESTful HTTP
+              - text: protocol. Each endpoint specifies the HTTP method, URL pattern, headers, request body, and expected responses.
+            - paragraph [ref=e120]: "Rules are organized by endpoint signature. Each endpoint has two tabs:"
+            - list [ref=e121]:
+              - listitem [ref=e122]:
+                - strong [ref=e123]: Specific rules
+                - text: ": HTTP constraints specific to this endpoint."
+              - listitem [ref=e124]:
+                - strong [ref=e125]: Inherited rules
+                - text: ": Global HTTP rules that apply to all endpoints."
+            - generic [ref=e126]:
+              - heading "1. Get" [level=2] [ref=e127]
+              - link "Section titled “1. Get”" [ref=e128] [cursor=pointer]:
+                - /url: "#1-get"
+                - img [ref=e130]
+                - generic [ref=e132]: Section titled “1. Get”
+            - separator [ref=e133]
+            - generic [ref=e134]:
+              - heading "1.1 GET /:collection/:id" [level=3] [ref=e135]:
+                - text: "1.1"
+                - code [ref=e136]: GET /:collection/:id
+              - link "Section titled “1.1 GET /:collection/:id”" [ref=e137] [cursor=pointer]:
+                - /url: "#11-get-collectionid"
+                - img [ref=e139]
+                - generic [ref=e141]: Section titled “1.1 GET /:collection/:id”
+            - paragraph [ref=e142]:
+              - text: Retrieves a single Document by its Resource ID. Maps to the base
+              - code [ref=e143]: get
+              - text: operation.
+            - generic [ref=e144]:
+              - tablist [ref=e146]:
+                - tab "Specific rules (4)" [selected] [ref=e147] [cursor=pointer]
+                - tab "Inherited rules (0)" [ref=e148] [cursor=pointer]
+              - tabpanel "Specific rules (4)" [ref=e149]:
+                - generic [ref=e150]:
+                  - generic [ref=e151]:
+                    - generic [ref=e152]:
+                      - generic [ref=e153]: Request
+                      - generic [ref=e154]: "2"
+                    - generic [ref=e155]:
+                      - paragraph [ref=e157]:
+                        - text: URL path component
+                        - code [ref=e158]: id
+                        - generic [ref=e159]: MUST
+                        - text: be
+                        - strong [ref=e160]:
+                          - text: a
+                          - link "Resource ID" [ref=e161] [cursor=pointer]:
+                            - /url: /base/general/#313-resource-ids
+                        - text: .
+                      - paragraph [ref=e163]:
+                        - text: URL query parameter
+                        - code [ref=e164]: fields
+                        - generic [ref=e165]: MAY
+                        - text: be
+                        - strong [ref=e166]:
+                          - text: a
+                          - link "Projection Parameter" [ref=e167] [cursor=pointer]:
+                            - /url: /base/general/#331-projection-parameter
+                        - text: .
+                  - generic [ref=e168]:
+                    - generic [ref=e169]:
+                      - generic [ref=e170]: Response
+                      - generic [ref=e171]: "2"
+                    - generic [ref=e172]:
+                      - generic [ref=e173]:
+                        - paragraph [ref=e174]:
+                          - text: Status
+                          - generic [ref=e175]: MUST
+                          - text: be
+                          - strong [ref=e176]: "404"
+                          - text: .
+                        - paragraph [ref=e177]: If the Server cannot find any Document matching the Input Subject.
+                      - paragraph [ref=e179]:
+                        - text: Body
+                        - generic [ref=e180]: MUST
+                        - text: be
+                        - strong [ref=e181]: a Document (single)
+                        - text: .
+            - generic [ref=e182]:
+              - heading "1.2 GET /:collection" [level=3] [ref=e183]:
+                - text: "1.2"
+                - code [ref=e184]: GET /:collection
+              - link "Section titled “1.2 GET /:collection”" [ref=e185] [cursor=pointer]:
+                - /url: "#12-get-collection"
+                - img [ref=e187]
+                - generic [ref=e189]: Section titled “1.2 GET /:collection”
+            - paragraph [ref=e190]:
+              - text: Lists Documents from a Collection, optionally filtered by a Search Query. Maps to the base
+              - code [ref=e191]: list
+              - text: operation.
+            - generic [ref=e192]:
+              - tablist [ref=e194]:
+                - tab "Specific rules (0)" [selected] [ref=e195] [cursor=pointer]
+                - tab "Inherited rules (0)" [ref=e196] [cursor=pointer]
+              - tabpanel "Specific rules (0)" [ref=e197]:
+                - paragraph [ref=e198]: No specific rules for this endpoint yet.
+            - generic [ref=e199]:
+              - heading "2. Create" [level=2] [ref=e200]
+              - link "Section titled “2. Create”" [ref=e201] [cursor=pointer]:
+                - /url: "#2-create"
+                - img [ref=e203]
+                - generic [ref=e205]: Section titled “2. Create”
+            - separator [ref=e206]
+            - generic [ref=e207]:
+              - heading "2.1 POST /:collection" [level=3] [ref=e208]:
+                - text: "2.1"
+                - code [ref=e209]: POST /:collection
+              - link "Section titled “2.1 POST /:collection”" [ref=e210] [cursor=pointer]:
+                - /url: "#21-post-collection"
+                - img [ref=e212]
+                - generic [ref=e214]: Section titled “2.1 POST /:collection”
+            - paragraph [ref=e215]:
+              - text: Creates one or many Documents in a Collection. Maps to the base
+              - code [ref=e216]: create
+              - text: operation.
+            - generic [ref=e217]:
+              - tablist [ref=e219]:
+                - tab "Specific rules (0)" [selected] [ref=e220] [cursor=pointer]
+                - tab "Inherited rules (0)" [ref=e221] [cursor=pointer]
+              - tabpanel "Specific rules (0)" [ref=e222]:
+                - paragraph [ref=e223]: No specific rules for this endpoint yet.
+            - generic [ref=e224]:
+              - heading "3. Patch" [level=2] [ref=e225]
+              - link "Section titled “3. Patch”" [ref=e226] [cursor=pointer]:
+                - /url: "#3-patch"
+                - img [ref=e228]
+                - generic [ref=e230]: Section titled “3. Patch”
+            - separator [ref=e231]
+            - generic [ref=e232]:
+              - heading "3.1 PATCH /:collection/:id" [level=3] [ref=e233]:
+                - text: "3.1"
+                - code [ref=e234]: PATCH /:collection/:id
+              - link "Section titled “3.1 PATCH /:collection/:id”" [ref=e235] [cursor=pointer]:
+                - /url: "#31-patch-collectionid"
+                - img [ref=e237]
+                - generic [ref=e239]: Section titled “3.1 PATCH /:collection/:id”
+            - paragraph [ref=e240]:
+              - text: Partially updates a single Document by its Resource ID using JSON Patch. Maps to the base
+              - code [ref=e241]: patchById
+              - text: operation.
+            - generic [ref=e242]:
+              - tablist [ref=e244]:
+                - tab "Specific rules (0)" [selected] [ref=e245] [cursor=pointer]
+                - tab "Inherited rules (0)" [ref=e246] [cursor=pointer]
+              - tabpanel "Specific rules (0)" [ref=e247]:
+                - paragraph [ref=e248]: No specific rules for this endpoint yet.
+            - generic [ref=e249]:
+              - heading "3.2 PATCH /:collection" [level=3] [ref=e250]:
+                - text: "3.2"
+                - code [ref=e251]: PATCH /:collection
+              - link "Section titled “3.2 PATCH /:collection”" [ref=e252] [cursor=pointer]:
+                - /url: "#32-patch-collection"
+                - img [ref=e254]
+                - generic [ref=e256]: Section titled “3.2 PATCH /:collection”
+            - paragraph [ref=e257]:
+              - text: Partially updates Documents matching a Search Query using JSON Patch. Maps to the base
+              - code [ref=e258]: patchByQuery
+              - text: operation.
+            - generic [ref=e259]:
+              - tablist [ref=e261]:
+                - tab "Specific rules (0)" [selected] [ref=e262] [cursor=pointer]
+                - tab "Inherited rules (0)" [ref=e263] [cursor=pointer]
+              - tabpanel "Specific rules (0)" [ref=e264]:
+                - paragraph [ref=e265]: No specific rules for this endpoint yet.
+            - generic [ref=e266]:
+              - heading "4. Replace" [level=2] [ref=e267]
+              - link "Section titled “4. Replace”" [ref=e268] [cursor=pointer]:
+                - /url: "#4-replace"
+                - img [ref=e270]
+                - generic [ref=e272]: Section titled “4. Replace”
+            - separator [ref=e273]
+            - generic [ref=e274]:
+              - heading "4.1 PUT /:collection/:id" [level=3] [ref=e275]:
+                - text: "4.1"
+                - code [ref=e276]: PUT /:collection/:id
+              - link "Section titled “4.1 PUT /:collection/:id”" [ref=e277] [cursor=pointer]:
+                - /url: "#41-put-collectionid"
+                - img [ref=e279]
+                - generic [ref=e281]: Section titled “4.1 PUT /:collection/:id”
+            - paragraph [ref=e282]:
+              - text: Fully replaces a single Document by its Resource ID. May create the Document if it does not exist (upsert). Maps to the base
+              - code [ref=e283]: replaceById
+              - text: operation.
+            - generic [ref=e284]:
+              - tablist [ref=e286]:
+                - tab "Specific rules (0)" [selected] [ref=e287] [cursor=pointer]
+                - tab "Inherited rules (0)" [ref=e288] [cursor=pointer]
+              - tabpanel "Specific rules (0)" [ref=e289]:
+                - paragraph [ref=e290]: No specific rules for this endpoint yet.
+            - generic [ref=e291]:
+              - heading "4.2 PUT /:collection" [level=3] [ref=e292]:
+                - text: "4.2"
+                - code [ref=e293]: PUT /:collection
+              - link "Section titled “4.2 PUT /:collection”" [ref=e294] [cursor=pointer]:
+                - /url: "#42-put-collection"
+                - img [ref=e296]
+                - generic [ref=e298]: Section titled “4.2 PUT /:collection”
+            - paragraph [ref=e299]:
+              - text: Fully replaces Documents matching a Search Query. Maps to the base
+              - code [ref=e300]: replaceByQuery
+              - text: operation.
+            - generic [ref=e301]:
+              - tablist [ref=e303]:
+                - tab "Specific rules (0)" [selected] [ref=e304] [cursor=pointer]
+                - tab "Inherited rules (0)" [ref=e305] [cursor=pointer]
+              - tabpanel "Specific rules (0)" [ref=e306]:
+                - paragraph [ref=e307]: No specific rules for this endpoint yet.
+            - generic [ref=e308]:
+              - heading "5. Delete" [level=2] [ref=e309]
+              - link "Section titled “5. Delete”" [ref=e310] [cursor=pointer]:
+                - /url: "#5-delete"
+                - img [ref=e312]
+                - generic [ref=e314]: Section titled “5. Delete”
+            - separator [ref=e315]
+            - generic [ref=e316]:
+              - heading "5.1 DELETE /:collection/:id" [level=3] [ref=e317]:
+                - text: "5.1"
+                - code [ref=e318]: DELETE /:collection/:id
+              - link "Section titled “5.1 DELETE /:collection/:id”" [ref=e319] [cursor=pointer]:
+                - /url: "#51-delete-collectionid"
+                - img [ref=e321]
+                - generic [ref=e323]: Section titled “5.1 DELETE /:collection/:id”
+            - paragraph [ref=e324]:
+              - text: Deletes a single Document by its Resource ID. Maps to the base
+              - code [ref=e325]: deleteById
+              - text: operation.
+            - generic [ref=e326]:
+              - tablist [ref=e328]:
+                - tab "Specific rules (0)" [selected] [ref=e329] [cursor=pointer]
+                - tab "Inherited rules (0)" [ref=e330] [cursor=pointer]
+              - tabpanel "Specific rules (0)" [ref=e331]:
+                - paragraph [ref=e332]: No specific rules for this endpoint yet.
+            - generic [ref=e333]:
+              - heading "5.2 DELETE /:collection" [level=3] [ref=e334]:
+                - text: "5.2"
+                - code [ref=e335]: DELETE /:collection
+              - link "Section titled “5.2 DELETE /:collection”" [ref=e336] [cursor=pointer]:
+                - /url: "#52-delete-collection"
+                - img [ref=e338]
+                - generic [ref=e340]: Section titled “5.2 DELETE /:collection”
+            - paragraph [ref=e341]:
+              - text: Deletes Documents matching a Search Query. Maps to the base
+              - code [ref=e342]: deleteByQuery
+              - text: operation.
+            - generic [ref=e343]:
+              - tablist [ref=e345]:
+                - tab "Specific rules (0)" [selected] [ref=e346] [cursor=pointer]
+                - tab "Inherited rules (0)" [ref=e347] [cursor=pointer]
+              - tabpanel "Specific rules (0)" [ref=e348]:
+                - paragraph [ref=e349]: No specific rules for this endpoint yet.
+          - link "Previous Async" [ref=e352] [cursor=pointer]:
+            - /url: /extensions/async/
+            - img [ref=e353]
+            - generic [ref=e355]:
+              - text: Previous
+              - text: Async
+  - generic [ref=e358]:
+    - button "Menu" [ref=e359]:
+      - img [ref=e361]
+      - generic: Menu
+    - button "Inspect" [ref=e365]:
+      - img [ref=e367]
+      - generic: Inspect
+    - button "Audit" [ref=e369]:
+      - img [ref=e371]
+      - generic: Audit
+    - button "Settings" [ref=e374]:
+      - img [ref=e376]
+      - generic: Settings

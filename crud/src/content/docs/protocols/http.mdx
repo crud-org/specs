@@ -1,0 +1,185 @@
+---
+title: RESTful HTTP
+description: CRUD API Protocol Specification for RESTful HTTP, mapping base CRUD operations to HTTP methods, URLs, headers, and status codes following REST architectural constraints.
+---
+
+import HttpEndpointBoard from '../../../components/HttpEndpointBoard.astro';
+import RulesCardGrid from '../../../components/RulesCardGrid.astro';
+import SectionDescription from '../../../components/SectionDescription.astro';
+
+This Protocol Specification maps the [CRUD API Base Specification](/base/) to the **RESTful HTTP** transport protocol, as defined in [Protocols](/protocols/). It follows the [HTTP Protocol](https://datatracker.ietf.org/doc/html/rfc9110) and aligns with [REST architectural constraints](https://restfulapi.net/).
+
+The five protocol concepts are realized as follows:
+
+| Concept | HTTP realization |
+|---|---|
+| **Operations** | HTTP methods (`GET`, `POST`, `PATCH`, `PUT`, `DELETE`) combined with URL patterns (`/:collection`, `/:collection/:id`). |
+| **Parameters** | URL query string parameters (e.g. `?fields`, `?sort`, `?q`). |
+| **Metadata** | HTTP headers (e.g. `X-CRUD-Version`, `X-Correlation-ID`, `Prefer`). |
+| **Content negotiation** | `Accept` request header and `Content-Type` response header. |
+| **Error signaling** | HTTP status codes (`4xx`, `5xx`) with an error body payload. |
+
+### How to read endpoint rules
+
+Rules are organized by endpoint signature. Each endpoint has two tabs:
+- **Specific rules** — constraints that apply only to this endpoint or a subset of endpoints.
+- **Inherited rules** — global HTTP rules that apply to all endpoints.
+
+Each rule reads as a phrase: _subject_ `REQUIREMENT` _predicate_. Rules tagged with base spec codes (e.g. `SUB_ID`) indicate which [Base Specification](/base/) rule they implement — hover for the full text.
+
+## 1. Get
+
+---
+
+### 1.1 `GET /:collection/:id`
+
+Retrieves a single Document by its Resource ID. Maps to the base `get` operation.
+
+<HttpEndpointBoard signature="GET /:collection/:id" />
+
+### 1.2 `GET /:collection`
+
+Lists Documents from a Collection, optionally filtered by a Search Query. Maps to the base `list` operation.
+
+<HttpEndpointBoard signature="GET /:collection" />
+
+## 2. Create
+
+---
+
+### 2.1 `POST /:collection`
+
+Creates one or many Documents in a Collection. Maps to the base `create` operation.
+
+<HttpEndpointBoard signature="POST /:collection" />
+
+## 3. Patch
+
+---
+
+### 3.1 `PATCH /:collection/:id`
+
+Partially updates a single Document by its Resource ID using JSON Patch. Maps to the base `patchById` operation.
+
+<HttpEndpointBoard signature="PATCH /:collection/:id" />
+
+### 3.2 `PATCH /:collection`
+
+Partially updates Documents matching a Search Query using JSON Patch. Maps to the base `patchByQuery` operation.
+
+<HttpEndpointBoard signature="PATCH /:collection" />
+
+## 4. Replace
+
+---
+
+### 4.1 `PUT /:collection/:id`
+
+Fully replaces a single Document by its Resource ID. May create the Document if it does not exist (upsert). Maps to the base `replaceById` operation.
+
+<HttpEndpointBoard signature="PUT /:collection/:id" />
+
+### 4.2 `PUT /:collection`
+
+Fully replaces Documents matching a Search Query. Maps to the base `replaceByQuery` operation.
+
+<HttpEndpointBoard signature="PUT /:collection" />
+
+## 5. Delete
+
+---
+
+### 5.1 `DELETE /:collection/:id`
+
+Deletes a single Document by its Resource ID. Maps to the base `deleteById` operation.
+
+<HttpEndpointBoard signature="DELETE /:collection/:id" />
+
+### 5.2 `DELETE /:collection`
+
+Deletes Documents matching a Search Query. Maps to the base `deleteByQuery` operation.
+
+<HttpEndpointBoard signature="DELETE /:collection" />
+
+## 6. Asyncability
+
+---
+
+This section maps the [Asyncability extension](/extensions/async/) to HTTP. It defines how Clients and Servers negotiate synchronous vs. asynchronous operation execution using HTTP headers and status codes. These rules apply globally to all endpoints.
+
+### 6.1 Client negotiation
+
+<SectionDescription sectionCode="HA61" />
+
+| Client ability | HTTP Header |
+|---|---|
+| **Sync-only** (default) | No async-specific header. MAY send `Expect: 200-ok`. |
+| **Async-preferred** | `Prefer: respond-async` |
+| **Async-required** | `Expect: 202-accepted` |
+
+<RulesCardGrid sectionCode="HA61" open />
+
+### 6.2 Server response
+
+<SectionDescription sectionCode="HA62" />
+
+| Server × Client | Sync-only Client | Async-preferred Client | Async-required Client |
+|---|---|---|---|
+| **Sync-only Server** | `200` | `200` (MAY `417`) | MUST `417` |
+| **Async-only Server** | MUST `417` | `202` | `202` |
+| **Both Server** | `200` | `202` | `202` |
+
+<RulesCardGrid sectionCode="HA62" open />
+
+### 6.3 Operation polling
+
+<SectionDescription sectionCode="HA63" />
+
+| Polling result | HTTP Response |
+|---|---|
+| Still running | `425 Too Early` |
+| Completed | `200 OK` with operation results |
+| Failed | `500 Internal Server Error` with error payload |
+
+<RulesCardGrid sectionCode="HA63" open />
+
+### 6.4 Webhook callbacks
+
+<SectionDescription sectionCode="HA64" />
+
+<RulesCardGrid sectionCode="HA64" open />
+
+## 7. Resource Metadata
+
+---
+
+This section maps the [Metadata extension](/extensions/metadata/) to HTTP. Resource-level Metadata is exposed through standard HTTP headers alongside the response body.
+
+### 7.1 Versioning headers
+
+<SectionDescription sectionCode="HM71" />
+
+| Header | Direction | Purpose |
+|---|---|---|
+| `ETag` | Response | Document hash for change detection. |
+| `If-Match` | Request | Send current ETag on writes for optimistic concurrency. Server returns `412` on mismatch. |
+| `If-None-Match` | Request | Send current ETag on reads for conditional caching. Server returns `304` if unchanged. |
+
+<RulesCardGrid sectionCode="HM71" open />
+
+### 7.2 Timestamp headers
+
+<SectionDescription sectionCode="HM72" />
+
+<RulesCardGrid sectionCode="HM72" open />
+
+### 7.3 Link headers for authorship and origin
+
+<SectionDescription sectionCode="HM73" />
+
+| Relation | Example | Source |
+|---|---|---|
+| `rel=author` | `Link: <mailto:user@example.com>; rel=author` | Last write event author |
+| `rel=convertedfrom` | `Link: </customers/123>; rel=convertedfrom` | Ancestor or external origin |
+
+<RulesCardGrid sectionCode="HM73" open />

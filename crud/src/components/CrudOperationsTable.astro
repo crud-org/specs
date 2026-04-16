@@ -1,0 +1,48 @@
+---
+import { DatabaseSync } from 'node:sqlite';
+import path from 'node:path';
+
+const dbPath = path.join(process.cwd(), 'src/crud.db');
+const db = new DatabaseSync(dbPath);
+const rows = db.prepare(`
+  SELECT o.operation_name, v.verb, v.color, o.subject
+  FROM crud_operations o
+  JOIN crud_verbs v ON v.url = o.verb_id
+  ORDER BY v.sort_order ASC, o.operation_name ASC
+`).all() as { operation_name: string; verb: string; color: string; subject: string }[];
+db.close();
+
+const colorClasses: Record<string, string> = {
+  blue:   'bg-blue-100   text-blue-700   dark:bg-blue-900/40   dark:text-blue-300',
+  green:  'bg-green-100  text-green-700  dark:bg-green-900/40  dark:text-green-300',
+  purple: 'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300',
+  yellow: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300',
+  orange: 'bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300',
+  red:    'bg-red-100    text-red-700    dark:bg-red-900/40    dark:text-red-300',
+};
+---
+
+<table class="w-full border-collapse text-sm not-content">
+  <thead>
+    <tr class="border-b border-gray-200 dark:border-gray-700">
+      <th class="py-2 px-3 text-left font-semibold text-gray-700 dark:text-gray-300">Operation</th>
+      <th class="py-2 px-3 text-left font-semibold text-gray-700 dark:text-gray-300 w-24">Verb</th>
+      <th class="py-2 px-3 text-left font-semibold text-gray-700 dark:text-gray-300">Subject</th>
+    </tr>
+  </thead>
+  <tbody>
+    {rows.map((row) => (
+      <tr class="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900/30">
+        <td class="py-2 px-3">
+          <code class="font-mono font-semibold text-gray-800 dark:text-gray-200">{row.operation_name}</code>
+        </td>
+        <td class="py-2 px-3">
+          <span class:list={['inline-flex items-center rounded px-2 py-0.5 text-xs font-medium font-mono', colorClasses[row.color]]}>
+            {row.verb}
+          </span>
+        </td>
+        <td class="py-2 px-3 text-gray-600 dark:text-gray-400">{row.subject}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>

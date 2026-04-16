@@ -1,0 +1,79 @@
+---
+title: Metadata
+description: Extension specification that defines standard Resource-level
+  Metadata fields for versioning, event timestamps, lifecycle status, and origin
+  tracking.
+slug: 0.1/extensions/metadata
+---
+
+import RulesCardGrid from '../../../../components/RulesCardGrid.astro';
+import SectionDescription from '../../../../components/SectionDescription.astro';
+
+<SectionDescription sectionCode="D1" />
+
+This extension is OPTIONAL. CRUD APIs that do not need Resource-level Metadata are not required to implement any of the rules in this section. However, APIs that do support it MUST adhere to the rules below.
+
+Resource Metadata is distinct from the operation-level Metadata described in [Section 3.4](/0.1/base/general/#34-metadata). Operation Metadata governs the exchange between Participants (version negotiation, content types, correlation IDs), whereas Resource Metadata describes the state and history of the Document itself.
+
+How Resource Metadata is transported depends on the Protocol Specification — for example, HTTP may expose some fields as response headers (`ETag`, `Last-Modified`), while MCP may nest them in the result `_meta` object.
+
+## 1. Versioning
+
+***
+
+<SectionDescription sectionCode="D11" />
+
+The version counter and hash together enable:
+
+* **Change detection** — Clients can compare hashes to know if a Document changed.
+* **Optimistic concurrency** — Clients can send the hash on write operations to prevent lost updates. If the hash doesn't match, the Server rejects the operation.
+
+<RulesCardGrid sectionCode="D11" open />
+
+## 2. Event timestamps
+
+***
+
+<SectionDescription sectionCode="D12" />
+
+Each event has the following structure:
+
+| Field | Type | Requirement | Description |
+|---|---|---|---|
+| `timestamp` | datetime | MUST | When the event occurred. |
+| `author` | string | SHOULD | Who performed the operation (e.g., e-mail, user ID). |
+| `reason` | string | MAY | System-provided context for the operation. |
+| `comments` | string | MAY | User-provided notes or justification. |
+
+<RulesCardGrid sectionCode="D12" open />
+
+## 3. Lifecycle status
+
+***
+
+<SectionDescription sectionCode="D13" />
+
+The lifecycle follows a simple state model:
+
+```
+draft → published → archived
+  ↑                    │
+  └────────────────────┘
+```
+
+Servers MAY allow transitions back from "archived" to "draft" for re-publishing workflows.
+
+<RulesCardGrid sectionCode="D13" open />
+
+## 4. Origin and branching
+
+***
+
+<SectionDescription sectionCode="D14" />
+
+Two scenarios are covered:
+
+1. **Branching** (clone within the same API) — the `ancestor` reference points to the original Document's Resource ID.
+2. **External origin** (import from another service) — the `origin` reference identifies the external source and Resource Type.
+
+<RulesCardGrid sectionCode="D14" open />
