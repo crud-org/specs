@@ -37,7 +37,7 @@ done
 
 # Detect mode: fresh install or update
 FRESH_INSTALL=true
-if [[ -f ".github/workflows/claude-meta.yml" ]]; then
+if [[ -f ".github/workflows/claude-feature.yml" ]]; then
   FRESH_INSTALL=false
 fi
 
@@ -50,19 +50,25 @@ echo ""
 
 # Pairs of "source:destination" (bash 3 compatible, no associative arrays)
 FILE_PAIRS=(
-  ".github/workflows/claude-meta.yml:.github/workflows/claude-meta.yml"
+  ".github/workflows/claude-feature.yml:.github/workflows/claude-feature.yml"
   ".github/workflows/claude-task.yml:.github/workflows/claude-task.yml"
   ".github/workflows/claude-fix.yml:.github/workflows/claude-fix.yml"
   ".github/workflows/claude-plan.yml:.github/workflows/claude-plan.yml"
-  ".github/scripts/meta-orchestrate.sh:.github/scripts/meta-orchestrate.sh"
+  ".github/workflows/claude-agents-revert.yml:.github/workflows/claude-agents-revert.yml"
+  ".github/workflows/claude-agents-close.yml:.github/workflows/claude-agents-close.yml"
+  ".github/scripts/feature-orchestrate.sh:.github/scripts/feature-orchestrate.sh"
+  ".github/scripts/parse-plan.py:.github/scripts/parse-plan.py"
+  ".github/scripts/parse-directive.sh:.github/scripts/parse-directive.sh"
+  ".github/scripts/react.sh:.github/scripts/react.sh"
   ".github/prompts/plan-agent.md:.github/prompts/plan-agent.md"
-  ".github/prompts/splitter-agent.md:.github/prompts/splitter-agent.md"
   ".github/prompts/task-worker.md:.github/prompts/task-worker.md"
   ".github/prompts/fix-agent.md:.github/prompts/fix-agent.md"
-  ".github/ISSUE_TEMPLATE/meta-issue.yml:.github/ISSUE_TEMPLATE/meta-issue.yml"
+  ".github/ISSUE_TEMPLATE/feature-issue.yml:.github/ISSUE_TEMPLATE/feature-issue.yml"
   ".github/ISSUE_TEMPLATE/task-issue.yml:.github/ISSUE_TEMPLATE/task-issue.yml"
   "scripts/setup.sh:.github/scripts/setup.sh"
   "scripts/install.sh:.github/scripts/install.sh"
+  "scripts/smoke-test.sh:scripts/smoke-test.sh"
+  "scripts/smoke-test-plan.sh:scripts/smoke-test-plan.sh"
 )
 
 for pair in "${FILE_PAIRS[@]}"; do
